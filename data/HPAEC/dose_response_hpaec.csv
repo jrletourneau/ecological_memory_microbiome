@@ -1,0 +1,1521 @@
+expt,treatment1,treatment2,rep,DP,conc,DPn,bin
+cilantro,0,0,2,glucose,0.000580717,1,mono/di
+cilantro,0,0,3,glucose,-0.000580717,1,mono/di
+cilantro,0,100,1,glucose,-0.000580717,1,mono/di
+cilantro,0,100,3,glucose,-0.000580717,1,mono/di
+cilantro,0.1,100,1,glucose,-0.000580717,1,mono/di
+cilantro,0.1,100,3,glucose,-0.000580717,1,mono/di
+cilantro,1,100,1,glucose,-0.000580717,1,mono/di
+cilantro,1,100,3,glucose,-0.000580717,1,mono/di
+cilantro,10,100,2,glucose,-0.000580717,1,mono/di
+cilantro,10,100,3,glucose,-0.000580717,1,mono/di
+cilantro,25,100,1,glucose,-0.000580717,1,mono/di
+cilantro,25,100,3,glucose,-0.000580717,1,mono/di
+cilantro,50,100,2,glucose,-0.000580717,1,mono/di
+cilantro,50,100,3,glucose,-0.000580717,1,mono/di
+cilantro,100,100,1,glucose,0.000836808,1,mono/di
+cilantro,100,100,2,glucose,0.000857251,1,mono/di
+cilantro,0,0,2,fructose,0.000543985,1,mono/di
+cilantro,0,0,3,fructose,-0.000543985,1,mono/di
+cilantro,0,100,1,fructose,0.001496407,1,mono/di
+cilantro,0,100,3,fructose,0.002802779,1,mono/di
+cilantro,0.1,100,1,fructose,0.005894545,1,mono/di
+cilantro,0.1,100,3,fructose,0.002250167,1,mono/di
+cilantro,1,100,1,fructose,0.003994508,1,mono/di
+cilantro,1,100,3,fructose,0.007337824,1,mono/di
+cilantro,10,100,2,fructose,0.003907366,1,mono/di
+cilantro,10,100,3,fructose,0.000805783,1,mono/di
+cilantro,25,100,1,fructose,0.003393514,1,mono/di
+cilantro,25,100,3,fructose,0.003291393,1,mono/di
+cilantro,50,100,2,fructose,0.005511784,1,mono/di
+cilantro,50,100,3,fructose,0.00520882,1,mono/di
+cilantro,100,100,1,fructose,0.004860005,1,mono/di
+cilantro,100,100,2,fructose,0.004635152,1,mono/di
+cilantro,0,0,2,sucrose,-0.000546996,2,mono/di
+cilantro,0,0,3,sucrose,0.000546996,2,mono/di
+cilantro,0,100,1,sucrose,0.000648961,2,mono/di
+cilantro,0,100,3,sucrose,0.00023289,2,mono/di
+cilantro,0.1,100,1,sucrose,-0.012116397,2,mono/di
+cilantro,0.1,100,3,sucrose,0.001896688,2,mono/di
+cilantro,1,100,1,sucrose,0.0018169,2,mono/di
+cilantro,1,100,3,sucrose,0.000249558,2,mono/di
+cilantro,10,100,2,sucrose,-0.000199918,2,mono/di
+cilantro,10,100,3,sucrose,0.008645292,2,mono/di
+cilantro,25,100,1,sucrose,0.003513333,2,mono/di
+cilantro,25,100,3,sucrose,0.003489013,2,mono/di
+cilantro,50,100,2,sucrose,-0.010134662,2,mono/di
+cilantro,50,100,3,sucrose,-0.010603541,2,mono/di
+cilantro,100,100,1,sucrose,-0.010792229,2,mono/di
+cilantro,100,100,2,sucrose,-0.00899188,2,mono/di
+cilantro,0,0,2,6-kestose,-4.23E-05,3,FOS
+cilantro,0,0,3,6-kestose,4.23E-05,3,FOS
+cilantro,0,100,1,6-kestose,-0.004338634,3,FOS
+cilantro,0,100,3,6-kestose,-0.000444082,3,FOS
+cilantro,0.1,100,1,6-kestose,-0.004338634,3,FOS
+cilantro,0.1,100,3,6-kestose,-0.000585469,3,FOS
+cilantro,1,100,1,6-kestose,-0.004338634,3,FOS
+cilantro,1,100,3,6-kestose,-0.004338634,3,FOS
+cilantro,10,100,2,6-kestose,-0.004338634,3,FOS
+cilantro,10,100,3,6-kestose,-0.004338634,3,FOS
+cilantro,25,100,1,6-kestose,-0.004338634,3,FOS
+cilantro,25,100,3,6-kestose,-0.004338634,3,FOS
+cilantro,50,100,2,6-kestose,-0.004338634,3,FOS
+cilantro,50,100,3,6-kestose,-0.004338634,3,FOS
+cilantro,100,100,1,6-kestose,-0.004338634,3,FOS
+cilantro,100,100,2,6-kestose,-0.004338634,3,FOS
+cilantro,0,0,2,F3,-2.78E-05,3,FOS
+cilantro,0,0,3,F3,2.78E-05,3,FOS
+cilantro,0,100,1,F3,0.000418556,3,FOS
+cilantro,0,100,3,F3,0.000637999,3,FOS
+cilantro,0.1,100,1,F3,0.000216172,3,FOS
+cilantro,0.1,100,3,F3,0.000702691,3,FOS
+cilantro,1,100,1,F3,-0.003137726,3,FOS
+cilantro,1,100,3,F3,0.000631213,3,FOS
+cilantro,10,100,2,F3,0.000830596,3,FOS
+cilantro,10,100,3,F3,0.000769141,3,FOS
+cilantro,25,100,1,F3,0.002400992,3,FOS
+cilantro,25,100,3,F3,0.002158487,3,FOS
+cilantro,50,100,2,F3,-0.003137726,3,FOS
+cilantro,50,100,3,F3,0.004499366,3,FOS
+cilantro,100,100,1,F3,0.004754782,3,FOS
+cilantro,100,100,2,F3,-7.38E-05,3,FOS
+cilantro,0,0,2,maltotriose,-0.00038103,3,FOS
+cilantro,0,0,3,maltotriose,0.00038103,3,FOS
+cilantro,0,100,1,maltotriose,-0.000629482,3,FOS
+cilantro,0,100,3,maltotriose,-0.000584319,3,FOS
+cilantro,0.1,100,1,maltotriose,-0.001734608,3,FOS
+cilantro,0.1,100,3,maltotriose,-0.000592738,3,FOS
+cilantro,1,100,1,maltotriose,-0.001702089,3,FOS
+cilantro,1,100,3,maltotriose,-0.003661748,3,FOS
+cilantro,10,100,2,maltotriose,-0.000185569,3,FOS
+cilantro,10,100,3,maltotriose,-0.001570663,3,FOS
+cilantro,25,100,1,maltotriose,-0.000858257,3,FOS
+cilantro,25,100,3,maltotriose,-0.001359797,3,FOS
+cilantro,50,100,2,maltotriose,-0.000712631,3,FOS
+cilantro,50,100,3,maltotriose,-0.000292838,3,FOS
+cilantro,100,100,1,maltotriose,2.67E-05,3,FOS
+cilantro,100,100,2,maltotriose,-0.006455288,3,FOS
+cilantro,0,0,2,GF7,-0.00032336,8,FOS
+cilantro,0,0,3,GF7,0.00032336,8,FOS
+cilantro,0,100,1,GF7,-0.002172135,8,FOS
+cilantro,0,100,3,GF7,-0.001692025,8,FOS
+cilantro,0.1,100,1,GF7,-0.000444079,8,FOS
+cilantro,0.1,100,3,GF7,-0.000881896,8,FOS
+cilantro,1,100,1,GF7,0.002799517,8,FOS
+cilantro,1,100,3,GF7,-0.001516094,8,FOS
+cilantro,10,100,2,GF7,0.001011688,8,FOS
+cilantro,10,100,3,GF7,0.001464531,8,FOS
+cilantro,25,100,1,GF7,0.000860584,8,FOS
+cilantro,25,100,3,GF7,0.000843794,8,FOS
+cilantro,50,100,2,GF7,0.0011669,8,FOS
+cilantro,50,100,3,GF7,0.000528004,8,FOS
+cilantro,100,100,1,GF7,0.001692341,8,FOS
+cilantro,100,100,2,GF7,0.003035528,8,FOS
+cilantro,0,0,2,GF8,0.000140392,9,FOS
+cilantro,0,0,3,GF8,-0.000140392,9,FOS
+cilantro,0,100,1,GF8,-0.006881205,9,FOS
+cilantro,0,100,3,GF8,-0.00806783,9,FOS
+cilantro,0.1,100,1,GF8,-0.006487631,9,FOS
+cilantro,0.1,100,3,GF8,-0.005491065,9,FOS
+cilantro,1,100,1,GF8,-0.003603038,9,FOS
+cilantro,1,100,3,GF8,-0.008002168,9,FOS
+cilantro,10,100,2,GF8,-0.004434821,9,FOS
+cilantro,10,100,3,GF8,-0.009097596,9,FOS
+cilantro,25,100,1,GF8,0.003044004,9,FOS
+cilantro,25,100,3,GF8,0.002929406,9,FOS
+cilantro,50,100,2,GF8,0.000663409,9,FOS
+cilantro,50,100,3,GF8,0.002128462,9,FOS
+cilantro,100,100,1,GF8,-6.92E-05,9,FOS
+cilantro,100,100,2,GF8,0.002275761,9,FOS
+cilantro,0,0,2,GF9,0.00368008,10,FOS
+cilantro,0,0,3,GF9,-0.00368008,10,FOS
+cilantro,0,100,1,GF9,0.005589764,10,FOS
+cilantro,0,100,3,GF9,0.014023132,10,FOS
+cilantro,0.1,100,1,GF9,0.00154769,10,FOS
+cilantro,0.1,100,3,GF9,0.021692995,10,FOS
+cilantro,1,100,1,GF9,0.013685214,10,FOS
+cilantro,1,100,3,GF9,0.017243713,10,FOS
+cilantro,10,100,2,GF9,0.012893334,10,FOS
+cilantro,10,100,3,GF9,0.022993186,10,FOS
+cilantro,25,100,1,GF9,0.025033336,10,FOS
+cilantro,25,100,3,GF9,0.021217516,10,FOS
+cilantro,50,100,2,GF9,0.020072346,10,FOS
+cilantro,50,100,3,GF9,0.019442515,10,FOS
+cilantro,100,100,1,GF9,0.012455345,10,FOS
+cilantro,100,100,2,GF9,0.024580903,10,FOS
+cilantro,0,0,2,DP 12,0.000153891,12,inulin
+cilantro,0,0,3,DP 12,-0.000153891,12,inulin
+cilantro,0,100,1,DP 12,0.062704058,12,inulin
+cilantro,0,100,3,DP 12,0.065027441,12,inulin
+cilantro,0.1,100,1,DP 12,0.059015089,12,inulin
+cilantro,0.1,100,3,DP 12,0.061095247,12,inulin
+cilantro,1,100,1,DP 12,0.066776578,12,inulin
+cilantro,1,100,3,DP 12,0.070577849,12,inulin
+cilantro,10,100,2,DP 12,0.023266802,12,inulin
+cilantro,10,100,3,DP 12,0.025216245,12,inulin
+cilantro,25,100,1,DP 12,0.000441866,12,inulin
+cilantro,25,100,3,DP 12,0.000389855,12,inulin
+cilantro,50,100,2,DP 12,-0.009126159,12,inulin
+cilantro,50,100,3,DP 12,-0.009126159,12,inulin
+cilantro,100,100,1,DP 12,0.000218031,12,inulin
+cilantro,100,100,2,DP 12,0.000678164,12,inulin
+cilantro,0,0,2,DP 13,-0.006123936,13,inulin
+cilantro,0,0,3,DP 13,0.006123936,13,inulin
+cilantro,0,100,1,DP 13,0.047229618,13,inulin
+cilantro,0,100,3,DP 13,0.046847596,13,inulin
+cilantro,0.1,100,1,DP 13,0.041344788,13,inulin
+cilantro,0.1,100,3,DP 13,0.039840436,13,inulin
+cilantro,1,100,1,DP 13,0.043537789,13,inulin
+cilantro,1,100,3,DP 13,0.049164591,13,inulin
+cilantro,10,100,2,DP 13,-0.015534513,13,inulin
+cilantro,10,100,3,DP 13,-0.006884735,13,inulin
+cilantro,25,100,1,DP 13,-0.010940279,13,inulin
+cilantro,25,100,3,DP 13,-0.011265224,13,inulin
+cilantro,50,100,2,DP 13,-0.002166506,13,inulin
+cilantro,50,100,3,DP 13,-0.000939884,13,inulin
+cilantro,100,100,1,DP 13,-0.004117801,13,inulin
+cilantro,100,100,2,DP 13,-0.002846709,13,inulin
+cilantro,0,0,2,DP 14,0.003575256,14,inulin
+cilantro,0,0,3,DP 14,-0.003575256,14,inulin
+cilantro,0,100,1,DP 14,0.091701213,14,inulin
+cilantro,0,100,3,DP 14,0.087896003,14,inulin
+cilantro,0.1,100,1,DP 14,0.080527749,14,inulin
+cilantro,0.1,100,3,DP 14,0.065544364,14,inulin
+cilantro,1,100,1,DP 14,0.077070885,14,inulin
+cilantro,1,100,3,DP 14,0.081977791,14,inulin
+cilantro,10,100,2,DP 14,0.00708926,14,inulin
+cilantro,10,100,3,DP 14,0.018736977,14,inulin
+cilantro,25,100,1,DP 14,0.009711467,14,inulin
+cilantro,25,100,3,DP 14,0.009849484,14,inulin
+cilantro,50,100,2,DP 14,0.004949705,14,inulin
+cilantro,50,100,3,DP 14,0.001189367,14,inulin
+cilantro,100,100,1,DP 14,0.000727975,14,inulin
+cilantro,100,100,2,DP 14,-0.001486028,14,inulin
+cilantro,0,0,2,DP 16,0.015214675,16,inulin
+cilantro,0,0,3,DP 16,-0.015214675,16,inulin
+cilantro,0,100,1,DP 16,-0.047220547,16,inulin
+cilantro,0,100,3,DP 16,-0.05281219,16,inulin
+cilantro,0.1,100,1,DP 16,-0.023573657,16,inulin
+cilantro,0.1,100,3,DP 16,-0.064238243,16,inulin
+cilantro,1,100,1,DP 16,-0.035014697,16,inulin
+cilantro,1,100,3,DP 16,-0.022975254,16,inulin
+cilantro,10,100,2,DP 16,-0.066381548,16,inulin
+cilantro,10,100,3,DP 16,-0.085604533,16,inulin
+cilantro,25,100,1,DP 16,0.020010296,16,inulin
+cilantro,25,100,3,DP 16,0.032214583,16,inulin
+cilantro,50,100,2,DP 16,0.011730527,16,inulin
+cilantro,50,100,3,DP 16,0.008986446,16,inulin
+cilantro,100,100,1,DP 16,-0.006699837,16,inulin
+cilantro,100,100,2,DP 16,-0.015235167,16,inulin
+cilantro,0,0,2,DP 17,0.002982469,17,inulin
+cilantro,0,0,3,DP 17,-0.002982469,17,inulin
+cilantro,0,100,1,DP 17,0.12482378,17,inulin
+cilantro,0,100,3,DP 17,0.114566814,17,inulin
+cilantro,0.1,100,1,DP 17,0.099625694,17,inulin
+cilantro,0.1,100,3,DP 17,0.090596351,17,inulin
+cilantro,1,100,1,DP 17,0.08567553,17,inulin
+cilantro,1,100,3,DP 17,0.090402806,17,inulin
+cilantro,10,100,2,DP 17,0.01939323,17,inulin
+cilantro,10,100,3,DP 17,0.024518858,17,inulin
+cilantro,25,100,1,DP 17,-0.002982469,17,inulin
+cilantro,25,100,3,DP 17,-0.002982469,17,inulin
+cilantro,50,100,2,DP 17,-0.002982469,17,inulin
+cilantro,50,100,3,DP 17,-0.002982469,17,inulin
+cilantro,100,100,1,DP 17,0.01773643,17,inulin
+cilantro,100,100,2,DP 17,-0.002982469,17,inulin
+cilantro,0,0,2,DP 21,-0.000631529,21,inulin
+cilantro,0,0,3,DP 21,0.000631529,21,inulin
+cilantro,0,100,1,DP 21,0.080907258,21,inulin
+cilantro,0,100,3,DP 21,0.069986849,21,inulin
+cilantro,0.1,100,1,DP 21,0.100219144,21,inulin
+cilantro,0.1,100,3,DP 21,0.057998858,21,inulin
+cilantro,1,100,1,DP 21,0.085502417,21,inulin
+cilantro,1,100,3,DP 21,0.083962092,21,inulin
+cilantro,10,100,2,DP 21,0.002865665,21,inulin
+cilantro,10,100,3,DP 21,0.02832121,21,inulin
+cilantro,25,100,1,DP 21,0.009040514,21,inulin
+cilantro,25,100,3,DP 21,0.009085194,21,inulin
+cilantro,50,100,2,DP 21,0.007533364,21,inulin
+cilantro,50,100,3,DP 21,0.00684986,21,inulin
+cilantro,100,100,1,DP 21,0.007005849,21,inulin
+cilantro,100,100,2,DP 21,0.006568182,21,inulin
+cilantro,0,0,2,DP 22,-0.001439453,22,inulin
+cilantro,0,0,3,DP 22,0.001439453,22,inulin
+cilantro,0,100,1,DP 22,0.132140532,22,inulin
+cilantro,0,100,3,DP 22,0.143076913,22,inulin
+cilantro,0.1,100,1,DP 22,0.123255788,22,inulin
+cilantro,0.1,100,3,DP 22,0.126244386,22,inulin
+cilantro,1,100,1,DP 22,0.107765373,22,inulin
+cilantro,1,100,3,DP 22,0.073106708,22,inulin
+cilantro,10,100,2,DP 22,-0.012513774,22,inulin
+cilantro,10,100,3,DP 22,0.023191579,22,inulin
+cilantro,25,100,1,DP 22,-0.001828217,22,inulin
+cilantro,25,100,3,DP 22,-0.002174206,22,inulin
+cilantro,50,100,2,DP 22,0.017236162,22,inulin
+cilantro,50,100,3,DP 22,0.017453767,22,inulin
+cilantro,100,100,1,DP 22,0.002836017,22,inulin
+cilantro,100,100,2,DP 22,0.018107039,22,inulin
+cilantro,0,0,2,DP 25,-0.000734752,25,inulin
+cilantro,0,0,3,DP 25,0.000734752,25,inulin
+cilantro,0,100,1,DP 25,0.054865678,25,inulin
+cilantro,0,100,3,DP 25,0.046604164,25,inulin
+cilantro,0.1,100,1,DP 25,0.04756929,25,inulin
+cilantro,0.1,100,3,DP 25,0.032367821,25,inulin
+cilantro,1,100,1,DP 25,0.029046645,25,inulin
+cilantro,1,100,3,DP 25,0.033763139,25,inulin
+cilantro,10,100,2,DP 25,-0.011993385,25,inulin
+cilantro,10,100,3,DP 25,0.008153985,25,inulin
+cilantro,25,100,1,DP 25,0.009029439,25,inulin
+cilantro,25,100,3,DP 25,0.011224811,25,inulin
+cilantro,50,100,2,DP 25,0.005472808,25,inulin
+cilantro,50,100,3,DP 25,0.003964441,25,inulin
+cilantro,100,100,1,DP 25,-0.00727329,25,inulin
+cilantro,100,100,2,DP 25,-0.009327754,25,inulin
+cilantro,0,0,2,DP 29,-4.38E-05,29,inulin
+cilantro,0,0,3,DP 29,4.38E-05,29,inulin
+cilantro,0,100,1,DP 29,0.092222761,29,inulin
+cilantro,0,100,3,DP 29,0.087150937,29,inulin
+cilantro,0.1,100,1,DP 29,0.093128531,29,inulin
+cilantro,0.1,100,3,DP 29,0.076254047,29,inulin
+cilantro,1,100,1,DP 29,0.081110561,29,inulin
+cilantro,1,100,3,DP 29,0.079755826,29,inulin
+cilantro,10,100,2,DP 29,0.01622503,29,inulin
+cilantro,10,100,3,DP 29,0.024485283,29,inulin
+cilantro,25,100,1,DP 29,-0.001840396,29,inulin
+cilantro,25,100,3,DP 29,-0.000573861,29,inulin
+cilantro,50,100,2,DP 29,-0.001840396,29,inulin
+cilantro,50,100,3,DP 29,-0.001840396,29,inulin
+cilantro,100,100,1,DP 29,0.000275129,29,inulin
+cilantro,100,100,2,DP 29,-0.001840396,29,inulin
+cilantro,0,0,2,DP 30,-0.001155273,30,inulin
+cilantro,0,0,3,DP 30,0.001155273,30,inulin
+cilantro,0,100,1,DP 30,0.059512607,30,inulin
+cilantro,0,100,3,DP 30,0.050131377,30,inulin
+cilantro,0.1,100,1,DP 30,0.079824874,30,inulin
+cilantro,0.1,100,3,DP 30,0.038204026,30,inulin
+cilantro,1,100,1,DP 30,0.070152485,30,inulin
+cilantro,1,100,3,DP 30,0.075448104,30,inulin
+cilantro,10,100,2,DP 30,-0.010121477,30,inulin
+cilantro,10,100,3,DP 30,0.021809236,30,inulin
+cilantro,25,100,1,DP 30,-0.005358196,30,inulin
+cilantro,25,100,3,DP 30,0.00440897,30,inulin
+cilantro,50,100,2,DP 30,-0.006809849,30,inulin
+cilantro,50,100,3,DP 30,-0.006985169,30,inulin
+cilantro,100,100,1,DP 30,0.002956338,30,inulin
+cilantro,100,100,2,DP 30,-0.008675846,30,inulin
+cilantro,0,0,2,DP 48,-0.001326577,48,inulin
+cilantro,0,0,3,DP 48,0.001326577,48,inulin
+cilantro,0,100,1,DP 48,0.02129772,48,inulin
+cilantro,0,100,3,DP 48,0.021260917,48,inulin
+cilantro,0.1,100,1,DP 48,0.018318829,48,inulin
+cilantro,0.1,100,3,DP 48,0.018655113,48,inulin
+cilantro,1,100,1,DP 48,0.016929443,48,inulin
+cilantro,1,100,3,DP 48,0.013302243,48,inulin
+cilantro,10,100,2,DP 48,-0.007059919,48,inulin
+cilantro,10,100,3,DP 48,0.00207582,48,inulin
+cilantro,25,100,1,DP 48,0.002945603,48,inulin
+cilantro,25,100,3,DP 48,0.002868107,48,inulin
+cilantro,50,100,2,DP 48,0.0110109,48,inulin
+cilantro,50,100,3,DP 48,0.011494406,48,inulin
+cilantro,100,100,1,DP 48,-0.001847241,48,inulin
+cilantro,100,100,2,DP 48,-0.001434553,48,inulin
+cilantro,0,0,2,DP 11,0,11,inulin
+cilantro,0,0,3,DP 11,0,11,inulin
+cilantro,0,100,1,DP 11,0.073553452,11,inulin
+cilantro,0,100,3,DP 11,0.079806761,11,inulin
+cilantro,0.1,100,1,DP 11,0.066151299,11,inulin
+cilantro,0.1,100,3,DP 11,0.07832078,11,inulin
+cilantro,1,100,1,DP 11,0.082051232,11,inulin
+cilantro,1,100,3,DP 11,0.081869963,11,inulin
+cilantro,10,100,2,DP 11,0.049695668,11,inulin
+cilantro,10,100,3,DP 11,0.036623719,11,inulin
+cilantro,25,100,1,DP 11,0,11,inulin
+cilantro,25,100,3,DP 11,0,11,inulin
+cilantro,50,100,2,DP 11,0,11,inulin
+cilantro,50,100,3,DP 11,0,11,inulin
+cilantro,100,100,1,DP 11,0,11,inulin
+cilantro,100,100,2,DP 11,0,11,inulin
+cilantro,0,0,2,DP 15,0,15,inulin
+cilantro,0,0,3,DP 15,0,15,inulin
+cilantro,0,100,1,DP 15,0.119959348,15,inulin
+cilantro,0,100,3,DP 15,0.115427267,15,inulin
+cilantro,0.1,100,1,DP 15,0.115950893,15,inulin
+cilantro,0.1,100,3,DP 15,0.104839614,15,inulin
+cilantro,1,100,1,DP 15,0.108272999,15,inulin
+cilantro,1,100,3,DP 15,0.118747798,15,inulin
+cilantro,10,100,2,DP 15,0.024143628,15,inulin
+cilantro,10,100,3,DP 15,0.164434336,15,inulin
+cilantro,25,100,1,DP 15,0,15,inulin
+cilantro,25,100,3,DP 15,0,15,inulin
+cilantro,50,100,2,DP 15,0,15,inulin
+cilantro,50,100,3,DP 15,0,15,inulin
+cilantro,100,100,1,DP 15,0,15,inulin
+cilantro,100,100,2,DP 15,0,15,inulin
+cilantro,0,0,2,DP 18,0,18,inulin
+cilantro,0,0,3,DP 18,0,18,inulin
+cilantro,0,100,1,DP 18,0.113831001,18,inulin
+cilantro,0,100,3,DP 18,0.107391961,18,inulin
+cilantro,0.1,100,1,DP 18,0.100700333,18,inulin
+cilantro,0.1,100,3,DP 18,0.094669205,18,inulin
+cilantro,1,100,1,DP 18,0.085632548,18,inulin
+cilantro,1,100,3,DP 18,0.086932965,18,inulin
+cilantro,10,100,2,DP 18,0.020343345,18,inulin
+cilantro,10,100,3,DP 18,0.023792635,18,inulin
+cilantro,25,100,1,DP 18,0,18,inulin
+cilantro,25,100,3,DP 18,0,18,inulin
+cilantro,50,100,2,DP 18,0,18,inulin
+cilantro,50,100,3,DP 18,0,18,inulin
+cilantro,100,100,1,DP 18,0,18,inulin
+cilantro,100,100,2,DP 18,0,18,inulin
+cilantro,0,0,2,DP 19,0,19,inulin
+cilantro,0,0,3,DP 19,0,19,inulin
+cilantro,0,100,1,DP 19,0.111409395,19,inulin
+cilantro,0,100,3,DP 19,0.103269841,19,inulin
+cilantro,0.1,100,1,DP 19,0.09758227,19,inulin
+cilantro,0.1,100,3,DP 19,0.090274264,19,inulin
+cilantro,1,100,1,DP 19,0.083128821,19,inulin
+cilantro,1,100,3,DP 19,0.086513826,19,inulin
+cilantro,10,100,2,DP 19,0.010541155,19,inulin
+cilantro,10,100,3,DP 19,0.024967069,19,inulin
+cilantro,25,100,1,DP 19,0,19,inulin
+cilantro,25,100,3,DP 19,0,19,inulin
+cilantro,50,100,2,DP 19,0,19,inulin
+cilantro,50,100,3,DP 19,0,19,inulin
+cilantro,100,100,1,DP 19,0,19,inulin
+cilantro,100,100,2,DP 19,0,19,inulin
+cilantro,0,0,2,DP 20,0,20,inulin
+cilantro,0,0,3,DP 20,0,20,inulin
+cilantro,0,100,1,DP 20,0.109931627,20,inulin
+cilantro,0,100,3,DP 20,0.101365535,20,inulin
+cilantro,0.1,100,1,DP 20,0.096894832,20,inulin
+cilantro,0.1,100,3,DP 20,0.086791324,20,inulin
+cilantro,1,100,1,DP 20,0.07705437,20,inulin
+cilantro,1,100,3,DP 20,0.082505508,20,inulin
+cilantro,10,100,2,DP 20,0,20,inulin
+cilantro,10,100,3,DP 20,0.021589627,20,inulin
+cilantro,25,100,1,DP 20,0,20,inulin
+cilantro,25,100,3,DP 20,0,20,inulin
+cilantro,50,100,2,DP 20,0,20,inulin
+cilantro,50,100,3,DP 20,0,20,inulin
+cilantro,100,100,1,DP 20,0,20,inulin
+cilantro,100,100,2,DP 20,0,20,inulin
+cilantro,0,0,2,DP 23,0,23,inulin
+cilantro,0,0,3,DP 23,0,23,inulin
+cilantro,0,100,1,DP 23,0.118751117,23,inulin
+cilantro,0,100,3,DP 23,0.110485869,23,inulin
+cilantro,0.1,100,1,DP 23,0.106017218,23,inulin
+cilantro,0.1,100,3,DP 23,0.096139791,23,inulin
+cilantro,1,100,1,DP 23,0.089767751,23,inulin
+cilantro,1,100,3,DP 23,0.09356146,23,inulin
+cilantro,10,100,2,DP 23,0.01258375,23,inulin
+cilantro,10,100,3,DP 23,0.028606444,23,inulin
+cilantro,25,100,1,DP 23,0,23,inulin
+cilantro,25,100,3,DP 23,0,23,inulin
+cilantro,50,100,2,DP 23,0,23,inulin
+cilantro,50,100,3,DP 23,0,23,inulin
+cilantro,100,100,1,DP 23,0,23,inulin
+cilantro,100,100,2,DP 23,0,23,inulin
+cilantro,0,0,2,DP 24,0,24,inulin
+cilantro,0,0,3,DP 24,0,24,inulin
+cilantro,0,100,1,DP 24,0.111890275,24,inulin
+cilantro,0,100,3,DP 24,0.103654528,24,inulin
+cilantro,0.1,100,1,DP 24,0.102652418,24,inulin
+cilantro,0.1,100,3,DP 24,0.089575653,24,inulin
+cilantro,1,100,1,DP 24,0.088889542,24,inulin
+cilantro,1,100,3,DP 24,0.092022531,24,inulin
+cilantro,10,100,2,DP 24,0,24,inulin
+cilantro,10,100,3,DP 24,0.026459022,24,inulin
+cilantro,25,100,1,DP 24,0,24,inulin
+cilantro,25,100,3,DP 24,0,24,inulin
+cilantro,50,100,2,DP 24,0,24,inulin
+cilantro,50,100,3,DP 24,0,24,inulin
+cilantro,100,100,1,DP 24,0,24,inulin
+cilantro,100,100,2,DP 24,0,24,inulin
+cilantro,0,0,2,DP 26,0,26,inulin
+cilantro,0,0,3,DP 26,0,26,inulin
+cilantro,0,100,1,DP 26,0.117334151,26,inulin
+cilantro,0,100,3,DP 26,0.09412835,26,inulin
+cilantro,0.1,100,1,DP 26,0.093956658,26,inulin
+cilantro,0.1,100,3,DP 26,0.093873643,26,inulin
+cilantro,1,100,1,DP 26,0.0951927,26,inulin
+cilantro,1,100,3,DP 26,0.097158306,26,inulin
+cilantro,10,100,2,DP 26,0.010293825,26,inulin
+cilantro,10,100,3,DP 26,0.028472457,26,inulin
+cilantro,25,100,1,DP 26,0,26,inulin
+cilantro,25,100,3,DP 26,0,26,inulin
+cilantro,50,100,2,DP 26,0,26,inulin
+cilantro,50,100,3,DP 26,0,26,inulin
+cilantro,100,100,1,DP 26,0,26,inulin
+cilantro,100,100,2,DP 26,0,26,inulin
+cilantro,0,0,2,DP 27,0,27,inulin
+cilantro,0,0,3,DP 27,0,27,inulin
+cilantro,0,100,1,DP 27,0.099223905,27,inulin
+cilantro,0,100,3,DP 27,0.09382477,27,inulin
+cilantro,0.1,100,1,DP 27,0.08922831,27,inulin
+cilantro,0.1,100,3,DP 27,0.0827248,27,inulin
+cilantro,1,100,1,DP 27,0.07733781,27,inulin
+cilantro,1,100,3,DP 27,0.08657237,27,inulin
+cilantro,10,100,2,DP 27,0.017624732,27,inulin
+cilantro,10,100,3,DP 27,0.018171107,27,inulin
+cilantro,25,100,1,DP 27,0,27,inulin
+cilantro,25,100,3,DP 27,0,27,inulin
+cilantro,50,100,2,DP 27,0,27,inulin
+cilantro,50,100,3,DP 27,0,27,inulin
+cilantro,100,100,1,DP 27,0,27,inulin
+cilantro,100,100,2,DP 27,0,27,inulin
+cilantro,0,0,2,DP 28,0,28,inulin
+cilantro,0,0,3,DP 28,0,28,inulin
+cilantro,0,100,1,DP 28,0.097953845,28,inulin
+cilantro,0,100,3,DP 28,0.091767995,28,inulin
+cilantro,0.1,100,1,DP 28,0.100605724,28,inulin
+cilantro,0.1,100,3,DP 28,0.080273898,28,inulin
+cilantro,1,100,1,DP 28,0.087768732,28,inulin
+cilantro,1,100,3,DP 28,0.088496337,28,inulin
+cilantro,10,100,2,DP 28,0.017852484,28,inulin
+cilantro,10,100,3,DP 28,0.027455192,28,inulin
+cilantro,25,100,1,DP 28,0,28,inulin
+cilantro,25,100,3,DP 28,0,28,inulin
+cilantro,50,100,2,DP 28,0,28,inulin
+cilantro,50,100,3,DP 28,0,28,inulin
+cilantro,100,100,1,DP 28,0,28,inulin
+cilantro,100,100,2,DP 28,0,28,inulin
+cilantro,0,0,2,DP 31,0,31,inulin
+cilantro,0,0,3,DP 31,0,31,inulin
+cilantro,0,100,1,DP 31,0.081836041,31,inulin
+cilantro,0,100,3,DP 31,0.076574252,31,inulin
+cilantro,0.1,100,1,DP 31,0.07719391,31,inulin
+cilantro,0.1,100,3,DP 31,0.067929348,31,inulin
+cilantro,1,100,1,DP 31,0.067680711,31,inulin
+cilantro,1,100,3,DP 31,0.070895292,31,inulin
+cilantro,10,100,2,DP 31,0,31,inulin
+cilantro,10,100,3,DP 31,0.020944927,31,inulin
+cilantro,25,100,1,DP 31,0,31,inulin
+cilantro,25,100,3,DP 31,0,31,inulin
+cilantro,50,100,2,DP 31,0,31,inulin
+cilantro,50,100,3,DP 31,0,31,inulin
+cilantro,100,100,1,DP 31,0,31,inulin
+cilantro,100,100,2,DP 31,0,31,inulin
+cilantro,0,0,2,DP 32,0,32,inulin
+cilantro,0,0,3,DP 32,0,32,inulin
+cilantro,0,100,1,DP 32,0.076693213,32,inulin
+cilantro,0,100,3,DP 32,0.070657209,32,inulin
+cilantro,0.1,100,1,DP 32,0.073949561,32,inulin
+cilantro,0.1,100,3,DP 32,0.064257692,32,inulin
+cilantro,1,100,1,DP 32,0.065506649,32,inulin
+cilantro,1,100,3,DP 32,0.067780752,32,inulin
+cilantro,10,100,2,DP 32,0,32,inulin
+cilantro,10,100,3,DP 32,0.019545649,32,inulin
+cilantro,25,100,1,DP 32,0,32,inulin
+cilantro,25,100,3,DP 32,0,32,inulin
+cilantro,50,100,2,DP 32,0,32,inulin
+cilantro,50,100,3,DP 32,0,32,inulin
+cilantro,100,100,1,DP 32,0,32,inulin
+cilantro,100,100,2,DP 32,0,32,inulin
+cilantro,0,0,2,DP 33,0,33,inulin
+cilantro,0,0,3,DP 33,0,33,inulin
+cilantro,0,100,1,DP 33,0.065421873,33,inulin
+cilantro,0,100,3,DP 33,0.060347326,33,inulin
+cilantro,0.1,100,1,DP 33,0.063035856,33,inulin
+cilantro,0.1,100,3,DP 33,0.054604767,33,inulin
+cilantro,1,100,1,DP 33,0.055764203,33,inulin
+cilantro,1,100,3,DP 33,0.0577457,33,inulin
+cilantro,10,100,2,DP 33,0,33,inulin
+cilantro,10,100,3,DP 33,0.0177388,33,inulin
+cilantro,25,100,1,DP 33,0,33,inulin
+cilantro,25,100,3,DP 33,0,33,inulin
+cilantro,50,100,2,DP 33,0,33,inulin
+cilantro,50,100,3,DP 33,0,33,inulin
+cilantro,100,100,1,DP 33,0,33,inulin
+cilantro,100,100,2,DP 33,0,33,inulin
+cilantro,0,0,2,DP 34,0,34,inulin
+cilantro,0,0,3,DP 34,0,34,inulin
+cilantro,0,100,1,DP 34,0.064976594,34,inulin
+cilantro,0,100,3,DP 34,0.059787539,34,inulin
+cilantro,0.1,100,1,DP 34,0.061123697,34,inulin
+cilantro,0.1,100,3,DP 34,0.053961784,34,inulin
+cilantro,1,100,1,DP 34,0.054328816,34,inulin
+cilantro,1,100,3,DP 34,0.054224784,34,inulin
+cilantro,10,100,2,DP 34,0.01043241,34,inulin
+cilantro,10,100,3,DP 34,0.018771462,34,inulin
+cilantro,25,100,1,DP 34,0,34,inulin
+cilantro,25,100,3,DP 34,0,34,inulin
+cilantro,50,100,2,DP 34,0,34,inulin
+cilantro,50,100,3,DP 34,0,34,inulin
+cilantro,100,100,1,DP 34,0,34,inulin
+cilantro,100,100,2,DP 34,0,34,inulin
+cilantro,0,0,2,DP 35,0,35,inulin
+cilantro,0,0,3,DP 35,0,35,inulin
+cilantro,0,100,1,DP 35,0.051870246,35,inulin
+cilantro,0,100,3,DP 35,0.04909498,35,inulin
+cilantro,0.1,100,1,DP 35,0.048120019,35,inulin
+cilantro,0.1,100,3,DP 35,0.044311217,35,inulin
+cilantro,1,100,1,DP 35,0.043241793,35,inulin
+cilantro,1,100,3,DP 35,0.043879045,35,inulin
+cilantro,10,100,2,DP 35,0,35,inulin
+cilantro,10,100,3,DP 35,0.016545353,35,inulin
+cilantro,25,100,1,DP 35,0,35,inulin
+cilantro,25,100,3,DP 35,0,35,inulin
+cilantro,50,100,2,DP 35,0,35,inulin
+cilantro,50,100,3,DP 35,0,35,inulin
+cilantro,100,100,1,DP 35,0,35,inulin
+cilantro,100,100,2,DP 35,0,35,inulin
+cilantro,0,0,2,DP 36,0,36,inulin
+cilantro,0,0,3,DP 36,0,36,inulin
+cilantro,0,100,1,DP 36,0.042039793,36,inulin
+cilantro,0,100,3,DP 36,0.039719219,36,inulin
+cilantro,0.1,100,1,DP 36,0.040255267,36,inulin
+cilantro,0.1,100,3,DP 36,0.035357662,36,inulin
+cilantro,1,100,1,DP 36,0.03654874,36,inulin
+cilantro,1,100,3,DP 36,0.038021552,36,inulin
+cilantro,10,100,2,DP 36,0,36,inulin
+cilantro,10,100,3,DP 36,0.019350688,36,inulin
+cilantro,25,100,1,DP 36,0,36,inulin
+cilantro,25,100,3,DP 36,0,36,inulin
+cilantro,50,100,2,DP 36,0,36,inulin
+cilantro,50,100,3,DP 36,0,36,inulin
+cilantro,100,100,1,DP 36,0,36,inulin
+cilantro,100,100,2,DP 36,0,36,inulin
+cilantro,0,0,2,DP 37,0,37,inulin
+cilantro,0,0,3,DP 37,0,37,inulin
+cilantro,0,100,1,DP 37,0.052596864,37,inulin
+cilantro,0,100,3,DP 37,0.049741593,37,inulin
+cilantro,0.1,100,1,DP 37,0.049930228,37,inulin
+cilantro,0.1,100,3,DP 37,0.043112826,37,inulin
+cilantro,1,100,1,DP 37,0.043652214,37,inulin
+cilantro,1,100,3,DP 37,0.044398273,37,inulin
+cilantro,10,100,2,DP 37,0,37,inulin
+cilantro,10,100,3,DP 37,0.015568632,37,inulin
+cilantro,25,100,1,DP 37,0,37,inulin
+cilantro,25,100,3,DP 37,0,37,inulin
+cilantro,50,100,2,DP 37,0,37,inulin
+cilantro,50,100,3,DP 37,0,37,inulin
+cilantro,100,100,1,DP 37,0,37,inulin
+cilantro,100,100,2,DP 37,0,37,inulin
+cilantro,0,0,2,DP 38,0,38,inulin
+cilantro,0,0,3,DP 38,0,38,inulin
+cilantro,0,100,1,DP 38,0.042136378,38,inulin
+cilantro,0,100,3,DP 38,0.039708952,38,inulin
+cilantro,0.1,100,1,DP 38,0.040050697,38,inulin
+cilantro,0.1,100,3,DP 38,0.033462207,38,inulin
+cilantro,1,100,1,DP 38,0.035028743,38,inulin
+cilantro,1,100,3,DP 38,0.03484737,38,inulin
+cilantro,10,100,2,DP 38,0,38,inulin
+cilantro,10,100,3,DP 38,0.009554814,38,inulin
+cilantro,25,100,1,DP 38,0,38,inulin
+cilantro,25,100,3,DP 38,0,38,inulin
+cilantro,50,100,2,DP 38,0,38,inulin
+cilantro,50,100,3,DP 38,0,38,inulin
+cilantro,100,100,1,DP 38,0,38,inulin
+cilantro,100,100,2,DP 38,0,38,inulin
+cilantro,0,0,2,DP 39,0,39,inulin
+cilantro,0,0,3,DP 39,0,39,inulin
+cilantro,0,100,1,DP 39,0.040557869,39,inulin
+cilantro,0,100,3,DP 39,0.038602122,39,inulin
+cilantro,0.1,100,1,DP 39,0.038042627,39,inulin
+cilantro,0.1,100,3,DP 39,0.033095258,39,inulin
+cilantro,1,100,1,DP 39,0.034072756,39,inulin
+cilantro,1,100,3,DP 39,0.033861612,39,inulin
+cilantro,10,100,2,DP 39,0,39,inulin
+cilantro,10,100,3,DP 39,0.01003313,39,inulin
+cilantro,25,100,1,DP 39,0,39,inulin
+cilantro,25,100,3,DP 39,0,39,inulin
+cilantro,50,100,2,DP 39,0,39,inulin
+cilantro,50,100,3,DP 39,0,39,inulin
+cilantro,100,100,1,DP 39,0,39,inulin
+cilantro,100,100,2,DP 39,0,39,inulin
+cilantro,0,0,2,DP 40,0,40,inulin
+cilantro,0,0,3,DP 40,0,40,inulin
+cilantro,0,100,1,DP 40,0.03787667,40,inulin
+cilantro,0,100,3,DP 40,0.036246555,40,inulin
+cilantro,0.1,100,1,DP 40,0.035986478,40,inulin
+cilantro,0.1,100,3,DP 40,0.031286058,40,inulin
+cilantro,1,100,1,DP 40,0.032407565,40,inulin
+cilantro,1,100,3,DP 40,0.032098286,40,inulin
+cilantro,10,100,2,DP 40,0,40,inulin
+cilantro,10,100,3,DP 40,0.009718733,40,inulin
+cilantro,25,100,1,DP 40,0,40,inulin
+cilantro,25,100,3,DP 40,0,40,inulin
+cilantro,50,100,2,DP 40,0,40,inulin
+cilantro,50,100,3,DP 40,0,40,inulin
+cilantro,100,100,1,DP 40,0,40,inulin
+cilantro,100,100,2,DP 40,0,40,inulin
+cilantro,0,0,2,DP 41,0,41,inulin
+cilantro,0,0,3,DP 41,0,41,inulin
+cilantro,0,100,1,DP 41,0.035115977,41,inulin
+cilantro,0,100,3,DP 41,0.03376408,41,inulin
+cilantro,0.1,100,1,DP 41,0.033927271,41,inulin
+cilantro,0.1,100,3,DP 41,0.029244534,41,inulin
+cilantro,1,100,1,DP 41,0.030840426,41,inulin
+cilantro,1,100,3,DP 41,0.030160306,41,inulin
+cilantro,10,100,2,DP 41,0,41,inulin
+cilantro,10,100,3,DP 41,0.009646104,41,inulin
+cilantro,25,100,1,DP 41,0,41,inulin
+cilantro,25,100,3,DP 41,0,41,inulin
+cilantro,50,100,2,DP 41,0,41,inulin
+cilantro,50,100,3,DP 41,0,41,inulin
+cilantro,100,100,1,DP 41,0,41,inulin
+cilantro,100,100,2,DP 41,0,41,inulin
+cilantro,0,0,2,DP 42,0,42,inulin
+cilantro,0,0,3,DP 42,0,42,inulin
+cilantro,0,100,1,DP 42,0.034781773,42,inulin
+cilantro,0,100,3,DP 42,0.033862059,42,inulin
+cilantro,0.1,100,1,DP 42,0.036492547,42,inulin
+cilantro,0.1,100,3,DP 42,0.029849383,42,inulin
+cilantro,1,100,1,DP 42,0.031245552,42,inulin
+cilantro,1,100,3,DP 42,0.03228795,42,inulin
+cilantro,10,100,2,DP 42,0,42,inulin
+cilantro,10,100,3,DP 42,0.008473605,42,inulin
+cilantro,25,100,1,DP 42,0,42,inulin
+cilantro,25,100,3,DP 42,0,42,inulin
+cilantro,50,100,2,DP 42,0,42,inulin
+cilantro,50,100,3,DP 42,0,42,inulin
+cilantro,100,100,1,DP 42,0,42,inulin
+cilantro,100,100,2,DP 42,0,42,inulin
+cilantro,0,0,2,DP 43,0,43,inulin
+cilantro,0,0,3,DP 43,0,43,inulin
+cilantro,0,100,1,DP 43,0.034937589,43,inulin
+cilantro,0,100,3,DP 43,0.033223268,43,inulin
+cilantro,0.1,100,1,DP 43,0.035368044,43,inulin
+cilantro,0.1,100,3,DP 43,0.029061684,43,inulin
+cilantro,1,100,1,DP 43,0.032051091,43,inulin
+cilantro,1,100,3,DP 43,0.032715201,43,inulin
+cilantro,10,100,2,DP 43,0,43,inulin
+cilantro,10,100,3,DP 43,0.012351041,43,inulin
+cilantro,25,100,1,DP 43,0,43,inulin
+cilantro,25,100,3,DP 43,0,43,inulin
+cilantro,50,100,2,DP 43,0,43,inulin
+cilantro,50,100,3,DP 43,0,43,inulin
+cilantro,100,100,1,DP 43,0,43,inulin
+cilantro,100,100,2,DP 43,0,43,inulin
+cilantro,0,0,2,DP 44,0,44,inulin
+cilantro,0,0,3,DP 44,0,44,inulin
+cilantro,0,100,1,DP 44,0.031766309,44,inulin
+cilantro,0,100,3,DP 44,0.031390528,44,inulin
+cilantro,0.1,100,1,DP 44,0.032571338,44,inulin
+cilantro,0.1,100,3,DP 44,0.028055392,44,inulin
+cilantro,1,100,1,DP 44,0.030958179,44,inulin
+cilantro,1,100,3,DP 44,0.031289948,44,inulin
+cilantro,10,100,2,DP 44,0,44,inulin
+cilantro,10,100,3,DP 44,0.010913888,44,inulin
+cilantro,25,100,1,DP 44,0,44,inulin
+cilantro,25,100,3,DP 44,0,44,inulin
+cilantro,50,100,2,DP 44,0,44,inulin
+cilantro,50,100,3,DP 44,0,44,inulin
+cilantro,100,100,1,DP 44,0,44,inulin
+cilantro,100,100,2,DP 44,0,44,inulin
+cilantro,0,0,2,DP 45,0,45,inulin
+cilantro,0,0,3,DP 45,0,45,inulin
+cilantro,0,100,1,DP 45,0.031673292,45,inulin
+cilantro,0,100,3,DP 45,0.031365427,45,inulin
+cilantro,0.1,100,1,DP 45,0.032073861,45,inulin
+cilantro,0.1,100,3,DP 45,0.028003911,45,inulin
+cilantro,1,100,1,DP 45,0.03079813,45,inulin
+cilantro,1,100,3,DP 45,0.029982168,45,inulin
+cilantro,10,100,2,DP 45,0,45,inulin
+cilantro,10,100,3,DP 45,0.011892178,45,inulin
+cilantro,25,100,1,DP 45,0,45,inulin
+cilantro,25,100,3,DP 45,0,45,inulin
+cilantro,50,100,2,DP 45,0,45,inulin
+cilantro,50,100,3,DP 45,0,45,inulin
+cilantro,100,100,1,DP 45,0,45,inulin
+cilantro,100,100,2,DP 45,0,45,inulin
+cilantro,0,0,2,DP 46,0,46,inulin
+cilantro,0,0,3,DP 46,0,46,inulin
+cilantro,0,100,1,DP 46,0.026651463,46,inulin
+cilantro,0,100,3,DP 46,0.026682493,46,inulin
+cilantro,0.1,100,1,DP 46,0.027858633,46,inulin
+cilantro,0.1,100,3,DP 46,0.024024772,46,inulin
+cilantro,1,100,1,DP 46,0.026902781,46,inulin
+cilantro,1,100,3,DP 46,0.027730009,46,inulin
+cilantro,10,100,2,DP 46,0,46,inulin
+cilantro,10,100,3,DP 46,0.009199994,46,inulin
+cilantro,25,100,1,DP 46,0,46,inulin
+cilantro,25,100,3,DP 46,0,46,inulin
+cilantro,50,100,2,DP 46,0,46,inulin
+cilantro,50,100,3,DP 46,0,46,inulin
+cilantro,100,100,1,DP 46,0,46,inulin
+cilantro,100,100,2,DP 46,0,46,inulin
+cilantro,0,0,2,DP 47,0,47,inulin
+cilantro,0,0,3,DP 47,0,47,inulin
+cilantro,0,100,1,DP 47,0.026640478,47,inulin
+cilantro,0,100,3,DP 47,0.026061718,47,inulin
+cilantro,0.1,100,1,DP 47,0.028048131,47,inulin
+cilantro,0.1,100,3,DP 47,0.023101261,47,inulin
+cilantro,1,100,1,DP 47,0.027147796,47,inulin
+cilantro,1,100,3,DP 47,0.026591484,47,inulin
+cilantro,10,100,2,DP 47,0,47,inulin
+cilantro,10,100,3,DP 47,0.010926517,47,inulin
+cilantro,25,100,1,DP 47,0,47,inulin
+cilantro,25,100,3,DP 47,0,47,inulin
+cilantro,50,100,2,DP 47,0,47,inulin
+cilantro,50,100,3,DP 47,0,47,inulin
+cilantro,100,100,1,DP 47,0,47,inulin
+cilantro,100,100,2,DP 47,0,47,inulin
+cilantro,0,0,2,DP 49,0,49,inulin
+cilantro,0,0,3,DP 49,0,49,inulin
+cilantro,0,100,1,DP 49,0.021659198,49,inulin
+cilantro,0,100,3,DP 49,0.022337736,49,inulin
+cilantro,0.1,100,1,DP 49,0.020272901,49,inulin
+cilantro,0.1,100,3,DP 49,0.02037088,49,inulin
+cilantro,1,100,1,DP 49,0.019727501,49,inulin
+cilantro,1,100,3,DP 49,0.021062795,49,inulin
+cilantro,10,100,2,DP 49,0,49,inulin
+cilantro,10,100,3,DP 49,0.005687884,49,inulin
+cilantro,25,100,1,DP 49,0,49,inulin
+cilantro,25,100,3,DP 49,0,49,inulin
+cilantro,50,100,2,DP 49,0,49,inulin
+cilantro,50,100,3,DP 49,0,49,inulin
+cilantro,100,100,1,DP 49,0,49,inulin
+cilantro,100,100,2,DP 49,0,49,inulin
+cilantro,0,0,2,DP 50,0,50,inulin
+cilantro,0,0,3,DP 50,0,50,inulin
+cilantro,0,100,1,DP 50,0.019004067,50,inulin
+cilantro,0,100,3,DP 50,0.019537951,50,inulin
+cilantro,0.1,100,1,DP 50,0.019827092,50,inulin
+cilantro,0.1,100,3,DP 50,0.017927746,50,inulin
+cilantro,1,100,1,DP 50,0.019570698,50,inulin
+cilantro,1,100,3,DP 50,0.020503415,50,inulin
+cilantro,10,100,2,DP 50,0,50,inulin
+cilantro,10,100,3,DP 50,0.006632283,50,inulin
+cilantro,25,100,1,DP 50,0,50,inulin
+cilantro,25,100,3,DP 50,0,50,inulin
+cilantro,50,100,2,DP 50,0,50,inulin
+cilantro,50,100,3,DP 50,0,50,inulin
+cilantro,100,100,1,DP 50,0,50,inulin
+cilantro,100,100,2,DP 50,0,50,inulin
+cilantro,0,0,2,DP 51,0,51,inulin
+cilantro,0,0,3,DP 51,0,51,inulin
+cilantro,0,100,1,DP 51,0.017510554,51,inulin
+cilantro,0,100,3,DP 51,0.018144945,51,inulin
+cilantro,0.1,100,1,DP 51,0.017800101,51,inulin
+cilantro,0.1,100,3,DP 51,0.016689463,51,inulin
+cilantro,1,100,1,DP 51,0.017556594,51,inulin
+cilantro,1,100,3,DP 51,0.018165895,51,inulin
+cilantro,10,100,2,DP 51,0,51,inulin
+cilantro,10,100,3,DP 51,0.00583079,51,inulin
+cilantro,25,100,1,DP 51,0,51,inulin
+cilantro,25,100,3,DP 51,0,51,inulin
+cilantro,50,100,2,DP 51,0,51,inulin
+cilantro,50,100,3,DP 51,0,51,inulin
+cilantro,100,100,1,DP 51,0,51,inulin
+cilantro,100,100,2,DP 51,0,51,inulin
+cilantro,0,0,2,DP 52,0,52,inulin
+cilantro,0,0,3,DP 52,0,52,inulin
+cilantro,0,100,1,DP 52,0.014855974,52,inulin
+cilantro,0,100,3,DP 52,0.015320081,52,inulin
+cilantro,0.1,100,1,DP 52,0.016324074,52,inulin
+cilantro,0.1,100,3,DP 52,0.014039065,52,inulin
+cilantro,1,100,1,DP 52,0.016355177,52,inulin
+cilantro,1,100,3,DP 52,0.01679307,52,inulin
+cilantro,10,100,2,DP 52,0,52,inulin
+cilantro,10,100,3,DP 52,0.006053065,52,inulin
+cilantro,25,100,1,DP 52,0,52,inulin
+cilantro,25,100,3,DP 52,0,52,inulin
+cilantro,50,100,2,DP 52,0,52,inulin
+cilantro,50,100,3,DP 52,0,52,inulin
+cilantro,100,100,1,DP 52,0,52,inulin
+cilantro,100,100,2,DP 52,0,52,inulin
+cilantro,0,0,2,DP 53,0,53,inulin
+cilantro,0,0,3,DP 53,0,53,inulin
+cilantro,0,100,1,DP 53,0.013793687,53,inulin
+cilantro,0,100,3,DP 53,0.014388154,53,inulin
+cilantro,0.1,100,1,DP 53,0.013534442,53,inulin
+cilantro,0.1,100,3,DP 53,0,53,inulin
+cilantro,1,100,1,DP 53,0.013536075,53,inulin
+cilantro,1,100,3,DP 53,0.013801665,53,inulin
+cilantro,10,100,2,DP 53,0,53,inulin
+cilantro,10,100,3,DP 53,0,53,inulin
+cilantro,25,100,1,DP 53,0,53,inulin
+cilantro,25,100,3,DP 53,0,53,inulin
+cilantro,50,100,2,DP 53,0,53,inulin
+cilantro,50,100,3,DP 53,0,53,inulin
+cilantro,100,100,1,DP 53,0,53,inulin
+cilantro,100,100,2,DP 53,0,53,inulin
+cilantro,0,0,2,DP 54,0,54,inulin
+cilantro,0,0,3,DP 54,0,54,inulin
+cilantro,0,100,1,DP 54,0.011560502,54,inulin
+cilantro,0,100,3,DP 54,0.012116616,54,inulin
+cilantro,0.1,100,1,DP 54,0.012117553,54,inulin
+cilantro,0.1,100,3,DP 54,0,54,inulin
+cilantro,1,100,1,DP 54,0,54,inulin
+cilantro,1,100,3,DP 54,0.013087062,54,inulin
+cilantro,10,100,2,DP 54,0,54,inulin
+cilantro,10,100,3,DP 54,0,54,inulin
+cilantro,25,100,1,DP 54,0,54,inulin
+cilantro,25,100,3,DP 54,0,54,inulin
+cilantro,50,100,2,DP 54,0,54,inulin
+cilantro,50,100,3,DP 54,0,54,inulin
+cilantro,100,100,1,DP 54,0,54,inulin
+cilantro,100,100,2,DP 54,0,54,inulin
+cilantro,0,0,2,GF3,0,4,FOS
+cilantro,0,0,3,GF3,0,4,FOS
+cilantro,0,100,1,GF3,0,4,FOS
+cilantro,0,100,3,GF3,0,4,FOS
+cilantro,0.1,100,1,GF3,0.00526489,4,FOS
+cilantro,0.1,100,3,GF3,0,4,FOS
+cilantro,1,100,1,GF3,0,4,FOS
+cilantro,1,100,3,GF3,0,4,FOS
+cilantro,10,100,2,GF3,0,4,FOS
+cilantro,10,100,3,GF3,0,4,FOS
+cilantro,25,100,1,GF3,0.004153827,4,FOS
+cilantro,25,100,3,GF3,0.00411981,4,FOS
+cilantro,50,100,2,GF3,0,4,FOS
+cilantro,50,100,3,GF3,0.003360766,4,FOS
+cilantro,100,100,1,GF3,0.003349794,4,FOS
+cilantro,100,100,2,GF3,0.003643737,4,FOS
+cilantro,0,0,2,GF5,0,6,FOS
+cilantro,0,0,3,GF5,0,6,FOS
+cilantro,0,100,1,GF5,0,6,FOS
+cilantro,0,100,3,GF5,0,6,FOS
+cilantro,0.1,100,1,GF5,0,6,FOS
+cilantro,0.1,100,3,GF5,0.041505765,6,FOS
+cilantro,1,100,1,GF5,0,6,FOS
+cilantro,1,100,3,GF5,0,6,FOS
+cilantro,10,100,2,GF5,0,6,FOS
+cilantro,10,100,3,GF5,0,6,FOS
+cilantro,25,100,1,GF5,0,6,FOS
+cilantro,25,100,3,GF5,0,6,FOS
+cilantro,50,100,2,GF5,0,6,FOS
+cilantro,50,100,3,GF5,0,6,FOS
+cilantro,100,100,1,GF5,0.003225672,6,FOS
+cilantro,100,100,2,GF5,0.003163249,6,FOS
+cilantro,0,0,2,GF6,0,7,FOS
+cilantro,0,0,3,GF6,0,7,FOS
+cilantro,0,100,1,GF6,0,7,FOS
+cilantro,0,100,3,GF6,0,7,FOS
+cilantro,0.1,100,1,GF6,0,7,FOS
+cilantro,0.1,100,3,GF6,0.006853753,7,FOS
+cilantro,1,100,1,GF6,0,7,FOS
+cilantro,1,100,3,GF6,0,7,FOS
+cilantro,10,100,2,GF6,0.012113299,7,FOS
+cilantro,10,100,3,GF6,0,7,FOS
+cilantro,25,100,1,GF6,0,7,FOS
+cilantro,25,100,3,GF6,0,7,FOS
+cilantro,50,100,2,GF6,0,7,FOS
+cilantro,50,100,3,GF6,0,7,FOS
+cilantro,100,100,1,GF6,0,7,FOS
+cilantro,100,100,2,GF6,0.018128383,7,FOS
+cilantro,0,0,2,maltose,0,2,mono/di
+cilantro,0,0,3,maltose,0,2,mono/di
+cilantro,0,100,1,maltose,0,2,mono/di
+cilantro,0,100,3,maltose,0,2,mono/di
+cilantro,0.1,100,1,maltose,0,2,mono/di
+cilantro,0.1,100,3,maltose,0,2,mono/di
+cilantro,1,100,1,maltose,0.017749423,2,mono/di
+cilantro,1,100,3,maltose,0,2,mono/di
+cilantro,10,100,2,maltose,0,2,mono/di
+cilantro,10,100,3,maltose,0.017285799,2,mono/di
+cilantro,25,100,1,maltose,0.016958844,2,mono/di
+cilantro,25,100,3,maltose,0.016929814,2,mono/di
+cilantro,50,100,2,maltose,0,2,mono/di
+cilantro,50,100,3,maltose,0,2,mono/di
+cilantro,100,100,1,maltose,0.016651314,2,mono/di
+cilantro,100,100,2,maltose,0.016536277,2,mono/di
+cilantro,0,0,2,nystose,0,4,FOS
+cilantro,0,0,3,nystose,0,4,FOS
+cilantro,0,100,1,nystose,0,4,FOS
+cilantro,0,100,3,nystose,0,4,FOS
+cilantro,0.1,100,1,nystose,0,4,FOS
+cilantro,0.1,100,3,nystose,0,4,FOS
+cilantro,1,100,1,nystose,0,4,FOS
+cilantro,1,100,3,nystose,0,4,FOS
+cilantro,10,100,2,nystose,0,4,FOS
+cilantro,10,100,3,nystose,0,4,FOS
+cilantro,25,100,1,nystose,0,4,FOS
+cilantro,25,100,3,nystose,0,4,FOS
+cilantro,50,100,2,nystose,0,4,FOS
+cilantro,50,100,3,nystose,0,4,FOS
+cilantro,100,100,1,nystose,0.001137962,4,FOS
+cilantro,100,100,2,nystose,0.001672719,4,FOS
+cilantro,0,0,2,DP 55,0,55,inulin
+cilantro,0,0,3,DP 55,0,55,inulin
+cilantro,0,100,1,DP 55,0,55,inulin
+cilantro,0,100,3,DP 55,0,55,inulin
+cilantro,0.1,100,1,DP 55,0,55,inulin
+cilantro,0.1,100,3,DP 55,0,55,inulin
+cilantro,1,100,1,DP 55,0,55,inulin
+cilantro,1,100,3,DP 55,0,55,inulin
+cilantro,10,100,2,DP 55,0,55,inulin
+cilantro,10,100,3,DP 55,0,55,inulin
+cilantro,25,100,1,DP 55,0,55,inulin
+cilantro,25,100,3,DP 55,0,55,inulin
+cilantro,50,100,2,DP 55,0,55,inulin
+cilantro,50,100,3,DP 55,0,55,inulin
+cilantro,100,100,1,DP 55,0,55,inulin
+cilantro,100,100,2,DP 55,0,55,inulin
+cilantro,0,0,2,DP 56,0,56,inulin
+cilantro,0,0,3,DP 56,0,56,inulin
+cilantro,0,100,1,DP 56,0,56,inulin
+cilantro,0,100,3,DP 56,0,56,inulin
+cilantro,0.1,100,1,DP 56,0,56,inulin
+cilantro,0.1,100,3,DP 56,0,56,inulin
+cilantro,1,100,1,DP 56,0,56,inulin
+cilantro,1,100,3,DP 56,0,56,inulin
+cilantro,10,100,2,DP 56,0,56,inulin
+cilantro,10,100,3,DP 56,0,56,inulin
+cilantro,25,100,1,DP 56,0,56,inulin
+cilantro,25,100,3,DP 56,0,56,inulin
+cilantro,50,100,2,DP 56,0,56,inulin
+cilantro,50,100,3,DP 56,0,56,inulin
+cilantro,100,100,1,DP 56,0,56,inulin
+cilantro,100,100,2,DP 56,0,56,inulin
+cilantro,0,0,2,kestose,0,3,FOS
+cilantro,0,0,3,kestose,0,3,FOS
+cilantro,0,100,1,kestose,0,3,FOS
+cilantro,0,100,3,kestose,0,3,FOS
+cilantro,0.1,100,1,kestose,0,3,FOS
+cilantro,0.1,100,3,kestose,0,3,FOS
+cilantro,1,100,1,kestose,0,3,FOS
+cilantro,1,100,3,kestose,0,3,FOS
+cilantro,10,100,2,kestose,0,3,FOS
+cilantro,10,100,3,kestose,0,3,FOS
+cilantro,25,100,1,kestose,0,3,FOS
+cilantro,25,100,3,kestose,0,3,FOS
+cilantro,50,100,2,kestose,0,3,FOS
+cilantro,50,100,3,kestose,0,3,FOS
+cilantro,100,100,1,kestose,0,3,FOS
+cilantro,100,100,2,kestose,0,3,FOS
+cilantro,0,0,2,neo-kestose,0,3,FOS
+cilantro,0,0,3,neo-kestose,0,3,FOS
+cilantro,0,100,1,neo-kestose,0,3,FOS
+cilantro,0,100,3,neo-kestose,0,3,FOS
+cilantro,0.1,100,1,neo-kestose,0,3,FOS
+cilantro,0.1,100,3,neo-kestose,0,3,FOS
+cilantro,1,100,1,neo-kestose,0,3,FOS
+cilantro,1,100,3,neo-kestose,0,3,FOS
+cilantro,10,100,2,neo-kestose,0,3,FOS
+cilantro,10,100,3,neo-kestose,0,3,FOS
+cilantro,25,100,1,neo-kestose,0,3,FOS
+cilantro,25,100,3,neo-kestose,0,3,FOS
+cilantro,50,100,2,neo-kestose,0,3,FOS
+cilantro,50,100,3,neo-kestose,0,3,FOS
+cilantro,100,100,1,neo-kestose,0,3,FOS
+cilantro,100,100,2,neo-kestose,0,3,FOS
+cilantro,0,0,2,DP 57,0,57,inulin
+cilantro,0,0,3,DP 57,0,57,inulin
+cilantro,0,100,1,DP 57,0,57,inulin
+cilantro,0,100,3,DP 57,0,57,inulin
+cilantro,0.1,100,1,DP 57,0,57,inulin
+cilantro,0.1,100,3,DP 57,0,57,inulin
+cilantro,1,100,1,DP 57,0,57,inulin
+cilantro,1,100,3,DP 57,0,57,inulin
+cilantro,10,100,2,DP 57,0,57,inulin
+cilantro,10,100,3,DP 57,0,57,inulin
+cilantro,25,100,1,DP 57,0,57,inulin
+cilantro,25,100,3,DP 57,0,57,inulin
+cilantro,50,100,2,DP 57,0,57,inulin
+cilantro,50,100,3,DP 57,0,57,inulin
+cilantro,100,100,1,DP 57,0,57,inulin
+cilantro,100,100,2,DP 57,0,57,inulin
+cilantro,0,0,2,DP 58,0,58,inulin
+cilantro,0,0,3,DP 58,0,58,inulin
+cilantro,0,100,1,DP 58,0,58,inulin
+cilantro,0,100,3,DP 58,0,58,inulin
+cilantro,0.1,100,1,DP 58,0,58,inulin
+cilantro,0.1,100,3,DP 58,0,58,inulin
+cilantro,1,100,1,DP 58,0,58,inulin
+cilantro,1,100,3,DP 58,0,58,inulin
+cilantro,10,100,2,DP 58,0,58,inulin
+cilantro,10,100,3,DP 58,0,58,inulin
+cilantro,25,100,1,DP 58,0,58,inulin
+cilantro,25,100,3,DP 58,0,58,inulin
+cilantro,50,100,2,DP 58,0,58,inulin
+cilantro,50,100,3,DP 58,0,58,inulin
+cilantro,100,100,1,DP 58,0,58,inulin
+cilantro,100,100,2,DP 58,0,58,inulin
+cilantro,0,0,2,DP 59,0,59,inulin
+cilantro,0,0,3,DP 59,0,59,inulin
+cilantro,0,100,1,DP 59,0,59,inulin
+cilantro,0,100,3,DP 59,0,59,inulin
+cilantro,0.1,100,1,DP 59,0,59,inulin
+cilantro,0.1,100,3,DP 59,0,59,inulin
+cilantro,1,100,1,DP 59,0,59,inulin
+cilantro,1,100,3,DP 59,0,59,inulin
+cilantro,10,100,2,DP 59,0,59,inulin
+cilantro,10,100,3,DP 59,0,59,inulin
+cilantro,25,100,1,DP 59,0,59,inulin
+cilantro,25,100,3,DP 59,0,59,inulin
+cilantro,50,100,2,DP 59,0,59,inulin
+cilantro,50,100,3,DP 59,0,59,inulin
+cilantro,100,100,1,DP 59,0,59,inulin
+cilantro,100,100,2,DP 59,0,59,inulin
+cilantro,0,0,2,DP 60,0,60,inulin
+cilantro,0,0,3,DP 60,0,60,inulin
+cilantro,0,100,1,DP 60,0,60,inulin
+cilantro,0,100,3,DP 60,0,60,inulin
+cilantro,0.1,100,1,DP 60,0,60,inulin
+cilantro,0.1,100,3,DP 60,0,60,inulin
+cilantro,1,100,1,DP 60,0,60,inulin
+cilantro,1,100,3,DP 60,0,60,inulin
+cilantro,10,100,2,DP 60,0,60,inulin
+cilantro,10,100,3,DP 60,0,60,inulin
+cilantro,25,100,1,DP 60,0,60,inulin
+cilantro,25,100,3,DP 60,0,60,inulin
+cilantro,50,100,2,DP 60,0,60,inulin
+cilantro,50,100,3,DP 60,0,60,inulin
+cilantro,100,100,1,DP 60,0,60,inulin
+cilantro,100,100,2,DP 60,0,60,inulin
+cilantro,0,0,2,DP 61,0,61,inulin
+cilantro,0,0,3,DP 61,0,61,inulin
+cilantro,0,100,1,DP 61,0,61,inulin
+cilantro,0,100,3,DP 61,0,61,inulin
+cilantro,0.1,100,1,DP 61,0,61,inulin
+cilantro,0.1,100,3,DP 61,0,61,inulin
+cilantro,1,100,1,DP 61,0,61,inulin
+cilantro,1,100,3,DP 61,0,61,inulin
+cilantro,10,100,2,DP 61,0,61,inulin
+cilantro,10,100,3,DP 61,0,61,inulin
+cilantro,25,100,1,DP 61,0,61,inulin
+cilantro,25,100,3,DP 61,0,61,inulin
+cilantro,50,100,2,DP 61,0,61,inulin
+cilantro,50,100,3,DP 61,0,61,inulin
+cilantro,100,100,1,DP 61,0,61,inulin
+cilantro,100,100,2,DP 61,0,61,inulin
+cilantro,0,0,2,DP 62,0,62,inulin
+cilantro,0,0,3,DP 62,0,62,inulin
+cilantro,0,100,1,DP 62,0,62,inulin
+cilantro,0,100,3,DP 62,0,62,inulin
+cilantro,0.1,100,1,DP 62,0,62,inulin
+cilantro,0.1,100,3,DP 62,0,62,inulin
+cilantro,1,100,1,DP 62,0,62,inulin
+cilantro,1,100,3,DP 62,0,62,inulin
+cilantro,10,100,2,DP 62,0,62,inulin
+cilantro,10,100,3,DP 62,0,62,inulin
+cilantro,25,100,1,DP 62,0,62,inulin
+cilantro,25,100,3,DP 62,0,62,inulin
+cilantro,50,100,2,DP 62,0,62,inulin
+cilantro,50,100,3,DP 62,0,62,inulin
+cilantro,100,100,1,DP 62,0,62,inulin
+cilantro,100,100,2,DP 62,0,62,inulin
+cilantro,0,0,2,DP 63,0,63,inulin
+cilantro,0,0,3,DP 63,0,63,inulin
+cilantro,0,100,1,DP 63,0,63,inulin
+cilantro,0,100,3,DP 63,0,63,inulin
+cilantro,0.1,100,1,DP 63,0,63,inulin
+cilantro,0.1,100,3,DP 63,0,63,inulin
+cilantro,1,100,1,DP 63,0,63,inulin
+cilantro,1,100,3,DP 63,0,63,inulin
+cilantro,10,100,2,DP 63,0,63,inulin
+cilantro,10,100,3,DP 63,0,63,inulin
+cilantro,25,100,1,DP 63,0,63,inulin
+cilantro,25,100,3,DP 63,0,63,inulin
+cilantro,50,100,2,DP 63,0,63,inulin
+cilantro,50,100,3,DP 63,0,63,inulin
+cilantro,100,100,1,DP 63,0,63,inulin
+cilantro,100,100,2,DP 63,0,63,inulin
+cilantro,0,0,2,DP 64,0,64,inulin
+cilantro,0,0,3,DP 64,0,64,inulin
+cilantro,0,100,1,DP 64,0,64,inulin
+cilantro,0,100,3,DP 64,0,64,inulin
+cilantro,0.1,100,1,DP 64,0,64,inulin
+cilantro,0.1,100,3,DP 64,0,64,inulin
+cilantro,1,100,1,DP 64,0,64,inulin
+cilantro,1,100,3,DP 64,0,64,inulin
+cilantro,10,100,2,DP 64,0,64,inulin
+cilantro,10,100,3,DP 64,0,64,inulin
+cilantro,25,100,1,DP 64,0,64,inulin
+cilantro,25,100,3,DP 64,0,64,inulin
+cilantro,50,100,2,DP 64,0,64,inulin
+cilantro,50,100,3,DP 64,0,64,inulin
+cilantro,100,100,1,DP 64,0,64,inulin
+cilantro,100,100,2,DP 64,0,64,inulin
+cilantro,0,0,2,DP 65,0,65,inulin
+cilantro,0,0,3,DP 65,0,65,inulin
+cilantro,0,100,1,DP 65,0,65,inulin
+cilantro,0,100,3,DP 65,0,65,inulin
+cilantro,0.1,100,1,DP 65,0,65,inulin
+cilantro,0.1,100,3,DP 65,0,65,inulin
+cilantro,1,100,1,DP 65,0,65,inulin
+cilantro,1,100,3,DP 65,0,65,inulin
+cilantro,10,100,2,DP 65,0,65,inulin
+cilantro,10,100,3,DP 65,0,65,inulin
+cilantro,25,100,1,DP 65,0,65,inulin
+cilantro,25,100,3,DP 65,0,65,inulin
+cilantro,50,100,2,DP 65,0,65,inulin
+cilantro,50,100,3,DP 65,0,65,inulin
+cilantro,100,100,1,DP 65,0,65,inulin
+cilantro,100,100,2,DP 65,0,65,inulin
+cilantro,0,0,2,DP 66,0,66,inulin
+cilantro,0,0,3,DP 66,0,66,inulin
+cilantro,0,100,1,DP 66,0,66,inulin
+cilantro,0,100,3,DP 66,0,66,inulin
+cilantro,0.1,100,1,DP 66,0,66,inulin
+cilantro,0.1,100,3,DP 66,0,66,inulin
+cilantro,1,100,1,DP 66,0,66,inulin
+cilantro,1,100,3,DP 66,0,66,inulin
+cilantro,10,100,2,DP 66,0,66,inulin
+cilantro,10,100,3,DP 66,0,66,inulin
+cilantro,25,100,1,DP 66,0,66,inulin
+cilantro,25,100,3,DP 66,0,66,inulin
+cilantro,50,100,2,DP 66,0,66,inulin
+cilantro,50,100,3,DP 66,0,66,inulin
+cilantro,100,100,1,DP 66,0,66,inulin
+cilantro,100,100,2,DP 66,0,66,inulin
+cilantro,0,0,2,DP 67,0,67,inulin
+cilantro,0,0,3,DP 67,0,67,inulin
+cilantro,0,100,1,DP 67,0,67,inulin
+cilantro,0,100,3,DP 67,0,67,inulin
+cilantro,0.1,100,1,DP 67,0,67,inulin
+cilantro,0.1,100,3,DP 67,0,67,inulin
+cilantro,1,100,1,DP 67,0,67,inulin
+cilantro,1,100,3,DP 67,0,67,inulin
+cilantro,10,100,2,DP 67,0,67,inulin
+cilantro,10,100,3,DP 67,0,67,inulin
+cilantro,25,100,1,DP 67,0,67,inulin
+cilantro,25,100,3,DP 67,0,67,inulin
+cilantro,50,100,2,DP 67,0,67,inulin
+cilantro,50,100,3,DP 67,0,67,inulin
+cilantro,100,100,1,DP 67,0,67,inulin
+cilantro,100,100,2,DP 67,0,67,inulin
+cilantro,0,0,2,DP 70,0,70,inulin
+cilantro,0,0,3,DP 70,0,70,inulin
+cilantro,0,100,1,DP 70,0,70,inulin
+cilantro,0,100,3,DP 70,0,70,inulin
+cilantro,0.1,100,1,DP 70,0,70,inulin
+cilantro,0.1,100,3,DP 70,0,70,inulin
+cilantro,1,100,1,DP 70,0,70,inulin
+cilantro,1,100,3,DP 70,0,70,inulin
+cilantro,10,100,2,DP 70,0,70,inulin
+cilantro,10,100,3,DP 70,0,70,inulin
+cilantro,25,100,1,DP 70,0,70,inulin
+cilantro,25,100,3,DP 70,0,70,inulin
+cilantro,50,100,2,DP 70,0,70,inulin
+cilantro,50,100,3,DP 70,0,70,inulin
+cilantro,100,100,1,DP 70,0,70,inulin
+cilantro,100,100,2,DP 70,0,70,inulin
+cilantro,0,0,2,DP 69,0,69,inulin
+cilantro,0,0,3,DP 69,0,69,inulin
+cilantro,0,100,1,DP 69,0,69,inulin
+cilantro,0,100,3,DP 69,0,69,inulin
+cilantro,0.1,100,1,DP 69,0,69,inulin
+cilantro,0.1,100,3,DP 69,0,69,inulin
+cilantro,1,100,1,DP 69,0,69,inulin
+cilantro,1,100,3,DP 69,0,69,inulin
+cilantro,10,100,2,DP 69,0,69,inulin
+cilantro,10,100,3,DP 69,0,69,inulin
+cilantro,25,100,1,DP 69,0,69,inulin
+cilantro,25,100,3,DP 69,0,69,inulin
+cilantro,50,100,2,DP 69,0,69,inulin
+cilantro,50,100,3,DP 69,0,69,inulin
+cilantro,100,100,1,DP 69,0,69,inulin
+cilantro,100,100,2,DP 69,0,69,inulin
+cilantro,0,0,2,DP 71,0,71,inulin
+cilantro,0,0,3,DP 71,0,71,inulin
+cilantro,0,100,1,DP 71,0,71,inulin
+cilantro,0,100,3,DP 71,0,71,inulin
+cilantro,0.1,100,1,DP 71,0,71,inulin
+cilantro,0.1,100,3,DP 71,0,71,inulin
+cilantro,1,100,1,DP 71,0,71,inulin
+cilantro,1,100,3,DP 71,0,71,inulin
+cilantro,10,100,2,DP 71,0,71,inulin
+cilantro,10,100,3,DP 71,0,71,inulin
+cilantro,25,100,1,DP 71,0,71,inulin
+cilantro,25,100,3,DP 71,0,71,inulin
+cilantro,50,100,2,DP 71,0,71,inulin
+cilantro,50,100,3,DP 71,0,71,inulin
+cilantro,100,100,1,DP 71,0,71,inulin
+cilantro,100,100,2,DP 71,0,71,inulin
+cilantro,0,0,2,DP 72,0,72,inulin
+cilantro,0,0,3,DP 72,0,72,inulin
+cilantro,0,100,1,DP 72,0,72,inulin
+cilantro,0,100,3,DP 72,0,72,inulin
+cilantro,0.1,100,1,DP 72,0,72,inulin
+cilantro,0.1,100,3,DP 72,0,72,inulin
+cilantro,1,100,1,DP 72,0,72,inulin
+cilantro,1,100,3,DP 72,0,72,inulin
+cilantro,10,100,2,DP 72,0,72,inulin
+cilantro,10,100,3,DP 72,0,72,inulin
+cilantro,25,100,1,DP 72,0,72,inulin
+cilantro,25,100,3,DP 72,0,72,inulin
+cilantro,50,100,2,DP 72,0,72,inulin
+cilantro,50,100,3,DP 72,0,72,inulin
+cilantro,100,100,1,DP 72,0,72,inulin
+cilantro,100,100,2,DP 72,0,72,inulin
+cilantro,0,0,2,DP 73,0,73,inulin
+cilantro,0,0,3,DP 73,0,73,inulin
+cilantro,0,100,1,DP 73,0,73,inulin
+cilantro,0,100,3,DP 73,0,73,inulin
+cilantro,0.1,100,1,DP 73,0,73,inulin
+cilantro,0.1,100,3,DP 73,0,73,inulin
+cilantro,1,100,1,DP 73,0,73,inulin
+cilantro,1,100,3,DP 73,0,73,inulin
+cilantro,10,100,2,DP 73,0,73,inulin
+cilantro,10,100,3,DP 73,0,73,inulin
+cilantro,25,100,1,DP 73,0,73,inulin
+cilantro,25,100,3,DP 73,0,73,inulin
+cilantro,50,100,2,DP 73,0,73,inulin
+cilantro,50,100,3,DP 73,0,73,inulin
+cilantro,100,100,1,DP 73,0,73,inulin
+cilantro,100,100,2,DP 73,0,73,inulin
+cilantro,0,0,2,DP 74,0,74,inulin
+cilantro,0,0,3,DP 74,0,74,inulin
+cilantro,0,100,1,DP 74,0,74,inulin
+cilantro,0,100,3,DP 74,0,74,inulin
+cilantro,0.1,100,1,DP 74,0,74,inulin
+cilantro,0.1,100,3,DP 74,0,74,inulin
+cilantro,1,100,1,DP 74,0,74,inulin
+cilantro,1,100,3,DP 74,0,74,inulin
+cilantro,10,100,2,DP 74,0,74,inulin
+cilantro,10,100,3,DP 74,0,74,inulin
+cilantro,25,100,1,DP 74,0,74,inulin
+cilantro,25,100,3,DP 74,0,74,inulin
+cilantro,50,100,2,DP 74,0,74,inulin
+cilantro,50,100,3,DP 74,0,74,inulin
+cilantro,100,100,1,DP 74,0,74,inulin
+cilantro,100,100,2,DP 74,0,74,inulin
+cilantro,0,0,2,DP 75,0,75,inulin
+cilantro,0,0,3,DP 75,0,75,inulin
+cilantro,0,100,1,DP 75,0,75,inulin
+cilantro,0,100,3,DP 75,0,75,inulin
+cilantro,0.1,100,1,DP 75,0,75,inulin
+cilantro,0.1,100,3,DP 75,0,75,inulin
+cilantro,1,100,1,DP 75,0,75,inulin
+cilantro,1,100,3,DP 75,0,75,inulin
+cilantro,10,100,2,DP 75,0,75,inulin
+cilantro,10,100,3,DP 75,0,75,inulin
+cilantro,25,100,1,DP 75,0,75,inulin
+cilantro,25,100,3,DP 75,0,75,inulin
+cilantro,50,100,2,DP 75,0,75,inulin
+cilantro,50,100,3,DP 75,0,75,inulin
+cilantro,100,100,1,DP 75,0,75,inulin
+cilantro,100,100,2,DP 75,0,75,inulin
+cilantro,0,0,2,DP 76,0,76,inulin
+cilantro,0,0,3,DP 76,0,76,inulin
+cilantro,0,100,1,DP 76,0,76,inulin
+cilantro,0,100,3,DP 76,0,76,inulin
+cilantro,0.1,100,1,DP 76,0,76,inulin
+cilantro,0.1,100,3,DP 76,0,76,inulin
+cilantro,1,100,1,DP 76,0,76,inulin
+cilantro,1,100,3,DP 76,0,76,inulin
+cilantro,10,100,2,DP 76,0,76,inulin
+cilantro,10,100,3,DP 76,0,76,inulin
+cilantro,25,100,1,DP 76,0,76,inulin
+cilantro,25,100,3,DP 76,0,76,inulin
+cilantro,50,100,2,DP 76,0,76,inulin
+cilantro,50,100,3,DP 76,0,76,inulin
+cilantro,100,100,1,DP 76,0,76,inulin
+cilantro,100,100,2,DP 76,0,76,inulin
+cilantro,0,0,2,DP 77,0,77,inulin
+cilantro,0,0,3,DP 77,0,77,inulin
+cilantro,0,100,1,DP 77,0,77,inulin
+cilantro,0,100,3,DP 77,0,77,inulin
+cilantro,0.1,100,1,DP 77,0,77,inulin
+cilantro,0.1,100,3,DP 77,0,77,inulin
+cilantro,1,100,1,DP 77,0,77,inulin
+cilantro,1,100,3,DP 77,0,77,inulin
+cilantro,10,100,2,DP 77,0,77,inulin
+cilantro,10,100,3,DP 77,0,77,inulin
+cilantro,25,100,1,DP 77,0,77,inulin
+cilantro,25,100,3,DP 77,0,77,inulin
+cilantro,50,100,2,DP 77,0,77,inulin
+cilantro,50,100,3,DP 77,0,77,inulin
+cilantro,100,100,1,DP 77,0,77,inulin
+cilantro,100,100,2,DP 77,0,77,inulin
+cilantro,0,0,2,DP 78,0,78,inulin
+cilantro,0,0,3,DP 78,0,78,inulin
+cilantro,0,100,1,DP 78,0,78,inulin
+cilantro,0,100,3,DP 78,0,78,inulin
+cilantro,0.1,100,1,DP 78,0,78,inulin
+cilantro,0.1,100,3,DP 78,0,78,inulin
+cilantro,1,100,1,DP 78,0,78,inulin
+cilantro,1,100,3,DP 78,0,78,inulin
+cilantro,10,100,2,DP 78,0,78,inulin
+cilantro,10,100,3,DP 78,0,78,inulin
+cilantro,25,100,1,DP 78,0,78,inulin
+cilantro,25,100,3,DP 78,0,78,inulin
+cilantro,50,100,2,DP 78,0,78,inulin
+cilantro,50,100,3,DP 78,0,78,inulin
+cilantro,100,100,1,DP 78,0,78,inulin
+cilantro,100,100,2,DP 78,0,78,inulin
+cilantro,0,0,2,DP 79,0,79,inulin
+cilantro,0,0,3,DP 79,0,79,inulin
+cilantro,0,100,1,DP 79,0,79,inulin
+cilantro,0,100,3,DP 79,0,79,inulin
+cilantro,0.1,100,1,DP 79,0,79,inulin
+cilantro,0.1,100,3,DP 79,0,79,inulin
+cilantro,1,100,1,DP 79,0,79,inulin
+cilantro,1,100,3,DP 79,0,79,inulin
+cilantro,10,100,2,DP 79,0,79,inulin
+cilantro,10,100,3,DP 79,0,79,inulin
+cilantro,25,100,1,DP 79,0,79,inulin
+cilantro,25,100,3,DP 79,0,79,inulin
+cilantro,50,100,2,DP 79,0,79,inulin
+cilantro,50,100,3,DP 79,0,79,inulin
+cilantro,100,100,1,DP 79,0,79,inulin
+cilantro,100,100,2,DP 79,0,79,inulin
+cilantro,0,0,2,DP 80,0,80,inulin
+cilantro,0,0,3,DP 80,0,80,inulin
+cilantro,0,100,1,DP 80,0,80,inulin
+cilantro,0,100,3,DP 80,0,80,inulin
+cilantro,0.1,100,1,DP 80,0,80,inulin
+cilantro,0.1,100,3,DP 80,0,80,inulin
+cilantro,1,100,1,DP 80,0,80,inulin
+cilantro,1,100,3,DP 80,0,80,inulin
+cilantro,10,100,2,DP 80,0,80,inulin
+cilantro,10,100,3,DP 80,0,80,inulin
+cilantro,25,100,1,DP 80,0,80,inulin
+cilantro,25,100,3,DP 80,0,80,inulin
+cilantro,50,100,2,DP 80,0,80,inulin
+cilantro,50,100,3,DP 80,0,80,inulin
+cilantro,100,100,1,DP 80,0,80,inulin
+cilantro,100,100,2,DP 80,0,80,inulin
+cilantro,0,0,2,DP 81,0,81,inulin
+cilantro,0,0,3,DP 81,0,81,inulin
+cilantro,0,100,1,DP 81,0,81,inulin
+cilantro,0,100,3,DP 81,0,81,inulin
+cilantro,0.1,100,1,DP 81,0,81,inulin
+cilantro,0.1,100,3,DP 81,0,81,inulin
+cilantro,1,100,1,DP 81,0,81,inulin
+cilantro,1,100,3,DP 81,0,81,inulin
+cilantro,10,100,2,DP 81,0,81,inulin
+cilantro,10,100,3,DP 81,0,81,inulin
+cilantro,25,100,1,DP 81,0,81,inulin
+cilantro,25,100,3,DP 81,0,81,inulin
+cilantro,50,100,2,DP 81,0,81,inulin
+cilantro,50,100,3,DP 81,0,81,inulin
+cilantro,100,100,1,DP 81,0,81,inulin
+cilantro,100,100,2,DP 81,0,81,inulin
+cilantro,0,0,2,DP 82,0,82,inulin
+cilantro,0,0,3,DP 82,0,82,inulin
+cilantro,0,100,1,DP 82,0,82,inulin
+cilantro,0,100,3,DP 82,0,82,inulin
+cilantro,0.1,100,1,DP 82,0,82,inulin
+cilantro,0.1,100,3,DP 82,0,82,inulin
+cilantro,1,100,1,DP 82,0,82,inulin
+cilantro,1,100,3,DP 82,0,82,inulin
+cilantro,10,100,2,DP 82,0,82,inulin
+cilantro,10,100,3,DP 82,0,82,inulin
+cilantro,25,100,1,DP 82,0,82,inulin
+cilantro,25,100,3,DP 82,0,82,inulin
+cilantro,50,100,2,DP 82,0,82,inulin
+cilantro,50,100,3,DP 82,0,82,inulin
+cilantro,100,100,1,DP 82,0,82,inulin
+cilantro,100,100,2,DP 82,0,82,inulin
+cilantro,0,0,2,DP 83,0,83,inulin
+cilantro,0,0,3,DP 83,0,83,inulin
+cilantro,0,100,1,DP 83,0,83,inulin
+cilantro,0,100,3,DP 83,0,83,inulin
+cilantro,0.1,100,1,DP 83,0,83,inulin
+cilantro,0.1,100,3,DP 83,0,83,inulin
+cilantro,1,100,1,DP 83,0,83,inulin
+cilantro,1,100,3,DP 83,0,83,inulin
+cilantro,10,100,2,DP 83,0,83,inulin
+cilantro,10,100,3,DP 83,0,83,inulin
+cilantro,25,100,1,DP 83,0,83,inulin
+cilantro,25,100,3,DP 83,0,83,inulin
+cilantro,50,100,2,DP 83,0,83,inulin
+cilantro,50,100,3,DP 83,0,83,inulin
+cilantro,100,100,1,DP 83,0,83,inulin
+cilantro,100,100,2,DP 83,0,83,inulin
+cilantro,0,0,2,DP 84,0,84,inulin
+cilantro,0,0,3,DP 84,0,84,inulin
+cilantro,0,100,1,DP 84,0,84,inulin
+cilantro,0,100,3,DP 84,0,84,inulin
+cilantro,0.1,100,1,DP 84,0,84,inulin
+cilantro,0.1,100,3,DP 84,0,84,inulin
+cilantro,1,100,1,DP 84,0,84,inulin
+cilantro,1,100,3,DP 84,0,84,inulin
+cilantro,10,100,2,DP 84,0,84,inulin
+cilantro,10,100,3,DP 84,0,84,inulin
+cilantro,25,100,1,DP 84,0,84,inulin
+cilantro,25,100,3,DP 84,0,84,inulin
+cilantro,50,100,2,DP 84,0,84,inulin
+cilantro,50,100,3,DP 84,0,84,inulin
+cilantro,100,100,1,DP 84,0,84,inulin
+cilantro,100,100,2,DP 84,0,84,inulin
+cilantro,0,0,2,DP 85,0,85,inulin
+cilantro,0,0,3,DP 85,0,85,inulin
+cilantro,0,100,1,DP 85,0,85,inulin
+cilantro,0,100,3,DP 85,0,85,inulin
+cilantro,0.1,100,1,DP 85,0,85,inulin
+cilantro,0.1,100,3,DP 85,0,85,inulin
+cilantro,1,100,1,DP 85,0,85,inulin
+cilantro,1,100,3,DP 85,0,85,inulin
+cilantro,10,100,2,DP 85,0,85,inulin
+cilantro,10,100,3,DP 85,0,85,inulin
+cilantro,25,100,1,DP 85,0,85,inulin
+cilantro,25,100,3,DP 85,0,85,inulin
+cilantro,50,100,2,DP 85,0,85,inulin
+cilantro,50,100,3,DP 85,0,85,inulin
+cilantro,100,100,1,DP 85,0,85,inulin
+cilantro,100,100,2,DP 85,0,85,inulin
+cilantro,0,0,2,DP 86,0,86,inulin
+cilantro,0,0,3,DP 86,0,86,inulin
+cilantro,0,100,1,DP 86,0,86,inulin
+cilantro,0,100,3,DP 86,0,86,inulin
+cilantro,0.1,100,1,DP 86,0,86,inulin
+cilantro,0.1,100,3,DP 86,0,86,inulin
+cilantro,1,100,1,DP 86,0,86,inulin
+cilantro,1,100,3,DP 86,0,86,inulin
+cilantro,10,100,2,DP 86,0,86,inulin
+cilantro,10,100,3,DP 86,0,86,inulin
+cilantro,25,100,1,DP 86,0,86,inulin
+cilantro,25,100,3,DP 86,0,86,inulin
+cilantro,50,100,2,DP 86,0,86,inulin
+cilantro,50,100,3,DP 86,0,86,inulin
+cilantro,100,100,1,DP 86,0,86,inulin
+cilantro,100,100,2,DP 86,0,86,inulin
+cilantro,0,0,2,DP 87,0,87,inulin
+cilantro,0,0,3,DP 87,0,87,inulin
+cilantro,0,100,1,DP 87,0,87,inulin
+cilantro,0,100,3,DP 87,0,87,inulin
+cilantro,0.1,100,1,DP 87,0,87,inulin
+cilantro,0.1,100,3,DP 87,0,87,inulin
+cilantro,1,100,1,DP 87,0,87,inulin
+cilantro,1,100,3,DP 87,0,87,inulin
+cilantro,10,100,2,DP 87,0,87,inulin
+cilantro,10,100,3,DP 87,0,87,inulin
+cilantro,25,100,1,DP 87,0,87,inulin
+cilantro,25,100,3,DP 87,0,87,inulin
+cilantro,50,100,2,DP 87,0,87,inulin
+cilantro,50,100,3,DP 87,0,87,inulin
+cilantro,100,100,1,DP 87,0,87,inulin
+cilantro,100,100,2,DP 87,0,87,inulin
+cilantro,0,0,2,DP 88,0,88,inulin
+cilantro,0,0,3,DP 88,0,88,inulin
+cilantro,0,100,1,DP 88,0,88,inulin
+cilantro,0,100,3,DP 88,0,88,inulin
+cilantro,0.1,100,1,DP 88,0,88,inulin
+cilantro,0.1,100,3,DP 88,0,88,inulin
+cilantro,1,100,1,DP 88,0,88,inulin
+cilantro,1,100,3,DP 88,0,88,inulin
+cilantro,10,100,2,DP 88,0,88,inulin
+cilantro,10,100,3,DP 88,0,88,inulin
+cilantro,25,100,1,DP 88,0,88,inulin
+cilantro,25,100,3,DP 88,0,88,inulin
+cilantro,50,100,2,DP 88,0,88,inulin
+cilantro,50,100,3,DP 88,0,88,inulin
+cilantro,100,100,1,DP 88,0,88,inulin
+cilantro,100,100,2,DP 88,0,88,inulin
+cilantro,0,0,2,DP 89,0,89,inulin
+cilantro,0,0,3,DP 89,0,89,inulin
+cilantro,0,100,1,DP 89,0,89,inulin
+cilantro,0,100,3,DP 89,0,89,inulin
+cilantro,0.1,100,1,DP 89,0,89,inulin
+cilantro,0.1,100,3,DP 89,0,89,inulin
+cilantro,1,100,1,DP 89,0,89,inulin
+cilantro,1,100,3,DP 89,0,89,inulin
+cilantro,10,100,2,DP 89,0,89,inulin
+cilantro,10,100,3,DP 89,0,89,inulin
+cilantro,25,100,1,DP 89,0,89,inulin
+cilantro,25,100,3,DP 89,0,89,inulin
+cilantro,50,100,2,DP 89,0,89,inulin
+cilantro,50,100,3,DP 89,0,89,inulin
+cilantro,100,100,1,DP 89,0,89,inulin
+cilantro,100,100,2,DP 89,0,89,inulin
+cilantro,0,0,2,DP 90,0,90,inulin
+cilantro,0,0,3,DP 90,0,90,inulin
+cilantro,0,100,1,DP 90,0,90,inulin
+cilantro,0,100,3,DP 90,0,90,inulin
+cilantro,0.1,100,1,DP 90,0,90,inulin
+cilantro,0.1,100,3,DP 90,0,90,inulin
+cilantro,1,100,1,DP 90,0,90,inulin
+cilantro,1,100,3,DP 90,0,90,inulin
+cilantro,10,100,2,DP 90,0,90,inulin
+cilantro,10,100,3,DP 90,0,90,inulin
+cilantro,25,100,1,DP 90,0,90,inulin
+cilantro,25,100,3,DP 90,0,90,inulin
+cilantro,50,100,2,DP 90,0,90,inulin
+cilantro,50,100,3,DP 90,0,90,inulin
+cilantro,100,100,1,DP 90,0,90,inulin
+cilantro,100,100,2,DP 90,0,90,inulin

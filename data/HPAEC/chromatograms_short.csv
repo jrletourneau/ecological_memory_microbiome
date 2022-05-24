@@ -1,0 +1,956 @@
+time,nC,type,rep
+2.000167,53.166501,mGAM,1
+2.0085,50.065801,mGAM,1
+2.016833,47.452151,mGAM,1
+2.025167,45.163601,mGAM,1
+2.0335,43.149451,mGAM,1
+2.041833,41.446551,mGAM,1
+2.050167,40.094101,mGAM,1
+2.0585,38.959251,mGAM,1
+2.066833,37.645501,mGAM,1
+2.075167,35.792701,mGAM,1
+2.0835,33.622301,mGAM,1
+2.091833,31.7716,mGAM,1
+2.100167,30.6137,mGAM,1
+2.1085,30.04915,mGAM,1
+2.116833,29.81935,mGAM,1
+2.125167,29.75475,mGAM,1
+2.1335,29.56545,mGAM,1
+2.141833,29.5909,mGAM,1
+2.150167,29.71905,mGAM,1
+2.1585,29.8825,mGAM,1
+2.166833,30.0673,mGAM,1
+2.175167,30.2639,mGAM,1
+2.1835,30.4679,mGAM,1
+2.191833,30.6753,mGAM,1
+2.200167,30.8683,mGAM,1
+2.2085,31.0012,mGAM,1
+2.216833,31.0169,mGAM,1
+2.225167,30.8822,mGAM,1
+2.2335,30.6595,mGAM,1
+2.241833,30.52365,mGAM,1
+2.250167,31.15505,mGAM,1
+2.2585,34.741201,mGAM,1
+2.266833,45.698851,mGAM,1
+2.275167,68.879451,mGAM,1
+2.2835,104.773302,mGAM,1
+2.291833,146.442802,mGAM,1
+2.300167,182.743153,mGAM,1
+2.3085,204.814053,mGAM,1
+2.316833,207.301853,mGAM,1
+2.325167,189.391353,mGAM,1
+2.3335,157.849952,mGAM,1
+2.341833,124.485102,mGAM,1
+2.350167,97.383801,mGAM,1
+2.3585,78.024301,mGAM,1
+2.366833,64.835251,mGAM,1
+2.375167,56.106801,mGAM,1
+2.3835,50.806951,mGAM,1
+2.391833,48.544151,mGAM,1
+2.400167,49.175251,mGAM,1
+2.4085,52.132201,mGAM,1
+2.416833,56.063001,mGAM,1
+2.425167,59.440851,mGAM,1
+2.4335,61.344751,mGAM,1
+2.441833,61.671551,mGAM,1
+2.450167,60.833001,mGAM,1
+2.4585,59.347151,mGAM,1
+2.466833,57.615201,mGAM,1
+2.475167,55.865151,mGAM,1
+2.4835,54.182851,mGAM,1
+2.491833,52.553101,mGAM,1
+2.500167,50.883201,mGAM,1
+2.5085,49.026701,mGAM,1
+2.516833,46.927201,mGAM,1
+2.525167,44.725151,mGAM,1
+2.5335,42.638451,mGAM,1
+2.541833,40.759401,mGAM,1
+2.550167,39.084701,mGAM,1
+2.5585,37.599401,mGAM,1
+2.566833,36.310651,mGAM,1
+2.575167,35.226851,mGAM,1
+2.5835,34.474901,mGAM,1
+2.591833,34.490651,mGAM,1
+2.600167,36.274551,mGAM,1
+2.6085,41.574501,mGAM,1
+2.616833,52.480251,mGAM,1
+2.625167,69.709501,mGAM,1
+2.6335,90.855851,mGAM,1
+2.641833,111.457102,mGAM,1
+2.650167,127.414352,mGAM,1
+2.6585,136.113252,mGAM,1
+2.666833,136.868852,mGAM,1
+2.675167,131.110852,mGAM,1
+2.6835,121.270802,mGAM,1
+2.691833,109.553602,mGAM,1
+2.700167,97.582901,mGAM,1
+2.7085,86.460901,mGAM,1
+2.716833,76.761501,mGAM,1
+2.725167,68.640651,mGAM,1
+2.7335,61.968401,mGAM,1
+2.741833,56.511301,mGAM,1
+2.750167,51.986201,mGAM,1
+2.7585,48.071551,mGAM,1
+2.766833,44.255101,mGAM,1
+2.775167,39.013101,mGAM,1
+2.7835,29.56355,mGAM,1
+2.791833,21.21835,mGAM,1
+2.800167,17.75185,mGAM,1
+2.8085,16.6315,mGAM,1
+2.816833,16.2217,mGAM,1
+2.825167,16.07565,mGAM,1
+2.8335,16.0852,mGAM,1
+2.841833,16.21915,mGAM,1
+2.850167,16.44665,mGAM,1
+2.8585,16.7548,mGAM,1
+2.866833,17.16975,mGAM,1
+2.875167,17.7468,mGAM,1
+2.8835,18.54505,mGAM,1
+2.891833,19.5836,mGAM,1
+2.900167,20.8452,mGAM,1
+2.9085,22.27015,mGAM,1
+2.916833,23.771,mGAM,1
+2.925167,25.2451,mGAM,1
+2.9335,26.59795,mGAM,1
+2.941833,27.7553,mGAM,1
+2.950167,28.68045,mGAM,1
+2.9585,29.368,mGAM,1
+2.966833,29.8273,mGAM,1
+2.975167,30.0712,mGAM,1
+2.9835,30.11125,mGAM,1
+2.991833,29.9512,mGAM,1
+2.008333,36.643251,Artificial gut,7
+2.016667,37.524501,Artificial gut,7
+2.025,38.418051,Artificial gut,7
+2.033333,39.184301,Artificial gut,7
+2.041667,39.712101,Artificial gut,7
+2.05,39.938051,Artificial gut,7
+2.058333,39.859351,Artificial gut,7
+2.066667,39.506751,Artificial gut,7
+2.075,38.918901,Artificial gut,7
+2.083333,38.139301,Artificial gut,7
+2.091667,37.213801,Artificial gut,7
+2.1,36.195901,Artificial gut,7
+2.108333,35.141201,Artificial gut,7
+2.116667,34.093051,Artificial gut,7
+2.125,33.0908,Artificial gut,7
+2.133333,32.17075,Artificial gut,7
+2.141667,31.37025,Artificial gut,7
+2.15,30.7276,Artificial gut,7
+2.158333,30.24035,Artificial gut,7
+2.166667,29.8387,Artificial gut,7
+2.175,29.3381,Artificial gut,7
+2.183333,28.46675,Artificial gut,7
+2.191667,27.0978,Artificial gut,7
+2.2,25.4819,Artificial gut,7
+2.208333,23.9659,Artificial gut,7
+2.216667,22.7195,Artificial gut,7
+2.225,21.80715,Artificial gut,7
+2.233333,21.29005,Artificial gut,7
+2.241667,21.2929,Artificial gut,7
+2.25,22.077,Artificial gut,7
+2.258333,23.9581,Artificial gut,7
+2.266667,27.00195,Artificial gut,7
+2.275,30.76855,Artificial gut,7
+2.283333,34.507701,Artificial gut,7
+2.291667,37.645401,Artificial gut,7
+2.3,39.984151,Artificial gut,7
+2.308333,41.578951,Artificial gut,7
+2.316667,42.573651,Artificial gut,7
+2.325,43.131901,Artificial gut,7
+2.333333,43.412401,Artificial gut,7
+2.341667,43.533151,Artificial gut,7
+2.35,43.543751,Artificial gut,7
+2.358333,43.452451,Artificial gut,7
+2.366667,43.269651,Artificial gut,7
+2.375,43.027501,Artificial gut,7
+2.383333,42.776951,Artificial gut,7
+2.391667,42.578151,Artificial gut,7
+2.4,42.496301,Artificial gut,7
+2.408333,42.577351,Artificial gut,7
+2.416667,42.726401,Artificial gut,7
+2.425,42.728351,Artificial gut,7
+2.433333,42.424001,Artificial gut,7
+2.441667,41.724051,Artificial gut,7
+2.45,40.631301,Artificial gut,7
+2.458333,39.430751,Artificial gut,7
+2.466667,35.780001,Artificial gut,7
+2.475,32.8617,Artificial gut,7
+2.483333,32.51025,Artificial gut,7
+2.491667,32.9931,Artificial gut,7
+2.5,33.656051,Artificial gut,7
+2.508333,34.399001,Artificial gut,7
+2.516667,35.144451,Artificial gut,7
+2.525,35.780451,Artificial gut,7
+2.533333,36.203901,Artificial gut,7
+2.541667,36.376501,Artificial gut,7
+2.55,36.328451,Artificial gut,7
+2.558333,36.125901,Artificial gut,7
+2.566667,35.835551,Artificial gut,7
+2.575,35.512051,Artificial gut,7
+2.583333,35.187801,Artificial gut,7
+2.591667,34.880201,Artificial gut,7
+2.6,34.593051,Artificial gut,7
+2.608333,34.325701,Artificial gut,7
+2.616667,34.083251,Artificial gut,7
+2.625,33.870001,Artificial gut,7
+2.633333,33.686051,Artificial gut,7
+2.641667,33.5237,Artificial gut,7
+2.65,33.37845,Artificial gut,7
+2.658333,33.24295,Artificial gut,7
+2.666667,33.105,Artificial gut,7
+2.675,32.95675,Artificial gut,7
+2.683333,32.79105,Artificial gut,7
+2.691667,32.5981,Artificial gut,7
+2.7,32.3718,Artificial gut,7
+2.708333,32.11065,Artificial gut,7
+2.716667,31.81565,Artificial gut,7
+2.725,31.49285,Artificial gut,7
+2.733333,31.1564,Artificial gut,7
+2.741667,30.8143,Artificial gut,7
+2.75,30.48025,Artificial gut,7
+2.758333,30.15945,Artificial gut,7
+2.766667,29.85925,Artificial gut,7
+2.775,29.5836,Artificial gut,7
+2.783333,29.32535,Artificial gut,7
+2.791667,29.0802,Artificial gut,7
+2.8,28.8418,Artificial gut,7
+2.808333,28.60535,Artificial gut,7
+2.816667,28.36845,Artificial gut,7
+2.825,28.1331,Artificial gut,7
+2.833333,27.90655,Artificial gut,7
+2.841667,27.69975,Artificial gut,7
+2.85,27.5229,Artificial gut,7
+2.858333,27.3899,Artificial gut,7
+2.866667,27.2914,Artificial gut,7
+2.875,27.2191,Artificial gut,7
+2.883333,27.1497,Artificial gut,7
+2.891667,27.06735,Artificial gut,7
+2.9,26.9915,Artificial gut,7
+2.908333,26.9397,Artificial gut,7
+2.916667,26.9094,Artificial gut,7
+2.925,26.87835,Artificial gut,7
+2.933333,26.83025,Artificial gut,7
+2.941667,26.76085,Artificial gut,7
+2.95,26.6814,Artificial gut,7
+2.958333,26.6074,Artificial gut,7
+2.966667,26.54675,Artificial gut,7
+2.975,26.49135,Artificial gut,7
+2.983333,26.42025,Artificial gut,7
+2.991667,26.31475,Artificial gut,7
+2.000167,22.30495,Artificial gut,6
+2.0085,22.8032,Artificial gut,6
+2.016833,23.40325,Artificial gut,6
+2.025167,24.12185,Artificial gut,6
+2.0335,25.0368,Artificial gut,6
+2.041833,26.25075,Artificial gut,6
+2.050167,27.8254,Artificial gut,6
+2.0585,29.69425,Artificial gut,6
+2.066833,31.65145,Artificial gut,6
+2.075167,33.44165,Artificial gut,6
+2.0835,34.880551,Artificial gut,6
+2.091833,35.909751,Artificial gut,6
+2.100167,36.565451,Artificial gut,6
+2.1085,36.917551,Artificial gut,6
+2.116833,37.018301,Artificial gut,6
+2.125167,36.893351,Artificial gut,6
+2.1335,36.548901,Artificial gut,6
+2.141833,35.976751,Artificial gut,6
+2.150167,35.177751,Artificial gut,6
+2.1585,34.200401,Artificial gut,6
+2.166833,33.0934,Artificial gut,6
+2.175167,31.90715,Artificial gut,6
+2.1835,30.68615,Artificial gut,6
+2.191833,29.4701,Artificial gut,6
+2.200167,28.30345,Artificial gut,6
+2.2085,27.23845,Artificial gut,6
+2.216833,26.3298,Artificial gut,6
+2.225167,25.59305,Artificial gut,6
+2.2335,25.0385,Artificial gut,6
+2.241833,24.6624,Artificial gut,6
+2.250167,24.47975,Artificial gut,6
+2.2585,24.49135,Artificial gut,6
+2.266833,24.68375,Artificial gut,6
+2.275167,25.0043,Artificial gut,6
+2.2835,25.3415,Artificial gut,6
+2.291833,25.529,Artificial gut,6
+2.300167,25.4174,Artificial gut,6
+2.3085,24.9494,Artificial gut,6
+2.316833,24.15945,Artificial gut,6
+2.325167,22.98065,Artificial gut,6
+2.3335,21.0363,Artificial gut,6
+2.341833,18.29205,Artificial gut,6
+2.350167,15.64375,Artificial gut,6
+2.3585,13.69105,Artificial gut,6
+2.366833,12.40695,Artificial gut,6
+2.375167,11.6763,Artificial gut,6
+2.3835,11.3381,Artificial gut,6
+2.391833,11.2814,Artificial gut,6
+2.400167,11.459,Artificial gut,6
+2.4085,11.869,Artificial gut,6
+2.416833,12.5502,Artificial gut,6
+2.425167,13.6355,Artificial gut,6
+2.4335,15.4357,Artificial gut,6
+2.441833,18.3136,Artificial gut,6
+2.450167,22.27105,Artificial gut,6
+2.4585,26.77815,Artificial gut,6
+2.466833,31.11065,Artificial gut,6
+2.475167,34.741351,Artificial gut,6
+2.4835,37.450351,Artificial gut,6
+2.491833,39.258751,Artificial gut,6
+2.500167,40.304801,Artificial gut,6
+2.5085,40.770851,Artificial gut,6
+2.516833,40.857401,Artificial gut,6
+2.525167,40.781601,Artificial gut,6
+2.5335,40.726201,Artificial gut,6
+2.541833,40.772701,Artificial gut,6
+2.550167,40.889151,Artificial gut,6
+2.5585,40.971851,Artificial gut,6
+2.566833,40.912651,Artificial gut,6
+2.575167,40.633301,Artificial gut,6
+2.5835,40.139951,Artificial gut,6
+2.591833,39.510901,Artificial gut,6
+2.600167,38.852551,Artificial gut,6
+2.6085,38.243751,Artificial gut,6
+2.616833,37.732401,Artificial gut,6
+2.625167,37.399301,Artificial gut,6
+2.6335,37.430151,Artificial gut,6
+2.641833,38.022751,Artificial gut,6
+2.650167,39.170301,Artificial gut,6
+2.6585,40.515601,Artificial gut,6
+2.666833,41.508951,Artificial gut,6
+2.675167,41.678651,Artificial gut,6
+2.6835,40.824201,Artificial gut,6
+2.691833,39.141801,Artificial gut,6
+2.700167,37.138201,Artificial gut,6
+2.7085,35.569251,Artificial gut,6
+2.716833,30.45085,Artificial gut,6
+2.725167,27.49415,Artificial gut,6
+2.7335,28.123,Artificial gut,6
+2.741833,29.0771,Artificial gut,6
+2.750167,29.9275,Artificial gut,6
+2.7585,30.29625,Artificial gut,6
+2.766833,30.3277,Artificial gut,6
+2.775167,30.21655,Artificial gut,6
+2.7835,30.0524,Artificial gut,6
+2.791833,29.8426,Artificial gut,6
+2.800167,29.58135,Artificial gut,6
+2.8085,29.2862,Artificial gut,6
+2.816833,28.9876,Artificial gut,6
+2.825167,28.7072,Artificial gut,6
+2.8335,28.45565,Artificial gut,6
+2.841833,28.22995,Artificial gut,6
+2.850167,28.01045,Artificial gut,6
+2.8585,27.789,Artificial gut,6
+2.866833,27.56125,Artificial gut,6
+2.875167,27.3239,Artificial gut,6
+2.8835,27.07595,Artificial gut,6
+2.891833,26.8303,Artificial gut,6
+2.900167,26.5935,Artificial gut,6
+2.9085,26.37385,Artificial gut,6
+2.916833,26.17585,Artificial gut,6
+2.925167,26.00765,Artificial gut,6
+2.9335,25.8758,Artificial gut,6
+2.941833,25.777,Artificial gut,6
+2.950167,25.70895,Artificial gut,6
+2.9585,25.6598,Artificial gut,6
+2.966833,25.6163,Artificial gut,6
+2.975167,25.5704,Artificial gut,6
+2.9835,25.5068,Artificial gut,6
+2.991833,25.42275,Artificial gut,6
+2.008333,33.571901,Artificial gut,5
+2.016667,34.473651,Artificial gut,5
+2.025,35.426051,Artificial gut,5
+2.033333,36.301051,Artificial gut,5
+2.041667,36.962251,Artificial gut,5
+2.05,37.307301,Artificial gut,5
+2.058333,37.301101,Artificial gut,5
+2.066667,36.974801,Artificial gut,5
+2.075,36.383451,Artificial gut,5
+2.083333,35.592751,Artificial gut,5
+2.091667,34.666901,Artificial gut,5
+2.1,33.677301,Artificial gut,5
+2.108333,32.68755,Artificial gut,5
+2.116667,31.7365,Artificial gut,5
+2.125,30.8392,Artificial gut,5
+2.133333,30.0153,Artificial gut,5
+2.141667,29.29065,Artificial gut,5
+2.15,28.69925,Artificial gut,5
+2.158333,28.24285,Artificial gut,5
+2.166667,27.8516,Artificial gut,5
+2.175,27.34045,Artificial gut,5
+2.183333,26.4724,Artificial gut,5
+2.191667,25.14235,Artificial gut,5
+2.2,23.51775,Artificial gut,5
+2.208333,21.90045,Artificial gut,5
+2.216667,20.55465,Artificial gut,5
+2.225,19.62955,Artificial gut,5
+2.233333,19.20975,Artificial gut,5
+2.241667,19.46215,Artificial gut,5
+2.25,20.6726,Artificial gut,5
+2.258333,23.09295,Artificial gut,5
+2.266667,26.5959,Artificial gut,5
+2.275,30.5618,Artificial gut,5
+2.283333,34.237001,Artificial gut,5
+2.291667,37.160551,Artificial gut,5
+2.3,39.235751,Artificial gut,5
+2.308333,40.581251,Artificial gut,5
+2.316667,41.376801,Artificial gut,5
+2.325,41.805851,Artificial gut,5
+2.333333,42.000851,Artificial gut,5
+2.341667,42.051551,Artificial gut,5
+2.35,41.982151,Artificial gut,5
+2.358333,41.802651,Artificial gut,5
+2.366667,41.547851,Artificial gut,5
+2.375,41.285751,Artificial gut,5
+2.383333,41.087801,Artificial gut,5
+2.391667,41.043401,Artificial gut,5
+2.4,41.262351,Artificial gut,5
+2.408333,41.720201,Artificial gut,5
+2.416667,42.162451,Artificial gut,5
+2.425,42.270501,Artificial gut,5
+2.433333,41.828901,Artificial gut,5
+2.441667,40.734101,Artificial gut,5
+2.45,39.041351,Artificial gut,5
+2.458333,35.559351,Artificial gut,5
+2.466667,32.15945,Artificial gut,5
+2.475,31.5436,Artificial gut,5
+2.483333,31.9216,Artificial gut,5
+2.491667,32.6193,Artificial gut,5
+2.5,33.4698,Artificial gut,5
+2.508333,34.310001,Artificial gut,5
+2.516667,34.939601,Artificial gut,5
+2.525,35.235701,Artificial gut,5
+2.533333,35.208201,Artificial gut,5
+2.541667,34.948201,Artificial gut,5
+2.55,34.570451,Artificial gut,5
+2.558333,34.156551,Artificial gut,5
+2.566667,33.751951,Artificial gut,5
+2.575,33.3726,Artificial gut,5
+2.583333,33.0181,Artificial gut,5
+2.591667,32.68545,Artificial gut,5
+2.6,32.36815,Artificial gut,5
+2.608333,32.0686,Artificial gut,5
+2.616667,31.7909,Artificial gut,5
+2.625,31.53775,Artificial gut,5
+2.633333,31.3086,Artificial gut,5
+2.641667,31.0996,Artificial gut,5
+2.65,30.90555,Artificial gut,5
+2.658333,30.7194,Artificial gut,5
+2.666667,30.5356,Artificial gut,5
+2.675,30.3464,Artificial gut,5
+2.683333,30.1444,Artificial gut,5
+2.691667,29.9271,Artificial gut,5
+2.7,29.69485,Artificial gut,5
+2.708333,29.44655,Artificial gut,5
+2.716667,29.18875,Artificial gut,5
+2.725,28.9265,Artificial gut,5
+2.733333,28.67275,Artificial gut,5
+2.741667,28.4302,Artificial gut,5
+2.75,28.19975,Artificial gut,5
+2.758333,27.97855,Artificial gut,5
+2.766667,27.76255,Artificial gut,5
+2.775,27.5457,Artificial gut,5
+2.783333,27.32295,Artificial gut,5
+2.791667,27.0929,Artificial gut,5
+2.8,26.856,Artificial gut,5
+2.808333,26.61,Artificial gut,5
+2.816667,26.3721,Artificial gut,5
+2.825,26.15165,Artificial gut,5
+2.833333,25.9575,Artificial gut,5
+2.841667,25.8006,Artificial gut,5
+2.85,25.68385,Artificial gut,5
+2.858333,25.5992,Artificial gut,5
+2.866667,25.537,Artificial gut,5
+2.875,25.4695,Artificial gut,5
+2.883333,25.4004,Artificial gut,5
+2.891667,25.3437,Artificial gut,5
+2.9,25.30025,Artificial gut,5
+2.908333,25.25405,Artificial gut,5
+2.916667,25.18485,Artificial gut,5
+2.925,25.09255,Artificial gut,5
+2.933333,24.987,Artificial gut,5
+2.941667,24.87955,Artificial gut,5
+2.95,24.77845,Artificial gut,5
+2.958333,24.68295,Artificial gut,5
+2.966667,24.581,Artificial gut,5
+2.975,24.46535,Artificial gut,5
+2.983333,24.33115,Artificial gut,5
+2.991667,24.18755,Artificial gut,5
+2.008333,30.63765,Artificial gut,4
+2.016667,32.1373,Artificial gut,4
+2.025,33.673251,Artificial gut,4
+2.033333,35.070551,Artificial gut,4
+2.041667,36.153551,Artificial gut,4
+2.05,36.802801,Artificial gut,4
+2.058333,37.005551,Artificial gut,4
+2.066667,36.823901,Artificial gut,4
+2.075,36.338751,Artificial gut,4
+2.083333,35.622301,Artificial gut,4
+2.091667,34.742951,Artificial gut,4
+2.1,33.765701,Artificial gut,4
+2.108333,32.75035,Artificial gut,4
+2.116667,31.7441,Artificial gut,4
+2.125,30.77925,Artificial gut,4
+2.133333,29.89415,Artificial gut,4
+2.141667,29.1315,Artificial gut,4
+2.15,28.5354,Artificial gut,4
+2.158333,28.11495,Artificial gut,4
+2.166667,27.7868,Artificial gut,4
+2.175,27.3171,Artificial gut,4
+2.183333,26.35255,Artificial gut,4
+2.191667,24.7284,Artificial gut,4
+2.2,22.71875,Artificial gut,4
+2.208333,20.77375,Artificial gut,4
+2.216667,19.2127,Artificial gut,4
+2.225,18.1757,Artificial gut,4
+2.233333,17.69605,Artificial gut,4
+2.241667,17.8894,Artificial gut,4
+2.25,19.03925,Artificial gut,4
+2.258333,21.4695,Artificial gut,4
+2.266667,25.13475,Artificial gut,4
+2.275,29.4072,Artificial gut,4
+2.283333,33.44815,Artificial gut,4
+2.291667,36.718201,Artificial gut,4
+2.3,39.089351,Artificial gut,4
+2.308333,40.659301,Artificial gut,4
+2.316667,41.600101,Artificial gut,4
+2.325,42.095151,Artificial gut,4
+2.333333,42.315501,Artificial gut,4
+2.341667,42.365901,Artificial gut,4
+2.35,42.276801,Artificial gut,4
+2.358333,42.060401,Artificial gut,4
+2.366667,41.765801,Artificial gut,4
+2.375,41.485851,Artificial gut,4
+2.383333,41.331101,Artificial gut,4
+2.391667,41.433051,Artificial gut,4
+2.4,41.939101,Artificial gut,4
+2.408333,42.789351,Artificial gut,4
+2.416667,43.555051,Artificial gut,4
+2.425,43.774251,Artificial gut,4
+2.433333,43.213601,Artificial gut,4
+2.441667,41.818201,Artificial gut,4
+2.45,39.793701,Artificial gut,4
+2.458333,35.259351,Artificial gut,4
+2.466667,31.53255,Artificial gut,4
+2.475,30.87835,Artificial gut,4
+2.483333,31.31295,Artificial gut,4
+2.491667,32.1494,Artificial gut,4
+2.5,33.1938,Artificial gut,4
+2.508333,34.204651,Artificial gut,4
+2.516667,34.918801,Artificial gut,4
+2.525,35.225851,Artificial gut,4
+2.533333,35.179801,Artificial gut,4
+2.541667,34.911301,Artificial gut,4
+2.55,34.544351,Artificial gut,4
+2.558333,34.164301,Artificial gut,4
+2.566667,33.799351,Artificial gut,4
+2.575,33.45905,Artificial gut,4
+2.583333,33.13705,Artificial gut,4
+2.591667,32.83405,Artificial gut,4
+2.6,32.546,Artificial gut,4
+2.608333,32.27835,Artificial gut,4
+2.616667,32.0395,Artificial gut,4
+2.625,31.83035,Artificial gut,4
+2.633333,31.6505,Artificial gut,4
+2.641667,31.4918,Artificial gut,4
+2.65,31.34915,Artificial gut,4
+2.658333,31.2092,Artificial gut,4
+2.666667,31.06585,Artificial gut,4
+2.675,30.9072,Artificial gut,4
+2.683333,30.7254,Artificial gut,4
+2.691667,30.51165,Artificial gut,4
+2.7,30.2683,Artificial gut,4
+2.708333,29.9921,Artificial gut,4
+2.716667,29.6891,Artificial gut,4
+2.725,29.3712,Artificial gut,4
+2.733333,29.05165,Artificial gut,4
+2.741667,28.7446,Artificial gut,4
+2.75,28.4463,Artificial gut,4
+2.758333,28.1539,Artificial gut,4
+2.766667,27.86505,Artificial gut,4
+2.775,27.574,Artificial gut,4
+2.783333,27.28105,Artificial gut,4
+2.791667,26.99095,Artificial gut,4
+2.8,26.71085,Artificial gut,4
+2.808333,26.44855,Artificial gut,4
+2.816667,26.21395,Artificial gut,4
+2.825,26.0137,Artificial gut,4
+2.833333,25.8605,Artificial gut,4
+2.841667,25.7551,Artificial gut,4
+2.85,25.6924,Artificial gut,4
+2.858333,25.6618,Artificial gut,4
+2.866667,25.6469,Artificial gut,4
+2.875,25.63635,Artificial gut,4
+2.883333,25.64275,Artificial gut,4
+2.891667,25.6658,Artificial gut,4
+2.9,25.6862,Artificial gut,4
+2.908333,25.68485,Artificial gut,4
+2.916667,25.6565,Artificial gut,4
+2.925,25.6081,Artificial gut,4
+2.933333,25.5526,Artificial gut,4
+2.941667,25.4978,Artificial gut,4
+2.95,25.44235,Artificial gut,4
+2.958333,25.37555,Artificial gut,4
+2.966667,25.2831,Artificial gut,4
+2.975,25.15925,Artificial gut,4
+2.983333,25.0028,Artificial gut,4
+2.991667,24.8365,Artificial gut,4
+2.000167,28.60885,Artificial gut,3
+2.0085,28.3648,Artificial gut,3
+2.016833,28.21605,Artificial gut,3
+2.025167,28.1664,Artificial gut,3
+2.0335,28.2438,Artificial gut,3
+2.041833,28.5051,Artificial gut,3
+2.050167,29.00065,Artificial gut,3
+2.0585,29.73775,Artificial gut,3
+2.066833,30.63105,Artificial gut,3
+2.075167,31.53355,Artificial gut,3
+2.0835,32.2889,Artificial gut,3
+2.091833,32.8183,Artificial gut,3
+2.100167,33.11475,Artificial gut,3
+2.1085,33.2205,Artificial gut,3
+2.116833,33.18475,Artificial gut,3
+2.125167,33.02765,Artificial gut,3
+2.1335,32.74125,Artificial gut,3
+2.141833,32.29655,Artificial gut,3
+2.150167,31.6786,Artificial gut,3
+2.1585,30.91135,Artificial gut,3
+2.166833,30.044,Artificial gut,3
+2.175167,29.12785,Artificial gut,3
+2.1835,28.1933,Artificial gut,3
+2.191833,27.26345,Artificial gut,3
+2.200167,26.35265,Artificial gut,3
+2.2085,25.49465,Artificial gut,3
+2.216833,24.7297,Artificial gut,3
+2.225167,24.08985,Artificial gut,3
+2.2335,23.5876,Artificial gut,3
+2.241833,23.2254,Artificial gut,3
+2.250167,23.01275,Artificial gut,3
+2.2585,22.9526,Artificial gut,3
+2.266833,23.0386,Artificial gut,3
+2.275167,23.24795,Artificial gut,3
+2.2835,23.51405,Artificial gut,3
+2.291833,23.7263,Artificial gut,3
+2.300167,23.7614,Artificial gut,3
+2.3085,23.54055,Artificial gut,3
+2.316833,23.0761,Artificial gut,3
+2.325167,22.4412,Artificial gut,3
+2.3335,21.62645,Artificial gut,3
+2.341833,20.4259,Artificial gut,3
+2.350167,18.7751,Artificial gut,3
+2.3585,17.0958,Artificial gut,3
+2.366833,15.75075,Artificial gut,3
+2.375167,14.81875,Artificial gut,3
+2.3835,14.27865,Artificial gut,3
+2.391833,14.0504,Artificial gut,3
+2.400167,14.07585,Artificial gut,3
+2.4085,14.347,Artificial gut,3
+2.416833,14.8859,Artificial gut,3
+2.425167,15.77055,Artificial gut,3
+2.4335,17.22635,Artificial gut,3
+2.441833,19.64195,Artificial gut,3
+2.450167,23.24255,Artificial gut,3
+2.4585,27.67005,Artificial gut,3
+2.466833,32.15635,Artificial gut,3
+2.475167,36.052701,Artificial gut,3
+2.4835,39.087651,Artificial gut,3
+2.491833,41.241301,Artificial gut,3
+2.500167,42.535051,Artificial gut,3
+2.5085,43.009201,Artificial gut,3
+2.516833,42.770501,Artificial gut,3
+2.525167,42.063901,Artificial gut,3
+2.5335,41.220801,Artificial gut,3
+2.541833,40.502251,Artificial gut,3
+2.550167,39.999551,Artificial gut,3
+2.5585,39.651951,Artificial gut,3
+2.566833,39.328551,Artificial gut,3
+2.575167,38.916301,Artificial gut,3
+2.5835,38.358651,Artificial gut,3
+2.591833,37.679551,Artificial gut,3
+2.600167,36.946401,Artificial gut,3
+2.6085,36.243301,Artificial gut,3
+2.616833,35.606051,Artificial gut,3
+2.625167,35.064801,Artificial gut,3
+2.6335,34.719051,Artificial gut,3
+2.641833,34.771651,Artificial gut,3
+2.650167,35.380051,Artificial gut,3
+2.6585,36.405551,Artificial gut,3
+2.666833,37.388751,Artificial gut,3
+2.675167,37.833351,Artificial gut,3
+2.6835,37.487701,Artificial gut,3
+2.691833,36.388901,Artificial gut,3
+2.700167,34.835201,Artificial gut,3
+2.7085,33.31825,Artificial gut,3
+2.716833,28.76575,Artificial gut,3
+2.725167,25.74945,Artificial gut,3
+2.7335,26.27965,Artificial gut,3
+2.741833,27.05695,Artificial gut,3
+2.750167,27.8111,Artificial gut,3
+2.7585,28.17475,Artificial gut,3
+2.766833,28.2285,Artificial gut,3
+2.775167,28.11525,Artificial gut,3
+2.7835,27.9218,Artificial gut,3
+2.791833,27.68485,Artificial gut,3
+2.800167,27.4234,Artificial gut,3
+2.8085,27.16355,Artificial gut,3
+2.816833,26.92535,Artificial gut,3
+2.825167,26.71995,Artificial gut,3
+2.8335,26.53995,Artificial gut,3
+2.841833,26.3691,Artificial gut,3
+2.850167,26.1983,Artificial gut,3
+2.8585,26.0136,Artificial gut,3
+2.866833,25.81325,Artificial gut,3
+2.875167,25.6091,Artificial gut,3
+2.8835,25.40225,Artificial gut,3
+2.891833,25.20175,Artificial gut,3
+2.900167,25.01385,Artificial gut,3
+2.9085,24.84685,Artificial gut,3
+2.916833,24.70105,Artificial gut,3
+2.925167,24.5819,Artificial gut,3
+2.9335,24.4914,Artificial gut,3
+2.941833,24.4326,Artificial gut,3
+2.950167,24.39965,Artificial gut,3
+2.9585,24.386,Artificial gut,3
+2.966833,24.37855,Artificial gut,3
+2.975167,24.3643,Artificial gut,3
+2.9835,24.3375,Artificial gut,3
+2.991833,24.29365,Artificial gut,3
+2.008333,30.6845,Artificial gut,2
+2.016667,32.0776,Artificial gut,2
+2.025,33.5016,Artificial gut,2
+2.033333,34.784251,Artificial gut,2
+2.041667,35.782151,Artificial gut,2
+2.05,36.421501,Artificial gut,2
+2.058333,36.708251,Artificial gut,2
+2.066667,36.685901,Artificial gut,2
+2.075,36.401601,Artificial gut,2
+2.083333,35.889351,Artificial gut,2
+2.091667,35.185651,Artificial gut,2
+2.1,34.328951,Artificial gut,2
+2.108333,33.36385,Artificial gut,2
+2.116667,32.3439,Artificial gut,2
+2.125,31.3239,Artificial gut,2
+2.133333,30.3614,Artificial gut,2
+2.141667,29.51995,Artificial gut,2
+2.15,28.84375,Artificial gut,2
+2.158333,28.36125,Artificial gut,2
+2.166667,28.01315,Artificial gut,2
+2.175,27.58105,Artificial gut,2
+2.183333,26.66315,Artificial gut,2
+2.191667,24.9851,Artificial gut,2
+2.2,22.83375,Artificial gut,2
+2.208333,20.78525,Artificial gut,2
+2.216667,19.13325,Artificial gut,2
+2.225,17.9574,Artificial gut,2
+2.233333,17.2603,Artificial gut,2
+2.241667,17.0763,Artificial gut,2
+2.25,17.56705,Artificial gut,2
+2.258333,18.99415,Artificial gut,2
+2.266667,21.52865,Artificial gut,2
+2.275,24.97065,Artificial gut,2
+2.283333,28.7442,Artificial gut,2
+2.291667,32.2373,Artificial gut,2
+2.3,35.083701,Artificial gut,2
+2.308333,37.202951,Artificial gut,2
+2.316667,38.681101,Artificial gut,2
+2.325,39.660651,Artificial gut,2
+2.333333,40.289951,Artificial gut,2
+2.341667,40.689951,Artificial gut,2
+2.35,40.923951,Artificial gut,2
+2.358333,41.003251,Artificial gut,2
+2.366667,40.930801,Artificial gut,2
+2.375,40.754951,Artificial gut,2
+2.383333,40.563451,Artificial gut,2
+2.391667,40.462701,Artificial gut,2
+2.4,40.565801,Artificial gut,2
+2.408333,40.966501,Artificial gut,2
+2.416667,41.559901,Artificial gut,2
+2.425,42.055101,Artificial gut,2
+2.433333,42.186901,Artificial gut,2
+2.441667,41.856201,Artificial gut,2
+2.45,41.066401,Artificial gut,2
+2.458333,39.876201,Artificial gut,2
+2.466667,38.513651,Artificial gut,2
+2.475,36.314401,Artificial gut,2
+2.483333,32.46415,Artificial gut,2
+2.491667,31.66905,Artificial gut,2
+2.5,31.86965,Artificial gut,2
+2.508333,32.22805,Artificial gut,2
+2.516667,32.6343,Artificial gut,2
+2.525,33.08885,Artificial gut,2
+2.533333,33.5284,Artificial gut,2
+2.541667,33.855901,Artificial gut,2
+2.55,34.007551,Artificial gut,2
+2.558333,33.977451,Artificial gut,2
+2.566667,33.788501,Artificial gut,2
+2.575,33.4809,Artificial gut,2
+2.583333,33.1041,Artificial gut,2
+2.591667,32.708,Artificial gut,2
+2.6,32.3306,Artificial gut,2
+2.608333,31.9937,Artificial gut,2
+2.616667,31.7099,Artificial gut,2
+2.625,31.47745,Artificial gut,2
+2.633333,31.28875,Artificial gut,2
+2.641667,31.12805,Artificial gut,2
+2.65,30.98325,Artificial gut,2
+2.658333,30.8378,Artificial gut,2
+2.666667,30.68315,Artificial gut,2
+2.675,30.51165,Artificial gut,2
+2.683333,30.3175,Artificial gut,2
+2.691667,30.09215,Artificial gut,2
+2.7,29.83585,Artificial gut,2
+2.708333,29.55175,Artificial gut,2
+2.716667,29.23555,Artificial gut,2
+2.725,28.8968,Artificial gut,2
+2.733333,28.5487,Artificial gut,2
+2.741667,28.20395,Artificial gut,2
+2.75,27.8704,Artificial gut,2
+2.758333,27.55475,Artificial gut,2
+2.766667,27.26005,Artificial gut,2
+2.775,26.99335,Artificial gut,2
+2.783333,26.749,Artificial gut,2
+2.791667,26.52325,Artificial gut,2
+2.8,26.30835,Artificial gut,2
+2.808333,26.09485,Artificial gut,2
+2.816667,25.87845,Artificial gut,2
+2.825,25.6593,Artificial gut,2
+2.833333,25.4435,Artificial gut,2
+2.841667,25.23405,Artificial gut,2
+2.85,25.04845,Artificial gut,2
+2.858333,24.89635,Artificial gut,2
+2.866667,24.7835,Artificial gut,2
+2.875,24.71125,Artificial gut,2
+2.883333,24.6572,Artificial gut,2
+2.891667,24.5843,Artificial gut,2
+2.9,24.486,Artificial gut,2
+2.908333,24.39075,Artificial gut,2
+2.916667,24.3227,Artificial gut,2
+2.925,24.2729,Artificial gut,2
+2.933333,24.2152,Artificial gut,2
+2.941667,24.1255,Artificial gut,2
+2.95,24.00825,Artificial gut,2
+2.958333,23.87905,Artificial gut,2
+2.966667,23.7606,Artificial gut,2
+2.975,23.6616,Artificial gut,2
+2.983333,23.577,Artificial gut,2
+2.991667,23.48715,Artificial gut,2
+2.008333,23.9293,Artificial gut,1
+2.016667,24.29935,Artificial gut,1
+2.025,24.78,Artificial gut,1
+2.033333,25.41725,Artificial gut,1
+2.041667,26.3108,Artificial gut,1
+2.05,27.5602,Artificial gut,1
+2.058333,29.17795,Artificial gut,1
+2.066667,31.0385,Artificial gut,1
+2.075,32.9164,Artificial gut,1
+2.083333,34.588601,Artificial gut,1
+2.091667,35.943701,Artificial gut,1
+2.1,36.970301,Artificial gut,1
+2.108333,37.715201,Artificial gut,1
+2.116667,38.175651,Artificial gut,1
+2.125,38.334951,Artificial gut,1
+2.133333,38.191551,Artificial gut,1
+2.141667,37.757901,Artificial gut,1
+2.15,37.057101,Artificial gut,1
+2.158333,36.122951,Artificial gut,1
+2.166667,35.003301,Artificial gut,1
+2.175,33.751201,Artificial gut,1
+2.183333,32.41185,Artificial gut,1
+2.191667,31.03185,Artificial gut,1
+2.2,29.65885,Artificial gut,1
+2.208333,28.35095,Artificial gut,1
+2.216667,27.17705,Artificial gut,1
+2.225,26.18415,Artificial gut,1
+2.233333,25.38865,Artificial gut,1
+2.241667,24.79485,Artificial gut,1
+2.25,24.4095,Artificial gut,1
+2.258333,24.24065,Artificial gut,1
+2.266667,24.28535,Artificial gut,1
+2.275,24.51115,Artificial gut,1
+2.283333,24.84255,Artificial gut,1
+2.291667,25.1378,Artificial gut,1
+2.3,25.23125,Artificial gut,1
+2.308333,25.00075,Artificial gut,1
+2.316667,24.4275,Artificial gut,1
+2.325,23.54505,Artificial gut,1
+2.333333,22.16635,Artificial gut,1
+2.341667,19.87295,Artificial gut,1
+2.35,16.9872,Artificial gut,1
+2.358333,14.5825,Artificial gut,1
+2.366667,12.9451,Artificial gut,1
+2.375,11.90845,Artificial gut,1
+2.383333,11.3405,Artificial gut,1
+2.391667,11.1063,Artificial gut,1
+2.4,11.11615,Artificial gut,1
+2.408333,11.33595,Artificial gut,1
+2.416667,11.76585,Artificial gut,1
+2.425,12.456,Artificial gut,1
+2.433333,13.54125,Artificial gut,1
+2.441667,15.2806,Artificial gut,1
+2.45,17.91045,Artificial gut,1
+2.458333,21.37795,Artificial gut,1
+2.466667,25.2765,Artificial gut,1
+2.475,29.1087,Artificial gut,1
+2.483333,32.52875,Artificial gut,1
+2.491667,35.356901,Artificial gut,1
+2.5,37.477751,Artificial gut,1
+2.508333,38.842751,Artificial gut,1
+2.516667,39.486301,Artificial gut,1
+2.525,39.548901,Artificial gut,1
+2.533333,39.271401,Artificial gut,1
+2.541667,38.901401,Artificial gut,1
+2.55,38.582301,Artificial gut,1
+2.558333,38.322801,Artificial gut,1
+2.566667,38.070001,Artificial gut,1
+2.575,37.752601,Artificial gut,1
+2.583333,37.323051,Artificial gut,1
+2.591667,36.792051,Artificial gut,1
+2.6,36.216051,Artificial gut,1
+2.608333,35.666601,Artificial gut,1
+2.616667,35.192251,Artificial gut,1
+2.625,34.819101,Artificial gut,1
+2.633333,34.631451,Artificial gut,1
+2.641667,34.813801,Artificial gut,1
+2.65,35.547951,Artificial gut,1
+2.658333,36.793651,Artificial gut,1
+2.666667,38.218051,Artificial gut,1
+2.675,39.347751,Artificial gut,1
+2.683333,39.768451,Artificial gut,1
+2.691667,39.280001,Artificial gut,1
+2.7,38.040601,Artificial gut,1
+2.708333,36.462201,Artificial gut,1
+2.716667,34.841501,Artificial gut,1
+2.725,33.46745,Artificial gut,1
+2.733333,33.0293,Artificial gut,1
+2.741667,27.48125,Artificial gut,1
+2.75,26.963,Artificial gut,1
+2.758333,27.68855,Artificial gut,1
+2.766667,28.5491,Artificial gut,1
+2.775,28.87155,Artificial gut,1
+2.783333,28.72485,Artificial gut,1
+2.791667,28.3771,Artificial gut,1
+2.8,28.00715,Artificial gut,1
+2.808333,27.66615,Artificial gut,1
+2.816667,27.33925,Artificial gut,1
+2.825,26.9998,Artificial gut,1
+2.833333,26.6464,Artificial gut,1
+2.841667,26.2867,Artificial gut,1
+2.85,25.9398,Artificial gut,1
+2.858333,25.61515,Artificial gut,1
+2.866667,25.325,Artificial gut,1
+2.875,25.0711,Artificial gut,1
+2.883333,24.84345,Artificial gut,1
+2.891667,24.63865,Artificial gut,1
+2.9,24.4453,Artificial gut,1
+2.908333,24.26095,Artificial gut,1
+2.916667,24.0818,Artificial gut,1
+2.925,23.9092,Artificial gut,1
+2.933333,23.74755,Artificial gut,1
+2.941667,23.6006,Artificial gut,1
+2.95,23.4791,Artificial gut,1
+2.958333,23.38465,Artificial gut,1
+2.966667,23.31505,Artificial gut,1
+2.975,23.2628,Artificial gut,1
+2.983333,23.2181,Artificial gut,1
+2.991667,23.1694,Artificial gut,1
