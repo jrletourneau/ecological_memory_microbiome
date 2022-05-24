@@ -1,0 +1,199 @@
+Kingdom	Phylum	Class	Order	Family	Genus	Species
+seq_1	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_2	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_3	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Anaerosalibacter	bizertensis
+seq_4	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	uniformis
+seq_5	Bacteria	Firmicutes	Bacilli	Lactobacillales	Enterococcaceae	Enterococcus	NA
+seq_6	Bacteria	Proteobacteria	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Escherichia-Shigella	NA
+seq_7	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	lacrimalis
+seq_8	Bacteria	Firmicutes	Clostridia	Clostridiales	Clostridiaceae	Clostridium sensu stricto 1	NA
+seq_9	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_10	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnoclostridium	NA
+seq_11	Bacteria	Firmicutes	Negativicutes	Veillonellales-Selenomonadales	Veillonellaceae	Veillonella	NA
+seq_12	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnoclostridium	NA
+seq_13	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	caccae
+seq_14	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_15	Bacteria	Campylobacterota	Campylobacteria	Campylobacterales	Campylobacteraceae	Campylobacter	NA
+seq_16	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnoclostridium	NA
+seq_17	Bacteria	Firmicutes	Clostridia	Oscillospirales	Oscillospiraceae	Flavonifractor	plautii
+seq_18	Bacteria	Firmicutes	Bacilli	Lactobacillales	Streptococcaceae	Streptococcus	NA
+seq_19	Bacteria	Actinobacteriota	Actinobacteria	Bifidobacteriales	Bifidobacteriaceae	Bifidobacterium	NA
+seq_20	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Finegoldia	magna
+seq_21	Bacteria	Firmicutes	Clostridia	Peptococcales	Peptococcaceae	Peptococcus	niger
+seq_22	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_23	Bacteria	Firmicutes	Negativicutes	Acidaminococcales	Acidaminococcaceae	Phascolarctobacterium	faecium
+seq_24	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Hungatella	NA
+seq_25	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_26	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Anaerococcus	vaginalis
+seq_27	Bacteria	Firmicutes	Negativicutes	Veillonellales-Selenomonadales	Veillonellaceae	Veillonella	NA
+seq_28	Bacteria	Firmicutes	Clostridia	Clostridiales	Clostridiaceae	Clostridium sensu stricto 15	cochlearium
+seq_29	Bacteria	Firmicutes	Negativicutes	Veillonellales-Selenomonadales	Veillonellaceae	Veillonella	parvula
+seq_30	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Dorea	formicigenerans
+seq_31	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Tissierella	NA
+seq_32	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Tannerellaceae	Parabacteroides	merdae
+seq_33	Bacteria	Firmicutes	Bacilli	Erysipelotrichales	Erysipelatoclostridiaceae	Erysipelotrichaceae UCG-003	bacterium
+seq_34	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_35	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Blautia	NA
+seq_36	Bacteria	Firmicutes	Bacilli	Erysipelotrichales	Erysipelatoclostridiaceae	Erysipelatoclostridium	ramosum
+seq_37	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnospiraceae NK4A136 group	NA
+seq_38	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Hungatella	hathewayi
+seq_39	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_40	Bacteria	Firmicutes	Negativicutes	Veillonellales-Selenomonadales	Veillonellaceae	NA	NA
+seq_41	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Finegoldia	NA
+seq_42	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_43	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Porphyromonadaceae	Porphyromonas	asaccharolytica
+seq_44	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Blautia	NA
+seq_45	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnospiraceae UCG-009	NA
+seq_46	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_47	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	GCA-900066755	NA
+seq_48	Bacteria	Firmicutes	Clostridia	Eubacteriales	Eubacteriaceae	Eubacterium	NA
+seq_49	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_50	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnoclostridium	NA
+seq_51	Bacteria	Firmicutes	Clostridia	Oscillospirales	Ruminococcaceae	Phocea	massiliensis
+seq_52	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Dorea	longicatena
+seq_53	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Murdochiella	asaccharolytica
+seq_54	Bacteria	Firmicutes	Bacilli	Erysipelotrichales	Erysipelotrichaceae	[Clostridium] innocuum group	NA
+seq_55	Bacteria	Firmicutes	Clostridia	Oscillospirales	Oscillospiraceae	Colidextribacter	NA
+seq_56	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Coprococcus	comes
+seq_57	Bacteria	Firmicutes	Clostridia	Clostridiales	Clostridiaceae	Clostridium sensu stricto 18	NA
+seq_58	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_59	Bacteria	Firmicutes	Clostridia	Oscillospirales	Oscillospiraceae	Flavonifractor	NA
+seq_60	Bacteria	Firmicutes	Bacilli	Erysipelotrichales	Erysipelotrichaceae	Dielma	fastidiosa
+seq_61	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Anaerosalibacter	NA
+seq_62	Bacteria	Firmicutes	Clostridia	Oscillospirales	Ruminococcaceae	NA	NA
+seq_63	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_64	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Anaerosalibacter	NA
+seq_65	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnoclostridium	NA
+seq_66	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Peptostreptococcaceae	Terrisporobacter	NA
+seq_67	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Peptostreptococcaceae	Paeniclostridium	NA
+seq_68	Bacteria	Firmicutes	Bacilli	Erysipelotrichales	Erysipelotrichaceae	Holdemania	NA
+seq_69	Bacteria	Firmicutes	Clostridia	Oscillospirales	Oscillospiraceae	Oscillibacter	NA
+seq_70	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Sellimonas	intestinalis
+seq_71	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Anaerovoracaceae	Mogibacterium	NA
+seq_72	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Dorea	NA
+seq_73	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Dorea	NA
+seq_74	Bacteria	Proteobacteria	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Klebsiella	NA
+seq_75	Bacteria	Firmicutes	Bacilli	Erysipelotrichales	Erysipelotrichaceae	[Clostridium] innocuum group	NA
+seq_76	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Anaerovoracaceae	Mogibacterium	NA
+seq_77	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnospiraceae NK4A136 group	NA
+seq_78	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Hungatella	NA
+seq_79	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_80	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	[Eubacterium] fissicatena group	NA
+seq_81	Bacteria	Actinobacteriota	Actinobacteria	Bifidobacteriales	Bifidobacteriaceae	Bifidobacterium	NA
+seq_82	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Anaerostipes	caccae
+seq_83	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Anaerosalibacter	NA
+seq_84	Bacteria	Firmicutes	Bacilli	Erysipelotrichales	Erysipelotrichaceae	[Clostridium] innocuum group	NA
+seq_85	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnoclostridium	NA
+seq_86	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lactonifactor	NA
+seq_87	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Tannerellaceae	Parabacteroides	distasonis
+seq_88	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_89	Bacteria	Firmicutes	Negativicutes	Veillonellales-Selenomonadales	Veillonellaceae	Veillonella	NA
+seq_90	Bacteria	Firmicutes	Negativicutes	Veillonellales-Selenomonadales	Veillonellaceae	Megasphaera	micronuciformis
+seq_91	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Tannerellaceae	Parabacteroides	distasonis
+seq_92	Bacteria	Firmicutes	Negativicutes	Veillonellales-Selenomonadales	Veillonellaceae	Dialister	NA
+seq_93	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_94	Bacteria	Actinobacteriota	Coriobacteriia	Coriobacteriales	Coriobacteriaceae	Collinsella	aerofaciens
+seq_95	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_96	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_97	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_98	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Eisenbergiella	tayi
+seq_99	Bacteria	Desulfobacterota	Desulfovibrionia	Desulfovibrionales	Desulfovibrionaceae	Bilophila	wadsworthia
+seq_100	Bacteria	Proteobacteria	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Aquamonas	NA
+seq_101	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_102	Bacteria	Firmicutes	Bacilli	Lactobacillales	Enterococcaceae	NA	NA
+seq_103	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnoclostridium	NA
+seq_104	Bacteria	Proteobacteria	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Escherichia-Shigella	NA
+seq_105	Bacteria	Firmicutes	Negativicutes	Veillonellales-Selenomonadales	Veillonellaceae	Veillonella	NA
+seq_106	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Anaerovoracaceae	Family XIII AD3011 group	NA
+seq_107	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	NA	NA
+seq_108	Bacteria	Firmicutes	Clostridia	Oscillospirales	Oscillospiraceae	Flavonifractor	NA
+seq_109	Bacteria	Firmicutes	Clostridia	Oscillospirales	Ruminococcaceae	UBA1819	NA
+seq_110	Bacteria	Actinobacteriota	Actinobacteria	Bifidobacteriales	Bifidobacteriaceae	Bifidobacterium	NA
+seq_111	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lactonifactor	longoviformis
+seq_112	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	NA	NA
+seq_113	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	NA	NA
+seq_114	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	[Ruminococcus] torques group	NA
+seq_115	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_116	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Peptostreptococcaceae	Paeniclostridium	NA
+seq_117	Bacteria	Actinobacteriota	Coriobacteriia	Coriobacteriales	Eggerthellaceae	Gordonibacter	NA
+seq_118	Bacteria	Firmicutes	Clostridia	Oscillospirales	Ruminococcaceae	Harryflintia	acetispora
+seq_119	Bacteria	Actinobacteriota	Actinobacteria	Bifidobacteriales	Bifidobacteriaceae	Bifidobacterium	NA
+seq_120	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Anaerosalibacter	NA
+seq_121	Bacteria	Proteobacteria	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Escherichia-Shigella	NA
+seq_122	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Tannerellaceae	Parabacteroides	distasonis
+seq_123	Bacteria	Campylobacterota	Campylobacteria	Campylobacterales	Campylobacteraceae	Campylobacter	NA
+seq_124	Bacteria	Firmicutes	Clostridia	Clostridiales	Clostridiaceae	Clostridium sensu stricto 1	NA
+seq_125	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Coprococcus	NA
+seq_126	Bacteria	Firmicutes	Clostridia	Clostridiales	Clostridiaceae	Clostridium sensu stricto 15	NA
+seq_127	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Tannerellaceae	Parabacteroides	distasonis
+seq_128	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Tannerellaceae	Parabacteroides	distasonis
+seq_129	Bacteria	Firmicutes	Clostridia	Clostridiales	Clostridiaceae	Clostridium sensu stricto 1	NA
+seq_130	Bacteria	Actinobacteriota	Coriobacteriia	Coriobacteriales	Eggerthellaceae	Slackia	exigua
+seq_131	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	eggerthii
+seq_132	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_133	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_134	Bacteria	Actinobacteriota	Coriobacteriia	Coriobacteriales	Eggerthellaceae	Paraeggerthella	hongkongensis
+seq_135	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Peptostreptococcaceae	Paraclostridium	NA
+seq_136	Bacteria	Firmicutes	Bacilli	Erysipelotrichales	Erysipelotrichaceae	Holdemania	NA
+seq_137	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_138	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	NA	NA
+seq_139	Bacteria	Actinobacteriota	Coriobacteriia	Coriobacteriales	Eggerthellaceae	Eggerthella	lenta
+seq_140	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_141	Bacteria	Firmicutes	Bacilli	Lactobacillales	Enterococcaceae	Enterococcus	faecium
+seq_142	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_143	Bacteria	Firmicutes	Bacilli	Erysipelotrichales	Erysipelatoclostridiaceae	Erysipelotrichaceae UCG-003	NA
+seq_144	Bacteria	Firmicutes	Clostridia	Oscillospirales	Ruminococcaceae	Candidatus Soleaferrea	NA
+seq_145	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_146	Bacteria	Firmicutes	Bacilli	Staphylococcales	Staphylococcaceae	Staphylococcus	NA
+seq_147	Bacteria	Firmicutes	Clostridia	Christensenellales	Christensenellaceae	Catabacter	hongkongensis
+seq_148	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_149	Bacteria	Firmicutes	Clostridia	Clostridiales	Clostridiaceae	Clostridium sensu stricto 1	NA
+seq_150	Bacteria	Firmicutes	Bacilli	Staphylococcales	Staphylococcaceae	Staphylococcus	NA
+seq_151	Bacteria	Firmicutes	Negativicutes	Veillonellales-Selenomonadales	Veillonellaceae	Veillonella	NA
+seq_152	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Anaerosalibacter	NA
+seq_153	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	NA	NA
+seq_154	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Peptostreptococcaceae	Terrisporobacter	NA
+seq_155	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_156	Bacteria	Desulfobacterota	Desulfovibrionia	Desulfovibrionales	Desulfovibrionaceae	Bilophila	wadsworthia
+seq_157	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnoclostridium	NA
+seq_158	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Anaerococcus	NA
+seq_159	Bacteria	Actinobacteriota	Coriobacteriia	Coriobacteriales	Eggerthellaceae	Eggerthella	lenta
+seq_160	Bacteria	Firmicutes	Bacilli	Erysipelotrichales	Erysipelotrichaceae	Holdemania	NA
+seq_161	Bacteria	Campylobacterota	Campylobacteria	Campylobacterales	Campylobacteraceae	Campylobacter	NA
+seq_162	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_163	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Sellimonas	NA
+seq_164	Bacteria	Actinobacteriota	Actinobacteria	Bifidobacteriales	Bifidobacteriaceae	Bifidobacterium	NA
+seq_165	Bacteria	Campylobacterota	Campylobacteria	Campylobacterales	Campylobacteraceae	Campylobacter	NA
+seq_166	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	NA	NA
+seq_167	Bacteria	Firmicutes	Clostridia	Oscillospirales	Ethanoligenenaceae	Acetanaerobacterium	NA
+seq_168	Bacteria	Firmicutes	Clostridia	Clostridiales	Clostridiaceae	Clostridium sensu stricto 15	NA
+seq_169	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnospiraceae UCG-009	NA
+seq_170	Bacteria	Firmicutes	Bacilli	Lactobacillales	NA	NA	NA
+seq_171	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Anaerosalibacter	NA
+seq_172	Bacteria	Firmicutes	Clostridia	Clostridiales	Clostridiaceae	Clostridium sensu stricto 7	NA
+seq_173	Bacteria	Actinobacteriota	Coriobacteriia	Coriobacteriales	Eggerthellaceae	Gordonibacter	NA
+seq_174	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Anaerosalibacter	NA
+seq_175	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lactonifactor	NA
+seq_176	Bacteria	Firmicutes	Clostridia	Oscillospirales	Oscillospiraceae	Intestinimonas	butyriciproducens
+seq_177	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_178	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Anaerococcus	NA
+seq_179	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnoclostridium	NA
+seq_180	Bacteria	Actinobacteriota	Coriobacteriia	Coriobacteriales	Coriobacteriaceae	Collinsella	NA
+seq_181	Bacteria	Proteobacteria	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	NA	NA
+seq_182	Bacteria	Firmicutes	Clostridia	Oscillospirales	Ruminococcaceae	Candidatus Soleaferrea	NA
+seq_183	Bacteria	Proteobacteria	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Escherichia-Shigella	NA
+seq_184	Bacteria	Bacteroidota	Bacteroidia	Bacteroidales	Bacteroidaceae	Bacteroides	NA
+seq_185	Bacteria	Firmicutes	Clostridia	Oscillospirales	Ruminococcaceae	Candidatus Soleaferrea	NA
+seq_186	Bacteria	Actinobacteriota	Actinobacteria	Micrococcales	Micrococcaceae	Kocuria	NA
+seq_187	Bacteria	Firmicutes	Bacilli	Erysipelotrichales	Erysipelotrichaceae	Dielma	NA
+seq_188	Bacteria	Actinobacteriota	Coriobacteriia	Coriobacteriales	Eggerthellaceae	Gordonibacter	NA
+seq_189	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Anaerovoracaceae	Family XIII AD3011 group	NA
+seq_190	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Anaerosalibacter	NA
+seq_191	Bacteria	Firmicutes	Clostridia	Oscillospirales	Oscillospiraceae	Oscillibacter	NA
+seq_192	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	NA	NA
+seq_193	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	NA	NA
+seq_194	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lachnoclostridium	NA
+seq_195	Bacteria	Firmicutes	Clostridia	Eubacteriales	Anaerofustaceae	Anaerofustis	NA
+seq_196	Bacteria	Firmicutes	Clostridia	Peptostreptococcales-Tissierellales	Family XI	Peptoniphilus	NA
+seq_197	Bacteria	Firmicutes	Clostridia	Lachnospirales	Lachnospiraceae	Lactonifactor	NA
+seq_198	Bacteria	Actinobacteriota	Coriobacteriia	Coriobacteriales	Coriobacteriaceae	NA	NA
