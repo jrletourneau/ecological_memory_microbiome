@@ -1,0 +1,452 @@
+---
+title: "Fig 1 and Fig S2"
+author: "Jeff Letourneau"
+date: '2022-04-27'
+output: html_document
+---
+
+# Load libraries
+```{r}
+# Plotting
+library(tidyverse)
+library(patchwork)
+library(ggsignif)
+
+# Stats
+library(lme4)
+library(lmerTest)
+
+theme_set(theme_bw() +
+            theme(axis.text = element_text(color = "black"),
+                  axis.ticks = element_line(color = "black"),
+                  plot.title = element_text(hjust = 0.5)))
+
+```
+
+# Load data
+```{r}
+# Bioreactor HPAEC
+## To plot: (1) inulin by day, (2) inulin by dose spacing, (3) inulin at the Hr -2 time points
+bioreactor_hp <- read.csv("data/HPAEC/bioreactor_HPAEC_peaks.csv")
+
+# Bioreactor pH
+## To plot: (1) minimum pH by day with trace, (2) minimum pH by dose spacing
+bioreactor_pH <- read.csv("data/pH/bioreactor_pH.csv")
+bioreactor_pH_dsld <- read.csv("data/pH/bioreactor_pH_dsld.csv")
+V1_trace <- read.csv("data/pH/V1_trace.csv") |>
+  filter(time > 11.5*24*60*60 & time < 18*24*60*60)
+
+# Human cohort HPAEC
+## To plot: (1) metabolic potential by time point, (2) same but with individual participants highlighted
+human_hpaec <- read.csv("data/HPAEC/human_cohort_HPAEC_all.csv") |>
+  filter(cond == "pump")
+
+# Batch culture dose dependence HPAEC
+## To plot: (1) Remaining inulin
+dose_hp <- read.csv("data/HPAEC/dose_response_hpaec.csv")
+
+# Batch culture dose dependence pH
+## To plot: (1) Final pH
+dose_pH <- read.csv("data/pH/dose_response_pH.csv")
+
+# HPAEC chromatograms
+chromat <- read.csv("data/HPAEC/chromatograms_short.csv")
+
+```
+
+# Summarize data and run statistics
+## Bioreactor HPAEC
+```{r}
+# Bioreactor HPAEC
+## Sigma dahlia inulin is long chain, so only examine DP 11+
+bioreactor_hp <- bioreactor_hp |>
+  filter(DPn >= 11 & run != "standard" & day >= 14) |>
+  group_by(day, hour, vessel, time, dsld) |>
+  dplyr::summarize(conc=sum(conc)) |>
+  mutate(day=factor(day-13))
+
+bioreactor_hp_PM <- bioreactor_hp |>
+  filter(day %in% 1:3 & hour == 16)
+
+bioreactor_hp_AM <- bioreactor_hp |>
+  filter(day %in% 1:3 & hour == 8)
+
+bioreactor_hp_dsld <- bioreactor_hp |>
+  filter(!is.na(dsld))
+bioreactor_hp_dsld[bioreactor_hp_dsld == "first dose"] <- "1st dose"
+bioreactor_hp_dsld$dsld <- factor(bioreactor_hp_dsld$dsld, levels=c("1st dose", "1", "2", "3"))
+
+## Summarize
+bioreactor_hp_PM_summary <- bioreactor_hp_PM |> 
+  group_by(day) |>
+  dplyr::summarize(mean=mean(conc), se=sd(conc)/sqrt(length(conc)))
+
+bioreactor_hp_AM_summary <- bioreactor_hp_AM |> 
+  group_by(day) |>
+  dplyr::summarize(mean=mean(conc), se=sd(conc)/sqrt(length(conc)))
+
+bioreactor_hp_dsld_summary <- bioreactor_hp_dsld |> 
+  group_by(dsld) |>
+  dplyr::summarize(mean=mean(conc), se=sd(conc)/sqrt(length(conc)))
+
+## Statistics - mixed-effects linear models
+lmer(conc ~ day + (1|vessel), data = bioreactor_hp_PM) |> summary()
+# Fixed effects:
+#             Estimate Std. Error      df t value Pr(>|t|)    
+# (Intercept)   4.4421     0.2304 17.9358   19.28 1.94e-13 ***
+# day2         -4.4377     0.3189 12.0000  -13.92 9.13e-09 ***
+# day3         -4.5822     0.3189 12.0000  -14.37 6.34e-09 ***
+
+lmer(conc ~ day + (1|vessel), data = bioreactor_hp_AM) |> summary()
+#             Estimate Std. Error      df t value Pr(>|t|)    
+# (Intercept)   4.4421     0.2681 14.0000  16.572 1.35e-10 ***
+# dsld1        -4.5947     0.5686 14.0000  -8.080 1.22e-06 ***
+# dsld2        -4.2187     0.5686 14.0000  -7.419 3.26e-06 ***
+# dsld3        -3.3598     0.3791 14.0000  -8.863 4.08e-07 ***
+
+lmer(conc ~ dsld + (1|vessel), data = bioreactor_hp_dsld) |> summary()
+# Fixed effects:
+#             Estimate Std. Error      df t value Pr(>|t|)    
+# (Intercept)   4.4421     0.2681 14.0000  16.572 1.35e-10 ***
+# dsld1        -4.5947     0.5686 14.0000  -8.080 1.22e-06 ***
+# dsld2        -4.2187     0.5686 14.0000  -7.419 3.26e-06 ***
+# dsld3        -3.3598     0.3791 14.0000  -8.863 4.08e-07 ***
+
+bioreactor_hp_dsld |>
+  mutate(dsld = factor(dsld, levels=c("1", "2", "3", "1st dose"))) |>
+           lmer(conc ~ dsld + (1|vessel), data=_) |> summary()
+# Fixed effects:
+#              Estimate Std. Error      df t value Pr(>|t|)    
+# (Intercept)   -0.1527     0.5015 14.0000  -0.304   0.7653    
+# dsld2          0.3760     0.7092 14.0000   0.530   0.6043    
+# dsld3          1.2349     0.5686 14.0000   2.172   0.0475 *  
+# dsld1st dose   4.5947     0.5686 14.0000   8.080 1.22e-06 ***
+```
+
+## Bioreactor pH
+```{r}
+# Bioreactor pH
+bioreactor_pH$dose[bioreactor_pH$dose == 0] <- "no dose"
+bioreactor_pH$dose <- factor(bioreactor_pH$dose, levels=c("no dose", "1", "2", "3", "4", "5"))
+
+bioreactor_pH_summary <- bioreactor_pH |>
+  group_by(dose) |>
+  dplyr::summarize(mean=mean(min), se=sd(min)/sqrt(length(min)))
+
+bioreactor_pH_dsld$time <- factor(bioreactor_pH_dsld$time, levels = c("1st dose", "1", "2", "3"))
+
+bioreactor_pH_dsld_summary <- bioreactor_pH_dsld |>
+  group_by(time) |>
+  dplyr::summarize(mean=mean(min), se=sd(min)/sqrt(length(min)))
+
+lmer(min ~ dose + (1|vessel), data = bioreactor_pH) |> summary()
+# Fixed effects:
+#             Estimate Std. Error       df t value Pr(>|t|)    
+# (Intercept)  6.84245    0.02606 24.60772 262.574  < 2e-16 ***
+# dose1       -0.04517    0.03074 30.00000  -1.469    0.152    
+# dose2       -0.33286    0.03074 30.00000 -10.829 6.94e-12 ***
+# dose3       -0.36046    0.03074 30.00000 -11.726 9.91e-13 ***
+# dose4       -0.34690    0.03074 30.00000 -11.285 2.55e-12 ***
+# dose5       -0.36953    0.03074 30.00000 -12.022 5.34e-13 ***
+
+lmer(min ~ time + (1|vessel), data = bioreactor_pH_dsld) |> summary()
+# Fixed effects:
+#             Estimate Std. Error       df t value Pr(>|t|)    
+# (Intercept)  6.79729    0.01751 11.67852 388.290  < 2e-16 ***
+# time1       -0.40534    0.03280  9.68673 -12.356 3.01e-07 ***
+# time2       -0.09790    0.03280  9.68673  -2.984   0.0142 *  
+# time3       -0.07639    0.02094  8.15239  -3.649   0.0063 ** 
+
+```
+
+## Human cohort HPAEC
+```{r}
+# Human cohort HPAEC
+## Synergy1 has both inulin and FOS so we use DP 3+
+human_hpaec <- human_hpaec |>
+  mutate(group = ifelse(arm == "blue", "Prebiotic", "Placebo")) |>
+  dplyr::select(participant, group, time, DPn, conc) |>
+  dplyr::filter(DPn >= 3) |>
+  dplyr::group_by(participant, group, time) |>
+  dplyr::summarize(total=sum(conc)) |>
+  mutate(time = factor(time, levels=c("T1", "F1", "T2", "F2", "T3", "F3"))) |>
+  mutate(time2 = NA)
+
+human_hpaec$time2[human_hpaec$time == "T1"] <- -6
+human_hpaec$time2[human_hpaec$time == "F1"] <- -3
+human_hpaec$time2[human_hpaec$time == "T2"] <- 1
+human_hpaec$time2[human_hpaec$time == "F2"] <- 4
+human_hpaec$time2[human_hpaec$time == "T3"] <- 8
+human_hpaec$time2[human_hpaec$time == "F3"] <- 11
+
+human_hpaec_summary <- human_hpaec |>
+  group_by(group, time2) |>
+  dplyr::summarize(mean=mean(total), se=sd(total)/sqrt(length(total)))
+
+glmer(total ~ group*time + (1 | participant), data=human_hpaec, family = Gamma(link = "log")) |>
+  summary()
+# Fixed effects:
+#                       Estimate Std. Error t value Pr(>|z|)  
+# (Intercept)           -0.26704    0.23144  -1.154   0.2486  
+# groupPrebiotic        -0.44877    0.32830  -1.367   0.1716  
+# timeF1                -0.07313    0.20809  -0.351   0.7253  
+# timeT2                -0.24219    0.20364  -1.189   0.2343  
+# timeF2                -0.14590    0.20766  -0.703   0.4823  
+# timeT3                -0.34793    0.20131  -1.728   0.0839 .
+# timeF3                -0.21770    0.20498  -1.062   0.2882  
+# groupPrebiotic:timeF1 -0.10290    0.28902  -0.356   0.7218  
+# groupPrebiotic:timeT2 -0.63407    0.28890  -2.195   0.0282 *
+# groupPrebiotic:timeF2 -0.67882    0.28975  -2.343   0.0191 *
+# groupPrebiotic:timeT3  0.15266    0.28802   0.530   0.5961  
+# groupPrebiotic:timeF3  0.07297    0.29107   0.251   0.8020  
+```
+
+
+## Batch culture dose dependence HPAEC
+```{r}
+## Sigma dahlia inulin = DP 11+
+dose_hp <- dose_hp |>
+  filter(DPn >= 11) |>
+  group_by(treatment1, treatment2, rep) |>
+  dplyr::summarize(total=sum(conc)) |>
+  group_by(treatment1, treatment2) |>
+  dplyr::summarize(mean=mean(total)) |>
+  filter(treatment2 == 100)
+
+cor.test(dose_hp$treatment1, dose_hp$mean, method = "spearman")
+# p = 0.0003968, rho = -1
+
+# Batch culture dose dependence pH
+dose_pH[dose_pH$Treatment == "HH", "Treatment"] <- "control"
+dose_pH$Treatment <- factor(dose_pH$Treatment, levels=c("control", "0", "0.1", "1", "10", "25", "50", "100"))
+
+dose_pH_summary <- dose_pH |>
+  group_by(Treatment) |>
+  dplyr::summarize(mean=mean(pH), se=sd(pH)/sqrt(length(pH)))
+
+cor.test(as.numeric(dose_pH_summary[dose_pH_summary$Treatment != "control",]$Treatment),
+         dose_pH_summary[dose_pH_summary$Treatment != "control",]$mean, method = "spearman")
+# p = 0.002778, rho = -0.9642857
+
+```
+
+# Make plots
+## Bioreactor HPAEC
+```{r}
+# Bioreactor HPAEC
+## (1) inulin by day
+bioreactor_hp_PM_plot <- ggplot(bioreactor_hp_PM, aes(x=day, y=conc)) +
+  geom_point(position=position_jitter(width = 0.05, height=0)) +
+  geom_errorbar(data = bioreactor_hp_PM_summary, aes(x=day, ymin = mean, ymax=mean),
+                color="red", width=0.5, inherit.aes = F) +
+  geom_errorbar(data = bioreactor_hp_PM_summary, aes(x=day, ymin = mean-se, ymax=mean+se),
+                color="black", width=0.25, inherit.aes = F) +
+  annotate(geom = "text", x = c(2, 3), y = c(2, 1), label = "***", size = 10) +
+  geom_hline(yintercept = 0, linetype="dashed", color="gray") +
+  labs(x = "Inulin dose", y = "Inulin concentration (mg/mL)") +
+  ggtitle("Artificial gut")
+
+## (2) inulin by dose spacing
+bioreactor_hp_dsld_plot <- ggplot(bioreactor_hp_dsld, aes(x=dsld, y=conc)) +
+  geom_point(position=position_jitter(width = 0.05, height=0)) +
+  geom_errorbar(data = bioreactor_hp_dsld_summary, aes(x=dsld, ymin = mean, ymax=mean),
+                color="red", width=0.5, inherit.aes = F) +
+  geom_errorbar(data = bioreactor_hp_dsld_summary, aes(x=dsld, ymin = mean-se, ymax=mean+se),
+                color="black", width=0.25, inherit.aes = F) +
+  annotate(geom = "text", x = c(2, 3, 4), y = c(0.5, 1, 2.2), label = "***", size = 10) +
+  geom_hline(yintercept = 0, linetype="dashed", color="gray") +
+  labs(x = "Days since previous dose", y = "Inulin concentration (mg/mL)") +
+  ggtitle("Artificial gut")
+
+
+## (3) inulin at the Hr -2 time points
+bioreactor_hp_AM_plot <- ggplot(bioreactor_hp_AM, aes(x=day, y=conc)) +
+  geom_point(position=position_jitter(width = 0.05, height=0)) +
+  geom_errorbar(data = bioreactor_hp_AM_summary, aes(x=day, ymin = mean, ymax=mean),
+                color="red", width=0.5, inherit.aes = F) +
+  geom_errorbar(data = bioreactor_hp_AM_summary, aes(x=day, ymin = mean-se, ymax=mean+se),
+                color="black", width=0.25, inherit.aes = F) +
+  geom_hline(yintercept = 0, linetype="dashed", color="gray") +
+  labs(x = "Inulin dose", y = "Inulin concentration (mg/mL)") +
+  ggtitle("Artificial gut")
+```
+
+
+## Bioreactor pH
+```{r}
+## (1) minimum pH by day with trace
+bioreactor_pH_plot <- ggplot(bioreactor_pH,
+                             aes(x=factor(dose,levels=c("no dose", "1", "2", "3", "4", "5")), y=min)) +
+  geom_point(position=position_jitter(width = 0.05, height=0)) +
+  geom_errorbar(data = bioreactor_pH_summary, aes(x=dose, ymin = mean, ymax=mean),
+                color="red", width=0.5, inherit.aes = F) +
+  geom_errorbar(data = bioreactor_pH_summary, aes(x=dose, ymin = mean-se, ymax=mean+se),
+                color="black", width=0.25, inherit.aes = F) +
+  geom_line(data = V1_trace, aes(x=time/(60*60*24)-11.2, y=pH), color="red", alpha=0.25, size=1, inherit.aes = F) +
+  annotate(geom = "text", x = c(3:6), y = c(6.75, 6.65, 6.7, 6.65), label = "***", size = 10) +
+  labs(x = "Inulin dose", y = "Minimum pH") +
+  ggtitle("Artificial gut")
+
+## (2) minimum pH by dose spacing
+bioreactor_pH_dsld_plot <- ggplot(bioreactor_pH_dsld, aes(x=time, y=min)) +
+  geom_point(position=position_jitter(width = 0.05, height=0)) +
+  geom_errorbar(data = bioreactor_pH_dsld_summary, aes(x=time, ymin = mean, ymax=mean),
+                color="red", width=0.5, inherit.aes = F) +
+  geom_errorbar(data = bioreactor_pH_dsld_summary, aes(x=time, ymin = mean-se, ymax=mean+se),
+                color="black", width=0.25, inherit.aes = F) +
+  annotate(geom = "text", x = c(2:4), y = c(6.505, 6.775, 6.825), label = c("***", "*", "**"), size = 10) +
+  labs(x = "Days since previous dose", y = "Minimum pH") +
+  ggtitle("Artificial gut")
+```
+
+## Human cohort HPAEC
+```{r}
+## (1) metabolic potential by time point
+human_hpaec_annotation <- data.frame(label = c("*", "*"), time2 = c(3, 4),
+                                     group = c("Prebiotic", "Prebiotic"), height = c(1.3, 1.5))
+human_hpaec_annotation2 <- data.frame(label = c("Baseline", "Treatment", "Followup",
+                                                "Baseline", "Treatment", "Followup"),
+                                      time2 = c(1.5, 3.5, 5.5, 1.5, 3.5, 5.5),
+                                     group = c("Prebiotic", "Prebiotic", "Prebiotic",
+                                               "Placebo", "Placebo", "Placebo"), height = -0.1)
+
+human_hpaec_plot <- ggplot(human_hpaec, aes(x=factor(time2), y=total)) +
+  geom_point(position=position_jitter(width = 0.05, height=0)) +
+  geom_errorbar(data = human_hpaec_summary, aes(x=factor(time2), ymin = mean, ymax=mean),
+                color="red", width=0.5, inherit.aes = F) +
+  geom_errorbar(data = human_hpaec_summary, aes(x=factor(time2), ymin = mean-se, ymax=mean+se),
+                color="black", width=0.25, inherit.aes = F) +
+  geom_text(data = human_hpaec_annotation, aes(x = time2, y = height, label = label), size = 10) +
+  geom_text(data = human_hpaec_annotation2, aes(x = time2, y = height, label = label), size = 3) +
+  geom_hline(yintercept = 0, linetype="dashed", color="gray") +
+  facet_wrap(~group) +
+  labs(x = "Time of stool sample (day)", y = "Inulin/FOS concentration (mg/mL)") +
+  ggtitle("Human cohort")
+
+## (2) same but with individual participants highlighted
+### Identify minimum time point for each participant
+human_hpaec_mins <- human_hpaec|>
+  group_by(participant) |>
+  mutate(min=min(total)) |>
+  filter(total == min) |>
+  dplyr::select(-min)
+
+### Which participants increased metabolic potential on average from week 1 to week 2?
+which_increased <- human_hpaec |>
+  filter(time2 <= 4) |>
+  dplyr::select(-time2) |>
+  spread(key=time, value=total) |>
+  mutate(change = mean(c(T2, F2), na.rm=T) - mean(c(T1, F1), na.rm=T)) |>
+  filter(change >= 0) |>
+  pull(participant)
+
+human_hpaec <- human_hpaec |>
+  mutate(change = ifelse(participant %in% which_increased, "increase", "decrease"))
+
+human_hpaec_indiv_plot <- ggplot(human_hpaec, aes(x=factor(time2), y=total)) +
+  geom_line(aes(group=participant, color=change)) +
+  geom_point(data = human_hpaec_mins, aes(x=factor(time2), y=total), color="red") +
+  geom_text(data = human_hpaec_annotation, aes(x = time2, y = height, label = label), size = 10) +
+  geom_text(data = human_hpaec_annotation2, aes(x = time2, y = 0.011, label = label), size = 3) +
+  facet_wrap(~group) +
+  scale_y_log10() +
+  scale_color_manual(values=c("black", "red")) +
+  theme(legend.position = "none") +
+  labs(x = "Time of stool sample (day)", y = "Inulin/FOS concentration (mg/mL)") +
+  ggtitle("Human cohort")
+#ggsave("plots/fig_s1a.png", human_hpaec_indiv_plot, height = 3, width = 6)
+
+# (3) F1 samples stool
+human_hpaec_stool <- read.csv("data/HPAEC/human_cohort_HPAEC_all.csv") |>
+  filter(cond == "stool" & time == "F1") |>
+  mutate(group = ifelse(arm == "blue", "Prebiotic", "Placebo")) |>
+  filter(DPn >= 3) |>
+  group_by(participant, group, time) |>
+  summarize(total=sum(conc))
+
+human_hpaec_stool_summary <- human_hpaec_stool |>
+  group_by(group) |>
+  summarize(mean = mean(total), se = sd(total)/sqrt(length(total)))
+
+### Plot
+F1_stool_plot <- ggplot(human_hpaec_stool, aes(x = group, y = total)) +
+  geom_point(position=position_jitter(width = 0.05, height=0)) +
+  geom_errorbar(data = human_hpaec_stool_summary, aes(x=group, ymin = mean, ymax=mean),
+                color="red", width=0.5, inherit.aes = F) +
+  geom_errorbar(data = human_hpaec_stool_summary, aes(x=group, ymin = mean-se, ymax=mean+se),
+                color="black", width=0.25, inherit.aes = F) +
+  geom_hline(yintercept = 0, linetype="dashed", color="gray") +
+  labs(x = "Group", y = "Inulin/FOS concentration (mg/mL)") +
+  ggtitle("Human cohort")
+#ggsave("plots/figS2E.png", F1_stool_plot, height = 3, width = 4)
+
+
+```
+
+## Batch culture dose dependence HPAEC
+```{r}
+## (1) Remaining inulin
+dose_hp_plot <- ggplot(dose_hp, aes(x=treatment1, y=mean)) +
+  geom_point() +
+  geom_smooth(method='lm', formula= y ~ log2(x+0.01), se=F) +
+  geom_hline(yintercept = 0, linetype="dashed", color = "gray") +
+  labs(x = "Pre-treatment concentration (%)", y = "Average final inulin/FOS\nconcentration (mg/mL)") +
+  annotate(geom = "text", x = 60, y = 2, label = "Spearman's rho = -1") +
+  annotate(geom = "text", x = 60, y = 1.75, label = "italic(p) < 0.001", parse = T) +
+  ggtitle("Batch culture")
+
+# Batch culture dose dependence pH
+## (1) Final pH
+dose_pH_plot <- ggplot(dose_pH, aes(x=Treatment, y=pH)) +
+  geom_point(position=position_jitter(width = 0.05, height=0)) +
+  geom_errorbar(data = dose_pH_summary, aes(x=Treatment, ymin = mean, ymax=mean),
+                color="red", width=0.5, inherit.aes = F) +
+  geom_errorbar(data = dose_pH_summary, aes(x=Treatment, ymin = mean-se, ymax=mean+se),
+                color="black", width=0.25, inherit.aes = F) +
+  labs(x = "Pre-treatment concentration (%)", y = "Final pH at 6 hr") +
+  annotate(geom = "text", x = 6, y = 6.3, label = "Spearman's rho = -0.96") +
+  annotate(geom = "text", x = 6, y = 6.225, label = "italic(p) == 0.0028", parse = T) +
+  ggtitle("Batch culture")
+
+```
+
+## Unused chromatogram figure
+```{r}
+# Chromatograms
+chromat_labels <- data.frame(annotations = c("glucose", "fructose", "sucrose"), xmin = c(2.225, 2.3, 2.5),
+                             xmax = c(2.5, 2.7, 2.9), y_position = c(215, 250, 235))
+  
+chromat_plot <- ggplot(chromat) +
+  geom_line(aes(group = paste0(type, rep), x = time, y = nC, color = type)) +
+  geom_signif(data = chromat_labels, aes(annotations = annotations, xmin = xmin, xmax = xmax, y_position = y_position),
+              tip_length = 0, inherit.aes = F, manual = T) +
+  geom_hline(yintercept = 260, alpha = 0) +
+  labs(x = "Time (min)", y = "PAD signal (nC)", color = "Sample type") +
+  ggtitle("Artificial gut") +
+  theme(legend.position = c(0.83, 0.6),
+        legend.background=element_blank())
+#ggsave("plots/short_spectra.png", chromat_plot, height = 3, width = 4)
+
+
+```
+
+# Patch panels together
+```{r}
+# Figure 1
+fig1_top <- human_hpaec_plot + bioreactor_pH_plot + plot_layout(widths = c(3, 2))
+fig1_bottom <- bioreactor_hp_PM_plot + bioreactor_hp_dsld_plot + dose_hp_plot
+
+fig1 <- fig1_top / fig1_bottom + plot_annotation(tag_levels = "A")
+
+#ggsave("plots/fig1.png", fig1, height = 7, width = 9)
+
+# Figure S2
+figS2 <- human_hpaec_indiv_plot / (bioreactor_hp_AM_plot + bioreactor_pH_dsld_plot) / (dose_pH_plot + F1_stool_plot) +
+  plot_annotation(tag_levels = "A")
+
+#ggsave("plots/figS2.png", figS2, height = 10, width = 9)
+
+
+
+```
+

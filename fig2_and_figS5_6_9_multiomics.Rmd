@@ -1,0 +1,1189 @@
+---
+title: "Fig 2, Fig S5-6 - Multiomics"
+author: "Jeff Letourneau"
+date: '2022-04-27'
+output: html_document
+---
+
+# Load libraries
+```{r}
+library(tidyverse)
+
+# Plotting
+library(patchwork)
+library(cowplot)
+library(ggtext)
+library(RColorBrewer)
+library(ggbiplot)
+library(rotl)
+library(ggsignif)
+
+# Statistics
+library(ALDEx2)
+library(vegan)
+library(lme4)
+library(lmerTest)
+library(fitdistrplus)
+
+# Note - something here is causing conflicts with dplyr, so I've specified
+## dplyr::rename
+## dplyr::select
+## dplyr::summarize
+
+theme_set(theme_bw() +
+            theme(axis.text = element_text(color = "black"),
+                  axis.ticks = element_line(color = "black"),
+                  plot.title = element_text(hjust = 0.5)))
+
+```
+
+# Load data
+```{r}
+set.seed(123)
+
+# Metatranscriptomics - KEGG categories
+rna <- read.csv("data/metatranscriptomics/prok.KO.counts.csv", row.names = 1)
+rownames(rna) <- substr(rownames(rna), 4, 9)
+
+keggmap <- read.csv("data/metatranscriptomics/keggmap.csv", row.names = 1) %>%
+  mutate(ko_id = paste0("KO:", rownames(.)))
+
+rna_samdf <- read.csv("data/metatranscriptomics/samdf rnaseq.csv", row.names = 1) %>%
+  mutate(time_point = case_when(tp == "1" ~ "Dose 1\nHr -2",
+                                tp == "2" ~ "Dose 1\nHr +6",
+                                tp == "3" ~ "Dose 2\nHr -2",
+                                tp == "4" ~ "Dose 2\nHr +6"))
+
+## Single species analysis
+rna_genes <- read.csv("data/metatranscriptomics/single_species_counts_df.csv", row.names = 1)
+# gene_id_df_select <- read.csv("data/metatranscriptomics/genes2microbes_select_v2.csv")
+# ^^^ big - can skip loading unless rerunning the GLM
+kegg2genes <- read.csv("data/metatranscriptomics/ko_ec_178_taxa.csv", row.names = 1) %>%
+  mutate(gene_oid = as.character(gene_oid))
+  
+
+# SCFA
+scfa <- read.csv("data/metabolites/bioreactor_scfa.csv")
+
+# Untargeted metabolomics
+gcms <- read.csv("data/metabolites/gcms_known_peaks.csv")
+
+
+```
+
+# Summarize data and run statistics
+## Metatranscriptomics - global transcriptome KEGG categories
+```{r}
+# Metatranscriptomics ALDEx2 GLM
+mm <- model.matrix(~V2+V4+V7+V8+factor(tp), data = rna_samdf)
+
+rna <- rna[,rownames(rna_samdf)]
+
+filt <- function(x) {
+     sum(x > 3) > 0.10*length(x)
+}
+rna <- rna[which(apply(rna, 1, filt)),]  # reduces from 4462 to 3992 (14.4% reduction)
+
+all(colnames(rna)==rownames(rna_samdf)) # TRUE
+
+rna_clr <- aldex.clr(rna, mm, mc.samples=1, denom="all")
+rna_glm <- aldex.glm(rna_clr)
+
+```
+
+## RNA-Seq single taxa
+```{r}
+# This analysis is time-intensive, so I've commented it out and just re-upload the data
+
+## Check that this produces no change
+#filt <- function(x) {
+#     sum(x > 3) > 0.10*length(x)
+#}
+#
+#counts.df <- counts.df[which(apply(counts.df, 1, filt)),] 
+#counts.df <- counts.df[,rownames(samdf)]
+#
+#glm.test <- data.frame(gene = rownames(counts.df), species = NA,
+#                       p.t2 = NA, es.t2 = NA, p.t3 = NA, es.t3 = NA, p.t4 = NA, es.t4 = NA)
+#
+#for(i in 1:nrow(glm.test)) {
+#  glm.test[i, "species"] <- gene_id_df_select[gene_id_df_select$ID == glm.test[i, "gene"],
+#"rentrez_species"]
+#}
+#
+#species <- unique(glm.test$species)
+#species.filt <- NA
+#
+#for(sp in species) {
+#  if( all(colSums(counts.df[rownames(counts.df) %in% glm.test[glm.test$species == sp, "gene"],])) > 0 ) {
+#    species.filt <- c(species.filt, sp)
+#  }
+#}
+#species.filt <- species.filt[!is.na(species.filt)]
+#
+#glm.test <- glm.test[glm.test$species %in% species.filt,]
+#counts.df <- counts.df[rownames(counts.df) %in% glm.test$gene,] #brings down to 62187
+#
+##We also need to get rid of species with only one gene (Campylobacter jejuni)
+#
+#all(rownames(counts.df) == glm.test$gene) #confirm everything in same order
+
+#for(sp in species.filt) {
+#  try(
+#    glm.test[glm.test$species == sp, 3:8] <-
+#    counts.df[rownames(counts.df) %in% glm.test[glm.test$species == sp, "gene"],] %>%
+#    aldex.clr(., samdf, mc.samples=1, denom="all") %>%
+#    aldex.glm(.) %>%
+#    .[,c("model.factor(tp)2 Pr(>|t|)", "model.factor(tp)2 Estimate",
+#         "model.factor(tp)3 Pr(>|t|)", "model.factor(tp)3 Estimate",
+#         "model.factor(tp)4 Pr(>|t|)", "model.factor(tp)4 Estimate")]
+#    )
+#}
+#
+#glm.test <- glm.test[complete.cases(glm.test),]
+#species.filt2 <- unique(glm.test$species) #178 remain when removing ones with only one gene
+#
+#p.BH <- p.adjust(c(glm.test$p.t2, glm.test$p.t3, glm.test$p.t4), method="BH")
+
+#glm.test$p.t2.BH <- p.BH[1:(length(p.BH)/3)]
+#glm.test$p.t3.BH <- p.BH[(1+(length(p.BH)/3)):(2*length(p.BH)/3)]
+#glm.test$p.t4.BH <- p.BH[(1+(2*length(p.BH)/3)):length(p.BH)]
+#
+#write.csv(x = glm.test, file = "./final figures 02/GLM test single species.csv")
+
+# Starting from results...
+## Still a large dataframe - subsetting on hits
+glm_indiv_results <- read.csv("data/metatranscriptomics/GLM_test_single_species.csv", row.names = 1)
+
+# Get gene info as relative abundance within taxon
+genes2taxa <- glm_indiv_results$species
+names(genes2taxa) <- glm_indiv_results$gene
+
+# Subset results on hits
+glm_indiv_results <- glm_indiv_results %>% filter(p.t2.BH < 0.05 | p.t3.BH < 0.05 | p.t4.BH < 0.05)
+
+# Make relative abundance dataframe
+## Slowish (~2 min)
+rna_genes_relabd <- rna_genes %>%
+  mutate(gene = rownames(.)) %>%
+  mutate(species = recode(gene, !!!genes2taxa)) %>%
+  gather(key = sample, value = counts, 1:20) %>%
+  group_by(species, sample) %>%
+  mutate(relabd = counts / sum(counts)) %>%
+  dplyr::select(-counts) %>%
+  filter(gene %in% glm_indiv_results$gene)
+
+# Grab lists of B. caccae and C. comes genes for Fig. S5
+
+
+# Subset counts on hits
+rna_genes <- rna_genes[rownames(rna_genes) %in% glm_indiv_results$gene,] # 1402 genes
+hit_taxa <- unique(glm_indiv_results$species) # 67 taxa
+  
+# Identify taxa driving rapid upregulation of K01212 and K01238
+levsun_genes <- kegg2genes %>%
+  filter(ko_id %in% c("KO:K01212", "KO:K01238")) %>%
+  pull(gene_oid)
+glm_levsun <-  glm_indiv_results %>%
+  filter(gene %in% levsun_genes)
+
+
+
+```
+
+## SCFA
+```{r}
+# SCFA
+scfa <- scfa %>%
+  filter(!is.na(Vessel) & time > 12 & time < 19) %>%
+  dplyr::mutate(across(ends_with("ate"), ~ .x * 10.5)) %>% # dilution factor
+  dplyr::mutate(total = rowSums(across(ends_with("ate")))) %>%
+  gather(key=scfa, value=conc, 6:12) %>%
+  mutate(scfa = str_to_title(scfa)) %>%
+  group_by(Vessel, time, scfa) %>%
+  dplyr::summarize(conc=mean(conc)) %>%
+  mutate(time = time - 13)
+
+scfa_summary <- scfa %>%
+  group_by(time, scfa) %>%
+  dplyr::summarize(mean=mean(conc), se=sd(conc)/sqrt(length(conc)))
+
+## Examine distributions
+descdist(scfa[scfa$scfa=="Acetate",]$conc, discrete = FALSE, boot = 500) # looks normal!
+descdist(scfa[scfa$scfa=="Butyrate",]$conc, discrete = FALSE, boot = 500) # looks normal enough
+descdist(scfa[scfa$scfa=="Total",]$conc, discrete = FALSE, boot = 500) # looks normal!
+
+## Run linear models
+metabs <- unique(scfa$scfa)
+
+scfa_stats <- scfa %>%
+  mutate(time = substr(as.character(time + 13), 1, 4)) %>%
+  mutate(time = factor(time, levels = c("14.3", "12.6", "13.6", "14.6", "15.3", "15.6",
+                                                    "16.3", "16.6", "17.3", "17.6", "18.3", "18.6"))) %>%
+  mutate(Vessel = factor(Vessel))
+
+lm_results <- data.frame(scfa=metabs, intercept=NA, p.12p=NA, p.13p=NA, p.14p=NA, p.15a=NA, p.15p=NA, p.16a=NA,
+                      p.16p=NA, p.17a=NA, p.17p=NA, p.18a=NA, p.18p=NA)
+
+for(m in metabs) {
+  lm_results[lm_results$scfa==m, 2:13] <- lmer(formula = conc ~ time + (1|Vessel),
+                                              data = scfa_stats[scfa_stats$scfa == m,]) %>%
+    summary() %>% .$coefficients %>% .[,5]
+}
+
+for(c in 2:13) {
+  lm_results[,c] <- p.adjust(lm_results[,c], method = "BH")
+}
+
+lm_results <- lm_results %>%
+  mutate(across(starts_with("p"), ~ case_when(.x < 0.001 ~ "***",
+                                              .x < 0.01 & .x >= 0.001 ~ "**",
+                                              .x < 0.05 & .x >= 0.01 ~ "*",
+                                              .x >= 0.05 ~ "")))
+```
+
+## GC/MS metabolomics
+```{r}
+# GC/MS metabolomics
+## Remove media control samples
+gcms <- gcms %>%
+  filter(culture == "bioreactor") # remove media controls
+## Keep only metabolites that appear at least 3 times
+metabs_to_keep <- colSums(!is.na(gcms[,6:ncol(gcms)])) %>% .[. >= 3] %>% names()
+gcms <- gcms %>%
+  dplyr::select(c("dose", "vessel", metabs_to_keep))
+
+## Gather data
+gcms_long <- gather(gcms, key=metabolite, value=area, 3:ncol(gcms))
+
+## Create a pseudocount based on estimated LOD
+metabs_gcms <- unique(gcms_long$metabolite)
+for(m in metabs_gcms) {
+  gcms_long[is.na(gcms_long$area) & gcms_long$metabolite == m, "area"] <- min(gcms_long[gcms_long$metabolite == m, "area"], na.rm=T)
+}
+
+## Calculate summary statistics
+gcms_summary <- gcms_long %>%
+  group_by(dose, metabolite) %>%
+  dplyr::summarize(mean=mean(area,), se=sd(area)/sqrt(length(area)))
+
+## Set up data table to fill with stat results for linear model
+lm_results_gcms <- data.frame(metabolite=metabs_gcms, es.01=NA, es.02=NA, lm.01=NA, lm.02=NA)
+
+for(m in metabs_gcms) {
+   lm_results_gcms[lm_results_gcms$metabolite == m, 4:5] <- lmer(formula = area ~ dose + (1|vessel),
+                                                                  gcms_long[gcms_long$metabolite==m,]) %>%
+     summary() %>% .$coefficients %>% .[2:3,5]
+ }
+
+## Benjamini-Hochberg correct
+lm_results_gcms$lm.01 <- p.adjust(lm_results_gcms$lm.01, method = "BH", n = 208)
+lm_results_gcms$lm.02 <- p.adjust(lm_results_gcms$lm.02, method = "BH", n = 208)
+
+
+## Calculate effect size as diff between means (this assumes peak area is directly proportional to concentration)
+for(m in metabs_gcms) {
+  lm_results_gcms[lm_results_gcms$metabolite == m, "es.01"] <- gcms_summary[gcms_summary$dose == 1 &
+                                                                              gcms_summary$metabolite == m, "mean"] -
+    gcms_summary[gcms_summary$dose == 0 & gcms_summary$metabolite == m, "mean"]
+  lm_results_gcms[lm_results_gcms$metabolite == m, "es.02"] <- gcms_summary[gcms_summary$dose == 2 &
+                                                                              gcms_summary$metabolite == m, "mean"] -
+    gcms_summary[gcms_summary$dose == 0 & gcms_summary$metabolite == m, "mean"]
+}
+
+## Select hits
+gcms_hits <- lm_results_gcms %>%
+  filter(lm.01 < 0.05 | lm.02 < 0.05) %>%
+  pull(metabolite)
+
+gcms_hits_df <- gcms_long[gcms_long$metabolite %in% gcms_hits,]
+gcms_hits_summary <- gcms_summary[gcms_summary$metabolite %in% gcms_hits,]
+
+## Calculate change as log2(peak area fold-change)
+gcms_change <- spread(gcms_hits_df, key=dose, value=area) %>%
+  mutate(`Dose 1` = `1` - `0`,
+         `Dose 2` = `2` - `0`) %>%
+  dplyr::select(vessel, metabolite, `Dose 1`, `Dose 2`) %>%
+  gather(key = dose, value = change, 3:4)
+
+## Recode metabolite names
+metab_name_map <- c("Alanine", "&beta;-hydroxybutyric acid", "Phosphoric acid", "Leucine",
+                    "1-pyrroline-2-carboxylic acid", "Methylsuccinic acid", "Uracil", "Itaconic acid",
+                    "6-methyluracil", "Threonine", "Indole", "Hydroxyprolines (trans-4)", "3-hydroxybenzoic acid",
+                    "6-hydroxynicotinic acid", "Phosphoenolpyruvic acid", "Glutamic acid", "4-hydroxybenzoic acid",
+                    "N-acetylputrescine", "Glutamine", "3-phosphoglyceric acid", "Fructose or similar ketohexose",
+                    "Glucosamine", "Gly-Pro", "Spermidine", "Glucose-6-phosphate or similar",
+                    "Myoinositol-2-phosphate", "Uridine (2<sup>nd</sup> peak)", "Maltose or similar disaccharide",
+                    "Adenosine-5'-monophosphate", "Pyroglutamic acid", "1,5-anhydroglucitol")
+names(metab_name_map) <- gcms_hits
+
+gcms_change <- gcms_change %>%
+  mutate(metabolite = recode(metabolite, !!!metab_name_map)) %>%
+  mutate(dose = case_when(dose == "Dose 1" ~ "1",
+                          dose == "Dose 2" ~ "2"))
+
+select_metabolites <- c("Glutamic acid", "Glucose-6-phosphate or similar", "Leucine", "Phosphoenolpyruvic acid", "Threonine", "3-phosphoglyceric acid")
+
+gcms_change_select <- gcms_change[gcms_change$metabolite %in% select_metabolites,] %>%
+  mutate(metabolite = factor(metabolite,
+                             levels=c("Glucose-6-phosphate or similar", "3-phosphoglyceric acid",
+                                      "Phosphoenolpyruvic acid", "Glutamic acid", "Leucine", "Threonine")))
+
+gcms_change_select_summary <- gcms_change_select %>%
+  group_by(metabolite, dose) %>%
+  dplyr::summarize(mean=mean(change), se=sd(change)/sqrt(length(change)))
+
+```
+
+# Fig. 2 plots
+## Fig. 2A Select taxa 16S
+```{r}
+# Panel A already created by another script
+select_taxa_plot <- readRDS("plots/fig2A.RDS")
+
+```
+
+## Fig. 2B RNA-Seq global heatmap
+```{r}
+# RNA-Seq heatmap
+## Get labels
+rna_hits_labels <- rna_glm %>%
+  dplyr::rename(`Dose 1\nHr +6` = `model.factor(tp)2 Pr(>|t|).BH`,
+         `Dose 2\nHr -2` = `model.factor(tp)3 Pr(>|t|).BH`,
+         `Dose 2\nHr +6` = `model.factor(tp)4 Pr(>|t|).BH`) %>%
+  dplyr::select(`Dose 1\nHr +6`, `Dose 2\nHr -2`, `Dose 2\nHr +6`) %>%
+  filter(`Dose 1\nHr +6` < 0.05 | `Dose 2\nHr -2` < 0.05 | `Dose 2\nHr +6` < 0.05) %>%
+  mutate(across(starts_with("D"), ~ case_when(.x < 0.001 ~ "<sub>***</sub>", #hack for centering asterisks
+                                              .x < 0.01 & .x >= 0.001 ~ "<sub>**</sub>",
+                                              .x < 0.05 & .x >= 0.01 ~ "<sub>*</sub>",
+                                              .x >= 0.05 ~ ""))) %>%
+  mutate(kegg = rownames(.)) %>%
+  gather(key = dose, value = label, 1:3)
+
+## Get effect size
+rna_hits_effect <- rna_glm %>%
+  filter(rownames(.) %in% rna_hits_labels$kegg) %>%
+  dplyr::rename(`Dose 1\nHr +6` = `model.factor(tp)2 Estimate`,
+         `Dose 2\nHr -2` = `model.factor(tp)3 Estimate`,
+         `Dose 2\nHr +6` = `model.factor(tp)4 Estimate`) %>%
+  dplyr::select(`Dose 1\nHr +6`, `Dose 2\nHr -2`, `Dose 2\nHr +6`)
+
+## Get hierarchical clustering order
+kegg_order <- hclust(dist(rna_hits_effect))$order
+
+rna_hits_effect <- rna_hits_effect[kegg_order,] %>%
+  mutate(kegg = factor(rownames(.), levels = rev(rownames(.)))) %>%
+  gather(key = dose, value = effect, 1:3)
+
+## Center palette on zero
+palette_lims <- max(abs(rna_hits_effect$effect)) * c(-1, 1)
+
+rna_hm <-ggplot(rna_hits_effect, aes(x = dose, y = kegg)) +
+  geom_tile(aes(fill=effect), color = "black") +
+  labs(x = "", y = "", fill = "Effect size\nestimate") +
+  scale_fill_distiller(palette = "RdBu", limit = palette_lims) +
+  geom_richtext(data = rna_hits_labels, aes(label = label), size = 6, fill = NA, label.color = NA) +
+  theme(axis.ticks=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.border=element_blank())
+
+```
+
+## Fig. 2C RNA-Seq indiv taxa
+```{r}
+# Three Bacteroides species contributing to the fast transcriptional changes
+# Define a new label wrap function that will be compatible with element_markdown
+label_wrap_gen2 <- function(labels, width = 25, multi_line = TRUE) {
+  labels <- labels %>% strwrap(width = 25, simplify = FALSE) %>%
+    vapply(paste, character(1), collapse = "<br>")
+  return(labels)
+}
+
+# Select relative abundance data for only the relevant KEGG functions
+levsun_df <- rna_genes_relabd %>%
+  filter(gene %in% glm_levsun$gene) %>%
+  mutate(label = case_when(gene == 641002968 ~ "*Bacteroides caccae* ATCC 43185 (BC02726)",
+                           gene == 641002973 ~ "*Bacteroides caccae* ATCC 43185 (BC02731)",
+                           gene == 641384920 ~ "*Bacteroides ovatus* ATCC 8483 (BO04501)",
+                           gene == 641387199 ~ "*Bacteroides uniformis* ATCC 8492 (BU01159)"),
+         time = case_when(substr(sample, 1, 4) == "D1H8" ~ "Dose 1\nHr -2",
+                          substr(sample, 1, 4) == "D1H1" ~ "Dose 1\nHr +6",
+                          substr(sample, 1, 4) == "D2H8" ~ "Dose 2\nHr -2",
+                          substr(sample, 1, 4) == "D2H1" ~ "Dose 2\nHr +6"),
+         vessel = str_sub(sample, -1, -1)) %>%
+  mutate(label = label_wrap_gen2(label))
+
+# Calculate mean and se
+levsun_df_summary <- levsun_df %>%
+  group_by(label, time) %>%
+  dplyr::summarize(mean=mean(relabd), se=sd(relabd)/sqrt(length(relabd)))
+
+# Get asterisks
+levsun_stars <- glm_levsun %>%
+  dplyr::select(gene, p.t2.BH, p.t3.BH, p.t4.BH) %>%
+  mutate(label = case_when(gene == 641002968 ~ "*Bacteroides caccae* ATCC 43185 (BC02726)",
+                           gene == 641002973 ~ "*Bacteroides caccae* ATCC 43185 (BC02731)",
+                           gene == 641384920 ~ "*Bacteroides ovatus* ATCC 8483 (BO04501)",
+                           gene == 641387199 ~ "*Bacteroides uniformis* ATCC 8492 (BU01159)")) %>%
+  mutate(label = label_wrap_gen2(label)) %>%
+  dplyr::select(-gene) %>%
+  dplyr::rename(`Dose 1\nHr +6` = p.t2.BH,
+         `Dose 2\nHr -2` = p.t3.BH,
+         `Dose 2\nHr +6` = p.t4.BH) %>%
+  gather(key = time, value = star, 1:3) %>%
+  mutate(star = case_when(star < 0.001 ~ "***",
+                           star < 0.01 & star >= 0.001 ~ "**",
+                           star < 0.05 & star >= 0.01 ~ "*",
+                           star >= 0.05 ~ "")) %>%
+  filter(star != "") %>%
+  arrange(label) %>%
+  mutate(height = c(0.002, 0.0085, 0.005, 0.0082,
+                    0.47, 0.25, 0.36,
+                    0.18, 0.14, 0.1))
+
+# Add hlines for buffering
+levsun_hlines <- levsun_stars %>%
+  group_by(label) %>%
+  dplyr::summarize(height = max(height) * 1.2)
+
+# Plot
+levsun_plot <- ggplot(data=levsun_df_summary, aes(x=time, y=mean, group = label)) +
+  geom_hline(data = levsun_hlines, aes(yintercept = height), alpha = 0) +
+  xlab("Time point") + ylab("Proportion of within-taxon reads") + 
+  geom_ribbon(aes(ymin=mean-se, ymax=mean+se), fill="gray", alpha = 0.5) +
+  geom_line(color="red") +
+  geom_point(data=levsun_df, aes(x=time, y=relabd,
+                                 color = factor(vessel, levels = c("1", "2", "4", "6", "7", "8"))),
+             position=position_jitter(0.025, height=0)) +
+  scale_color_manual(values = brewer.pal(6, "Paired")[c(1:3,5,6)]) + # match vessel colors
+  theme(strip.text = element_markdown(),
+        legend.position = "none") +
+  facet_wrap(~label, scales = "free_y") +
+  geom_text(data = levsun_stars, aes(x = time, y=height, label=star), size=8, inherit.aes = F)
+
+#ggsave("plots/fig2C.png", levsun_plot, height = 4, width = 5)
+
+```
+
+## Fig. 2D Total SCFA
+```{r}
+# Total SCFA plot
+scfa_total <- scfa %>%
+  filter(scfa == "Total")
+
+scfa_total_summary <- scfa_summary %>%
+  filter(scfa == "Total")
+
+# Asterisk labels
+time_points <- unique(scfa$time) %>% round(2) %>% .[c(1:2, 4:12)]
+star_y_positions <- scfa %>%
+  filter(scfa == "Total" & round(time, 2) != 1.33) %>%
+  group_by(time) %>%
+  dplyr::summarize(max = max(conc)) %>%
+  pull(max) + 5
+star_labels <- lm_results[lm_results$scfa == "Total", 3:13] %>% as.character()
+# little adjustment
+star_y_positions[9] <- star_y_positions[9] - 2.5
+
+scfa_total_plot <- ggplot(data=scfa_total_summary, aes(x=time, y=mean)) +
+  geom_hline(yintercept = 184, alpha = 0) +
+  xlab("Time (day)") + ylab("Total SCFA concentration (mM)") + 
+  geom_ribbon(aes(ymin=mean-se, ymax=mean+se), fill="gray", alpha = 0.5) +
+  geom_vline(xintercept = c(1.42, 2.42, 3.42, 4.42, 5.42), color="darkgray", linetype="dashed") +
+  geom_line(color="red") +
+  annotate("text", x = time_points, y = star_y_positions, label = star_labels, size=8) +
+  geom_point(data=scfa_total, aes(x=time, y=conc, color = factor(Vessel,
+                                                                 levels = c("1", "2", "4", "6", "7", "8", "3"))),
+             position=position_jitter(0.025, height=0)) +
+  scale_color_brewer(palette = "Paired") +
+  theme(legend.position = "none")
+
+```
+
+## Fig. 2E GC/MS select metabolites
+```{r}
+# Metabolomics - select metabolites by change
+## noted that all the Dose 1 tests are NS, just looking at Dose 2
+gcms_stars <- lm_results_gcms %>%
+  mutate(metabolite = recode(metabolite, !!!metab_name_map)) %>%
+  filter(metabolite %in% select_metabolites) %>%
+  mutate(label = case_when(lm.02 < 0.001 ~ "***",
+                           lm.02 < 0.01 & lm.02 >= 0.001 ~ "**",
+                           lm.02 < 0.05 & lm.02 >= 0.01 ~ "*",
+                           lm.02 >= 0.05 ~ "")) %>%
+  dplyr::select(metabolite, label) %>%
+  mutate(dose = "2",
+         height = c(1.1, 1.15, 3.6, 1.2, 3.4, 3.4)) %>%
+  mutate(metabolite = factor(metabolite, levels = levels(gcms_change_select_summary$metabolite)))
+
+gcms_hlines <- data.frame(metabolite = gcms_stars$metabolite,
+                          height = gcms_stars$height * 1.2) %>%
+  mutate(metabolite = factor(metabolite, levels = levels(gcms_change_select_summary$metabolite)))
+
+
+gcms_select_plot <- ggplot(data=gcms_change_select_summary, aes(x=dose, y=mean)) +
+  xlab("Inulin dose") + ylab("log2(peak area fold-change\nfrom baseline)") + 
+  geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0.25) +
+  geom_errorbar(aes(ymin=mean, ymax=mean), width=0.5, color = "red") +
+  geom_point(data=gcms_change_select, aes(x=dose, y=change, color = factor(vessel)),
+             position=position_jitter(0.025), size=1) +
+  scale_color_brewer(palette = "Paired") +
+  geom_hline(aes(yintercept=0), color="darkgray", linetype="dashed") +
+  facet_wrap(~metabolite, scales="free_y", ncol = 3,
+             labeller = label_wrap_gen(14)) +
+  geom_hline(data = gcms_hlines, aes(yintercept = height), alpha = 0) +
+  geom_text(data = gcms_stars, aes(x = dose, y=height, label=label), size=8, inherit.aes = F) +
+  theme(legend.position = "none")
+
+
+```
+
+# Fig. S5 plots
+## Fig. S5A-C PCAs
+```{r}
+# Global transcriptome
+## Reload big dataset
+rna_genes <- read.csv("data/metatranscriptomics/single_species_counts_df.csv", row.names = 1)
+
+rna_matrix_relabd <- rna_genes %>%
+  dplyr::summarize(across(everything(), ~ . / sum(.))) %>%
+  dplyr::select(rownames(rna_samdf)) # align sample order
+
+all(rownames(rna_samdf) == colnames(rna_matrix_relabd)) # TRUE
+
+## PERMANOVA
+rna_global_bray <- vegdist(t(rna_matrix_relabd), method = "bray")
+adonis2(rna_global_bray ~ time_point, strata = factor(rna_samdf$vessel), data = rna_samdf)
+## R^2 = 0.30565, p < 0.001
+
+## Plot
+rna_global_pca_label <- data.frame(label = "*R*<sup>2</sup> = 0.31<br>*p* < 0.001",
+                           x = -1.6, y = -1.6)
+
+rna_global_pca <- prcomp(t(rna_matrix_relabd), center=T, scale.=T)
+
+rna_global_pca_plot <- ggbiplot(rna_global_pca, var.axes=F,
+                                groups=factor(rna_samdf$time_point), ellipse=T) +
+  labs(color="Time point") + scale_color_brewer(palette = "Paired") +
+  geom_richtext(data = rna_global_pca_label, aes(x = x, y = y, label = label),
+                size = 4, fill = NA, label.color = NA) +
+  labs(x = "PC1 (22.7%)", y = "PC2 (15.9%)") +
+  ggtitle("Global transcriptome") +
+  coord_cartesian()
+
+
+# Bacteroides caccae
+bc_genes <- names(genes2taxa[genes2taxa == "Bacteroides caccae ATCC 43185"]) # 3267 genes
+
+## Covert to relative abundance
+bc_relabd <- rna_genes %>%
+  filter(rownames(.) %in% bc_genes) %>%
+  dplyr::summarize(across(everything(), ~ . / sum(.))) %>%
+  dplyr::select(rownames(rna_samdf)) # align sample order
+
+all(rownames(rna_samdf) == colnames(bc_relabd)) # TRUE
+
+## PERMANOVA
+bc_bray <- vegdist(t(bc_relabd), method = "bray")
+adonis2(bc_bray ~ time_point, strata = factor(rna_samdf$vessel), data = rna_samdf)
+## R^2 = 0.53783, p < 0.001
+
+## Plot
+bc_pca_label <- data.frame(label = "*R*<sup>2</sup> = 0.54<br>*p* < 0.001",
+                           x = -1.5, y = 2.5)
+
+bc_pca <- prcomp(t(bc_relabd), center=T, scale.=T)
+
+bc_pca_plot <- ggbiplot(bc_pca, var.axes=F, groups=factor(rna_samdf$time_point), ellipse=T) +
+  labs(color="Time point") + scale_color_brewer(palette = "Paired") +
+  geom_richtext(data = bc_pca_label, aes(x = x, y = y, label = label),
+                size = 4, fill = NA, label.color = NA) +
+  labs(x = "PC1 (30.6%)", y = "PC2 (20.3%)") +
+  ggtitle("*Bacteroides caccae*<br>ATCC 43185") +
+  theme(plot.title = element_markdown()) +
+  coord_cartesian()
+
+# Coprococcus comes
+cc_genes <- names(genes2taxa[genes2taxa == "Coprococcus comes ATCC 27758"]) # 2446 genes
+
+## Covert to relative abundance
+cc_relabd <- rna_genes %>%
+  filter(rownames(.) %in% cc_genes) %>%
+  dplyr::summarize(across(everything(), ~ . / sum(.))) %>%
+  dplyr::select(rownames(rna_samdf)) # align sample order
+
+all(rownames(rna_samdf) == colnames(cc_relabd)) # TRUE
+
+## PERMANOVA
+cc_bray <- vegdist(t(cc_relabd), method = "bray")
+adonis2(cc_bray ~ time_point, strata = factor(rna_samdf$vessel), data = rna_samdf)
+## R^2 = 0.46442, p < 0.001
+
+## Plot
+cc_pca_label <- data.frame(label = "*R*<sup>2</sup> = 0.48<br>*p* < 0.001",
+                           x = -1.4, y = -3)
+
+cc_pca <- prcomp(t(cc_relabd), center=T, scale.=T)
+
+cc_pca_plot <- ggbiplot(cc_pca, var.axes=F, groups=factor(rna_samdf$time_point), ellipse=T) +
+  labs(color="Time point") + scale_color_brewer(palette = "Paired") +
+  geom_richtext(data = cc_pca_label, aes(x = x, y = y, label = label),
+                size = 4, fill = NA, label.color = NA) +
+  labs(x = "PC1 (18.8%)", y = "PC2 (11.0%)") +
+  ggtitle("*Coprococcus comes*<br>ATCC 27758") +
+  theme(plot.title = element_markdown()) +
+  coord_cartesian()
+
+
+```
+
+## Fig. S5D Manhattan-ish plot
+```{r}
+
+# Get all p-values as log10, with direction of change
+nyc_data <- read.csv("data/metatranscriptomics/GLM_test_single_species.csv", row.names = 1) %>%
+  mutate(p.t2.BH = -log10(p.t2.BH) * sign(es.t2),
+         p.t3.BH = -log10(p.t3.BH) * sign(es.t3),
+         p.t4.BH = -log10(p.t4.BH) * sign(es.t4)) %>%
+  dplyr::select(gene, species, p.t2.BH, p.t3.BH, p.t4.BH) %>%
+  dplyr::rename(`Dose 1 Hr +6` = p.t2.BH,
+         `Dose 2 Hr -2` = p.t3.BH,
+         `Dose 2 Hr +6` = p.t4.BH) %>%
+  gather(key = dose, value = pval, 3:5) %>%
+  mutate(colorval = case_when(abs(pval) > -log10(0.05) & sign(pval) == 1 ~ "Increased, *p* < 0.05",
+                              abs(pval) <= -log10(0.05) & sign(pval) == 1 ~ "Increased, NS",
+                              abs(pval) > -log10(0.05) & sign(pval) == -1 ~ "Decreased, *p* < 0.05",
+                              abs(pval) <= -log10(0.05) & sign(pval) == -1 ~ "Decreased, NS")) %>%
+  mutate(pval = abs(pval))
+
+# Order taxa based on taxonomy
+all_species <- unique(nyc_data$species)
+
+## Remove 3 taxa that are causing problems
+all_species <- all_species[which(!(grepl("phage", all_species)))]
+all_species <- all_species[all_species != "Erysipelotrichaceae bacterium 5_2_54FAA"]
+
+species_order <- tnrs_match_names(names = all_species) %>%
+  ott_id(.) %>%
+  tol_induced_subtree(ott_ids = .) %>%
+  .$tip.label %>%
+  strip_ott_ids(., remove_underscores = F) # removing original underscores too...
+
+length(intersect(gsub(" ", "_", all_species), species_order)) # 146 names match; 29 got renamed
+
+## Manually fix problem taxa
+problem_taxa <- read.csv("data/metatranscriptomics/rotl_problem_taxa.csv")
+
+for(i in 1:length(species_order)) {
+  if(species_order[i] %in% problem_taxa$order) {
+    species_order[i] <- problem_taxa[problem_taxa$order == species_order[i], "radata"]
+  }
+}
+
+length(intersect(gsub(" ", "_", all_species), species_order)) # fixed!
+
+nyc_data <- nyc_data %>%
+  mutate(species = gsub(" ", "_", species)) %>%
+  mutate(species = factor(species, levels = species_order))
+
+# Plot
+## Create annotations
+nyc_labels <- data.frame(taxa = c(rep("*Bacteroides* and *Parabacteroides*", 3),
+                                  "*Anaerococcus vaginalis*", rep("*Coprococcus comes*", 3),
+                                  rep("*Clostridium*", 3), "*Pyramidobacter piscolens*"),
+                         x = c(rep(30, 3), 72, 126, 115, 115, rep(136.5, 3), 161),
+                         y = c(5.5, 6, 6.6, 4.8, 4.5, 2.6, 4.25, 3.55, 5.2, 5.4, 5),
+                         dose = c("Dose 1 Hr +6", "Dose 2 Hr -2", "Dose 2 Hr +6",
+                                  "Dose 2 Hr +6", "Dose 1 Hr +6", "Dose 2 Hr -2",
+                                  "Dose 2 Hr +6", "Dose 1 Hr +6", "Dose 2 Hr -2", 
+                                  "Dose 2 Hr +6", "Dose 2 Hr +6"))
+
+nyc_signif_labels <- data.frame(annotations = "",
+                                xmin = c(rep(10, 3), 72, rep(126, 3), rep(134, 3), 175),
+                                xmax = c(rep(50, 3), 72, rep(126, 3), rep(139, 3), 175),
+                                y = 0.95 * nyc_labels$y,
+                                dose = nyc_labels$dose)
+### nudge
+nyc_signif_labels$y[6:8] <- nyc_signif_labels$y[6:8] * 0.95
+
+## Slow to load because lot of points (~30s)
+nyc_plot <- ggplot(nyc_data, aes(x = species, y = pval, color = colorval)) +
+  geom_point(alpha=0.4, stroke = 0, shape=16, size = 2) +
+  facet_wrap(~dose, scales = "free_y", ncol = 1) +
+  geom_richtext(data = nyc_labels, aes(x = x, y = y, label = taxa), 
+                size = 3, fill = NA, label.color = NA, inherit.aes = F) +
+  
+  geom_signif(data = nyc_signif_labels,
+              aes(annotations = annotations, xmin = xmin, xmax = xmax, y_position = y),
+              color = "black", manual = T, inherit.aes = F) +
+  labs(x = "Taxa", y = "-log<sub>10</sub>(BH-corrected *p*-value)", color = "") +
+  scale_x_discrete(breaks = NULL) +
+  scale_color_manual(values = brewer.pal(6, "Paired")[c(2,1,6,5)]) +
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y = element_markdown(),
+        legend.text = element_markdown(),
+        legend.position = c(0.5, 0.92),
+        legend.background=element_blank())
+
+# Actually, going to pull this into the main text (Fig. 3)
+#saveRDS(nyc_plot, "plots/fig3B.RDS")
+
+# Stats on gene hits
+## Genes changed at Dose 1 Hr +6
+nyc_data[nyc_data$dose == "Dose 1 Hr +6" & nyc_data$pval > -log10(0.05), ]$gene %>% n_distinct() # 420
+## Taxa changed at Dose 1 Hr +6
+nyc_data[nyc_data$dose == "Dose 1 Hr +6" & nyc_data$pval > -log10(0.05), ]$species %>% n_distinct() # 38
+## % taxa changed at Dose 1 Hr +6 that are Bacteroides
+nyc_data[nyc_data$dose == "Dose 1 Hr +6" & nyc_data$pval > -log10(0.05), ]$species %>% as.character() %>%
+  .[grepl(pattern = "Bacteroides", .)] %>% n_distinct() # 17 / 38 = 44.7%
+
+## Genes changed at Dose 2 Hr -2
+nyc_data[nyc_data$dose == "Dose 2 Hr -2" & nyc_data$pval > -log10(0.05), ]$gene %>% n_distinct() # 355
+## Taxa changed at Dose 2 Hr -2
+nyc_data[nyc_data$dose == "Dose 2 Hr -2" & nyc_data$pval > -log10(0.05), ]$species %>% n_distinct() # 44
+## % taxa changed at Dose 2 Hr -2 that are Bacteroides
+nyc_data[nyc_data$dose == "Dose 2 Hr -2" & nyc_data$pval > -log10(0.05), ]$species %>% as.character() %>%
+  .[grepl(pattern = "Bacteroides", .)] %>% n_distinct() # 23 / 38 = 52.3%
+
+## Genes changed at Dose 2 Hr +6
+nyc_data[nyc_data$dose == "Dose 2 Hr +6" & nyc_data$pval > -log10(0.05), ]$gene %>% n_distinct() # 1082
+## Taxa changed at Dose 2 Hr +6
+nyc_data[nyc_data$dose == "Dose 2 Hr +6" & nyc_data$pval > -log10(0.05), ]$species %>% n_distinct() # 57
+## % taxa changed at Dose 2 Hr +6 that are Bacteroides
+nyc_data[nyc_data$dose == "Dose 2 Hr +6" & nyc_data$pval > -log10(0.05), ]$species %>% as.character() %>%
+  .[grepl(pattern = "Bacteroides", .)] %>% n_distinct()  # 25 / 57 = 43.9%
+
+## How many Bacteroides overall?
+nyc_data$species %>% as.character() %>% .[grepl(pattern = "Bacteroides", .)] %>% n_distinct() #37
+
+chi_df_bac <- data.frame(bac = c(17, 37), all = c(38, 178))
+chisq.test(chi_df_bac) # p = 0.03774
+
+chi_df_bac2 <- data.frame(bac = c(25, 37), all = c(57, 178))
+chisq.test(chi_df_bac2) # p = 0.0184
+
+# These don't really take into account that Bacteroides may have more genes detected than other taxa to start
+
+```
+
+## Fig. S5E Non-Bacteroides syntenic genes
+```{r}
+
+# Subset on non-bacteroides
+## Reduction from 1402 to 860 (61.3% remain)
+## From 67 to 40 taxa
+glm_results_nonbac <- glm_indiv_results %>%
+  filter(!grepl("Bacteroides", species)) %>%
+  arrange(gene) %>%
+  dplyr::select(-c(p.t2, p.t3, p.t4))
+
+## Subset on taxa that even have at least 4 genes (14 taxa, 828 genes)
+taxa_subset <- glm_results_nonbac %>%
+  dplyr::select(species, gene) %>%
+  group_by(species) %>%
+  dplyr::summarize(n_genes = length(gene)) %>%
+  filter(n_genes >= 4) %>%
+  pull(species) %>%
+  as.character()
+
+glm_results_nonbac <- glm_results_nonbac %>%
+  filter(species %in% taxa_subset) %>%
+  mutate(diff = NA)
+
+# Identify probably syntenic genes
+## Get adjacent genes
+for(taxon in taxa_subset) {
+  gene_ids <- glm_results_nonbac[glm_results_nonbac$species == taxon,]$gene %>%
+    as.numeric()
+  glm_results_nonbac[glm_results_nonbac$species == taxon,]$diff <-
+    gene_ids - c(0, gene_ids[1:length(gene_ids)-1])
+}
+
+## Use rle to identify runs of adjacent (numerically) genes
+runs <- rle(glm_results_nonbac$diff)
+which_runs <- which(runs$lengths > 3 & runs$values == 1)
+
+runs_lengths_cumsum <- cumsum(runs$lengths)
+ends <- runs_lengths_cumsum[which_runs]
+
+newindex <- ifelse(which_runs>1, which_runs-1, 0)
+starts <- runs_lengths_cumsum[newindex] + 1
+if (0 %in% newindex) starts <- c(1,starts)
+starts <- starts - 1 # The first value in a run will actually not have a 1 b/c referenced to the one before it
+
+gois <- c()
+for(i in 1:length(starts)) {
+  gois <- c(gois, starts[i]:ends[i])
+}
+
+glm_results_nonbac <- glm_results_nonbac[gois,]
+
+n_distinct(glm_results_nonbac$species) # 6 taxa, 141 genes
+nrow(glm_results_nonbac[glm_results_nonbac$diff > 1,]) # 18 putative operons
+
+# Get species-specific gene identifiers
+## ~5s load
+genes2ncbi <- read.csv("data/metatranscriptomics/genes img2ncbi in rna-seq.csv") %>%
+  filter(ID %in% glm_results_nonbac$gene) %>%
+  dplyr::select(ID, name, product) %>%
+  left_join(kegg2genes[,1:2], by = c("ID" = "gene_oid")) %>%
+  left_join(keggmap[,c(10,8)])
+
+glm_results_nonbac <- glm_results_nonbac %>%
+  left_join(genes2ncbi, by = c("gene" = "ID")) %>%
+  filter(!duplicated(gene))
+
+# Subset on those that increased, and have COG category G for at least one gene
+## Label each putative PUL-like locus (PPLL)
+glm_results_nonbac <- glm_results_nonbac %>%
+  mutate(PPLL = paste0("PPLL", c(rep(1, 6), rep(2, 7), rep(3, 8), rep(4, 11), rep(5, 27),
+                       rep(6, 6), rep(7, 11), rep(8, 6), rep(9, 6), rep(10, 6), rep(11, 5),
+                       rep(12, 6), rep(13, 6), rep(14, 5), rep(15, 10), rep(16, 5),
+                       rep(17, 5), rep(18, 5))))
+
+## Remove downregulated PPLLs
+glm_results_nonbac <- glm_results_nonbac %>%
+  filter(!(PPLL %in% c("PPLL5", "PPLL6", "PPLL7", "PPLL8", "PPLL9")))
+
+## Removing two that are 100% ribosomal proteins and PPLL14 is just all orotate metabolism
+glm_results_nonbac <- glm_results_nonbac %>%
+  filter(!(PPLL %in% c("PPLL16", "PPLL17", "PPLL14")))
+# That leaves 5 taxa, 10 PPLLs, 70 genes
+
+# Reassign taxa names and PPLL IDs
+glm_results_nonbac <- glm_results_nonbac %>%
+  mutate(species_locus = case_when(species == "Clostridium bolteae ATCC BAA-613" & PPLL == "PPLL1" ~
+                                     "*Clostridium bolteae* ATCC BAA-613 (locus 1)",
+                                   species == "Clostridium bolteae ATCC BAA-613" & PPLL == "PPLL2" ~
+                                     "*Clostridium bolteae* ATCC BAA-613 (locus 2)",
+                                   species == "Clostridium bolteae ATCC BAA-613" & PPLL == "PPLL3" ~
+                                     "*Clostridium bolteae* ATCC BAA-613 (locus 3)",
+                                   species == "Clostridium bolteae ATCC BAA-613" & PPLL == "PPLL4" ~
+                                     "*Clostridium bolteae* ATCC BAA-613 (locus 4)",
+                                   species == "Coprococcus comes ATCC 27758" ~
+                                     "*Coprococcus comes* ATCC 27758 (locus 1)",
+                                   species == "Clostridium asparagiforme DSM 15981" ~
+                                     "*Clostridium asparagiforme* DSM 15981 (locus 1)",
+                                   species == "Clostridium hathewayi DSM 13479" & PPLL == "PPLL12" ~
+                                     "*Clostridium hathewayi* DSM 13479 (locus 1)",
+                                   species == "Clostridium hathewayi DSM 13479" & PPLL == "PPLL13" ~
+                                     "*Clostridium hathewayi* DSM 13479 (locus 2)",
+                                   species == "Pyramidobacter piscolens W5455" & PPLL == "PPLL15" ~
+                                     "*Pyramidobacter piscolens* W5455 (locus 1)",
+                                   species == "Pyramidobacter piscolens W5455" & PPLL == "PPLL18" ~
+                                     "*Pyramidobacter piscolens* W5455 (locus 2)")) %>%
+  mutate(species_locus = label_wrap_gen2(species_locus, width = 15)) %>%
+  mutate(species_locus = factor(species_locus))
+  
+
+# Plot heatmap
+## Get labels
+nonbac_labels <- glm_results_nonbac %>%
+  dplyr::rename(`Dose 1\nHr +6` = p.t2.BH,
+         `Dose 2\nHr -2` = p.t3.BH,
+         `Dose 2\nHr +6` = p.t4.BH) %>%
+  dplyr::select(species_locus, name, `Dose 1\nHr +6`, `Dose 2\nHr -2`, `Dose 2\nHr +6`) %>%
+  gather(key = dose, value = label, 3:5) %>%
+  mutate(label = case_when(label < 0.001 ~ "<sub>***</sub>", #hack for centering asterisks
+                           label < 0.01 & label >= 0.001 ~ "<sub>**</sub>",
+                           label < 0.05 & label >= 0.01 ~ "<sub>*</sub>",
+                           label >= 0.05 ~ ""))
+
+## Get effect size
+nonbac_effect <- glm_results_nonbac %>%
+  filter(name %in% nonbac_labels$name) %>%
+  dplyr::rename(`Dose 1\nHr +6` = es.t2,
+         `Dose 2\nHr -2` = es.t3,
+         `Dose 2\nHr +6` = es.t4) %>%
+  dplyr::select(species_locus, name, `Dose 1\nHr +6`, `Dose 2\nHr -2`, `Dose 2\nHr +6`) %>%
+  gather(key = dose, value = effect, 3:5)
+
+## Not doing clustering here because I am grouping by PPLL
+
+## Center palette on zero
+nonbac_palette_lims <- max(abs(nonbac_effect$effect)) * c(-1, 1)
+
+## Make plot
+nonbac_hm <-ggplot(nonbac_effect, aes(x = dose, y = name)) +
+  geom_tile(aes(fill=effect), color = "black") +
+  labs(x = "", y = "", fill = "Effect size\nestimate") +
+  scale_fill_distiller(palette = "RdBu", limit = nonbac_palette_lims) +
+  geom_richtext(data = nonbac_labels, aes(label = label), size = 4, fill = NA, label.color = NA) +
+  facet_wrap(~species_locus, scales="free_y", ncol = 1, dir = "v", strip.position = "right") +
+  theme(axis.ticks=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.border=element_blank(),
+        strip.text.y = element_markdown(size = 8, angle = 0),
+        axis.text.y = element_text(size = 6))
+
+```
+
+## Fig. S5F COG scatterplots
+```{r}
+# Annotate with COG
+## Note: some genes will become duplicated because map to multiple COG categories
+## Reload full dataset
+genes_cog <- read.csv("data/metatranscriptomics/GLM_test_single_species.csv", row.names = 1) %>%
+  dplyr::select(gene, p.t2.BH, p.t3.BH, p.t4.BH) %>%
+  left_join(kegg2genes[,1:2], by = c("gene" = "gene_oid")) %>%
+  left_join(keggmap[,c(10,8)]) %>%
+  filter(!is.na(cogcat))
+
+# Make a table of cog category frequencies
+cog_table <- table(genes_cog$cogcat) %>%
+  as.data.frame() %>%
+  dplyr::rename(cog = Var1,
+         past_filters = Freq)
+
+# Get frequencies for hits for each time point, add to table
+hits_cog <- genes_cog %>%
+  filter(gene %in% glm_indiv_results$gene)
+
+hits_cog_t2 <- hits_cog %>%
+  filter(p.t2.BH < 0.05) %>%
+  pull(cogcat) %>%
+  as.character() %>%
+  table() %>%
+  as.data.frame()
+
+hits_cog_t3 <- hits_cog %>%
+  filter(p.t3.BH < 0.05) %>%
+  pull(cogcat) %>%
+  as.character() %>%
+  table() %>%
+  as.data.frame()
+
+hits_cog_t4 <- hits_cog %>%
+  filter(p.t4.BH < 0.05) %>%
+  pull(cogcat) %>%
+  as.character() %>%
+  table() %>%
+  as.data.frame()
+
+cog_table <- cog_table %>%
+  full_join(hits_cog_t2, by = c("cog" = ".")) %>%
+  dplyr::rename(t2 = Freq) %>%
+  full_join(hits_cog_t3, by = c("cog" = ".")) %>%
+  dplyr::rename(t3 = Freq) %>%
+  full_join(hits_cog_t4, by = c("cog" = ".")) %>%
+  dplyr::rename(t4 = Freq) %>%
+  gather(key = time_point, value = value, 3:5)
+
+cog_table$value[is.na(cog_table$value)] <- 0
+
+# Plot
+## Add line for equal proportion
+sum(cog_table[cog_table$time_point == "t2", "past_filters"]) # 27589
+sum(cog_table[cog_table$time_point == "t2", "value"]) # 192
+sum(cog_table[cog_table$time_point == "t3", "value"]) # 75
+sum(cog_table[cog_table$time_point == "t4", "value"]) # 454
+
+## Rename time point, color G
+cog_table <- cog_table %>%
+  mutate(time_point = case_when(time_point == "t2" ~ "Dose 1 Hr +6",
+                                time_point == "t3" ~ "Dose 2 Hr -2",
+                                time_point == "t4" ~ "Dose 2 Hr +6")) %>%
+  mutate(makered = ifelse(cog == "G", "red", "black"))
+
+## Chi-squared test for G group
+chi_df_t2 <- data.frame(g=c(cog_table[cog_table$cog == "G" &
+                                        cog_table$time_point == "Dose 1 Hr +6", "value"],
+                            cog_table[cog_table$cog == "G" &
+                                        cog_table$time_point == "Dose 1 Hr +6", "past_filters"]),
+                        all=c(sum(cog_table[cog_table$time_point == "Dose 1 Hr +6", "value"]),
+                              sum(cog_table[cog_table$time_point == "Dose 1 Hr +6",
+                                            "past_filters"])))
+chisq.test(chi_df_t2) # 0.01992
+
+chi_df_t3 <- data.frame(g=c(cog_table[cog_table$cog == "G" &
+                                        cog_table$time_point == "Dose 2 Hr -2", "value"],
+                            cog_table[cog_table$cog == "G" &
+                                        cog_table$time_point == "Dose 2 Hr -2", "past_filters"]),
+                        all=c(sum(cog_table[cog_table$time_point == "Dose 2 Hr -2", "value"]),
+                              sum(cog_table[cog_table$time_point == "Dose 2 Hr -2",
+                                            "past_filters"])))
+chisq.test(chi_df_t3) # 0.2348
+
+chi_df_t4 <- data.frame(g=c(cog_table[cog_table$cog == "G" &
+                                        cog_table$time_point == "Dose 2 Hr +6", "value"],
+                            cog_table[cog_table$cog == "G" &
+                                        cog_table$time_point == "Dose 2 Hr +6", "past_filters"]),
+                        all=c(sum(cog_table[cog_table$time_point == "Dose 2 Hr +6", "value"]),
+                              sum(cog_table[cog_table$time_point == "Dose 2 Hr +6",
+                                            "past_filters"])))
+chisq.test(chi_df_t4) # 0.1204
+
+## Make dashed lines
+segments_df <-data.frame(x=c(0,0,0), y=c(0,0,0),
+                         xend=4000,
+                         yend=c((192 / 27589) * 4000,
+                                (75 / 27589) * 4000,
+                                (454 / 27589) * 4000),
+                         time_point=c("Dose 1 Hr +6", "Dose 2 Hr -2", "Dose 2 Hr +6"))
+
+## Make stats annotations
+cog_stat_labels <- data.frame(x = 1000, y = c(30, 12, 66),
+                              label = c("&chi;<sup>2</sup> test<br>*p* = 0.020",
+                                        "&chi;<sup>2</sup> test<br>*p* = 0.23",
+                                        "&chi;<sup>2</sup> test<br>*p* = 0.12"),
+                              time_point = c("Dose 1 Hr +6", "Dose 2 Hr -2", "Dose 2 Hr +6"))
+
+## Create plot
+cog_plot <- ggplot(cog_table, aes(x = past_filters, y = value, label = cog)) +
+  geom_text(aes(color = makered)) +
+  scale_color_manual(values = c("black", "red")) +
+  geom_richtext(data = cog_stat_labels, aes(x = x, y = y, label = label),
+                fill = NA, label.color = NA, inherit.aes = F) +
+  geom_segment(data=segments_df, aes(x=x, y=y, xend=xend, yend=yend),
+               color="darkgray", linetype = "dashed", inherit.aes=F) +
+  facet_wrap(~time_point, scales = "free", ncol = 3) +
+  labs(x="Genes that passed filters", y="Hits") +
+  theme(legend.position = "none")
+
+
+
+```
+
+
+# Fig. S6 plots
+## Fig. S6A Individual SCFAs
+```{r}
+# Individual SCFAs
+scfa_each <- scfa %>%
+  filter(scfa != "Total")
+scfa_each_summary <- scfa_summary %>%
+  filter(scfa != "Total")
+
+## Asterisk labels
+star_labels_each <- lm_results %>%
+  filter(scfa != "Total") %>%
+  dplyr::select(-intercept) %>%
+  gather(key = test, value = p.val, 2:12) %>%
+  arrange(scfa)
+
+scfa_annotation <- scfa %>%
+  filter(scfa != "Total" & round(time, 2) != 1.33) %>%
+  group_by(scfa, time) %>%
+  dplyr::summarize(max = max(conc)) %>%
+  mutate(max = max * 1.1) %>%
+  ungroup %>%
+  mutate(label = star_labels_each$p.val)
+## Adjust a couple overlapping ones
+scfa_annotation[21,3] <- scfa_annotation[21,3] - 2
+scfa_annotation[31,3] <- scfa_annotation[31,3] + 0.5
+
+## Add space to protect asterisks
+scfa_hlines <- data.frame(scfa = unique(scfa_annotation$scfa),
+                          height = c(85, 58, 12, 18.5, 26.5, 17))
+
+scfa_each_plot <- ggplot(data=scfa_each_summary, aes(x=time, y=mean)) +
+  geom_hline(data = scfa_hlines, aes(yintercept = height), alpha = 0) +
+  xlab("Time (day)") + ylab("SCFA concentration (mM)") + 
+  geom_ribbon(aes(ymin=mean-se, ymax=mean+se), fill="gray", alpha = 0.5) +
+  geom_vline(xintercept = c(1.42, 2.42, 3.42, 4.42, 5.42), color="darkgray", linetype="dashed") +
+  geom_line(color="red") +
+  geom_text(data = scfa_annotation, aes(x = time, y = max, label = label), size = 5) +
+  geom_point(data=scfa_each, aes(x=time, y=conc), position=position_jitter(0.025, height = 0)) +
+  facet_wrap(~scfa, scales = "free_y", ncol=1) +
+  lims(x=c(-0.5, 6))
+
+```
+
+## Fig. S6B All GC/MS hits
+```{r}
+# Metabolomics all metabolites
+## Get labels
+gcms_hits_labels <- lm_results_gcms %>%
+  filter(metabolite %in% gcms_hits) %>%
+  dplyr::rename(`Dose 1\nHr +6` = lm.01,
+         `Dose 2\nHr +6` = lm.02) %>%
+  dplyr::select(metabolite, `Dose 1\nHr +6`, `Dose 2\nHr +6`) %>%
+  mutate(metabolite = recode(metabolite, !!!metab_name_map)) %>%
+  mutate(across(starts_with("D"), ~ case_when(.x < 0.001 ~ "<sub>***</sub>", # hack to center asterisk
+                                              .x < 0.01 & .x >= 0.001 ~ "<sub>**</sub>",
+                                              .x < 0.05 & .x >= 0.01 ~ "<sub>*</sub>",
+                                              .x >= 0.05 ~ ""))) %>%
+  gather(key = dose, value = label, 2:3)
+
+## Get effect size
+gcms_hits_effect <- lm_results_gcms %>%
+  filter(metabolite %in% gcms_hits) %>%
+  dplyr::rename(`Dose 1\nHr +6` = es.01,
+         `Dose 2\nHr +6` = es.02) %>%
+  dplyr::select(metabolite, `Dose 1\nHr +6`, `Dose 2\nHr +6`) %>%
+  mutate(metabolite = recode(metabolite, !!!metab_name_map))
+
+## Get hierarchical clustering order
+gcms_order <- gcms_hits_effect[hclust(dist(gcms_hits_effect[,2:3]))$order,]$metabolite
+
+gcms_hits_effect <- gcms_hits_effect %>%
+  mutate(metabolite = factor(metabolite, levels = rev(gcms_order))) %>%
+  gather(key = dose, value = effect, 2:3)
+
+## Center palette on zero
+gcms_palette_lims <- max(abs(gcms_hits_effect$effect)) * c(-1, 1)
+
+gcms_hm <- ggplot(gcms_hits_effect, aes(x = dose, y = metabolite)) +
+  geom_tile(aes(fill=effect), color = "black") +
+  labs(x = "", y = "", fill = "log2(peak area fold-change)") +
+  scale_fill_distiller(palette = "RdBu", limit = gcms_palette_lims) +
+  geom_richtext(data = gcms_hits_labels, aes(label = label), size = 6, fill = NA, label.color = NA) + 
+  theme(axis.ticks=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.border=element_blank(),
+        axis.text.y = element_markdown(),
+        legend.position = "left")
+
+```
+
+
+# Patch panels together
+```{r}
+# Fig 2 - multiomics of memory effect
+# Having alignment issues with patchwork, so using cowplot for this one
+fig2_middle <- cowplot::plot_grid(rna_hm, levsun_plot,
+                                  labels = c("B", "C"), label_fontface = "plain",
+                                  rel_widths = c(2, 3))
+fig2_bottom <- cowplot::plot_grid(scfa_total_plot, gcms_select_plot,
+                                  labels = c("D", "E"), label_fontface = "plain",
+                                  rel_widths = c(2, 3))
+fig2 <- cowplot::plot_grid(select_taxa_plot, fig2_middle, fig2_bottom,
+                           ncol = 1, labels = c("A", "", ""), label_fontface = "plain")
+#ggsave("plots/fig2.png", fig2, height = 10, width = 8.3)
+
+# Fig S5 - more RNA-Seq data
+figS5_top <- cowplot::plot_grid(rna_global_pca_plot + theme(legend.position="none"),
+                                bc_pca_plot + theme(legend.position="none"),
+                                cc_pca_plot,
+                                labels = c("A", "B", "C"), label_fontface = "plain",
+                                nrow = 1, rel_widths = c(3, 3, 4))
+
+figS5 <- cowplot::plot_grid(figS5_top, cog_plot, NULL,
+                            labels = c("", "D", "E"), label_fontface = "plain",
+                            ncol = 1, rel_heights = c(1, 1, 0.1))
+#ggsave("plots/figS5.png", figS5, height = 5, width = 8)
+
+# Fig S6 - more metabolomics data
+design_S6 <- "
+11122
+11122
+11122
+11122
+11122
+11133
+"
+
+figS6 <- scfa_each_plot + gcms_hm + guide_area() + plot_annotation(tag_levels = "A") +
+  plot_layout(design = design_S6, guides = "collect")
+#ggsave("plots/figS6.png", figS6, height = 9, width = 8)
+# since saving, I think something got massed up with the case_when creation of asterisks...
+
+# Just making the nonBac plot its own Fig. S9...
+#ggsave("plots/figS9.png", nonbac_hm, height = 10, width = 5.2)
+
+
+
+
+```
+

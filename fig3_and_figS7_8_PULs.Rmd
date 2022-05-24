@@ -1,0 +1,439 @@
+---
+title: "Fig 3 and Fig S7-8 - PULs"
+author: "Jeff Letourneau"
+date: '2022-04-27'
+output: html_document
+---
+
+# Load libraries
+```{r}
+# Plotting
+library(tidyverse)
+library(patchwork)
+library(ggsignif)
+library(gggenes)
+library(RColorBrewer)
+library(ggtext)
+library(cowplot)
+
+# Stats
+library(lme4)
+library(lmerTest)
+library(growthcurver)
+
+theme_set(theme_bw() +
+            theme(axis.text = element_text(color = "black"),
+                  axis.ticks = element_line(color = "black"),
+                  plot.title = element_text(hjust = 0.5)))
+
+```
+
+# Load data
+```{r}
+# Bacteroides PUL loci for Fig. 3
+puls <- read.csv("data/metatranscriptomics/Bacteroides_PUL_genes.csv") %>%
+  mutate(PUL = factor(PUL, levels=c("PUL43", "PUL11", "PUL92", "PUL17", "PUL18"))) %>%
+  mutate(direction = 1)
+
+# GLM test results (p-vals)
+glm_test <- read.csv("data/metatranscriptomics/glm hits with PULs only.csv")
+
+puls <- puls %>%
+  left_join(glm_test[,c(1,6:8)], by = c("IMG_ID" = "gene")) %>%
+  dplyr::mutate(across(starts_with("p.t"), ~ case_when(. < 0.001 ~ "<sub>***</sub>",
+                                                . < 0.01 & . >= 0.001 ~ "<sub>**</sub>",
+                                                . < 0.05 & . >= 0.01 ~ "<sub>*</sub>",
+                                                . >= 0.05 ~ ""))) %>%
+  mutate(genome = gsub("Bacteroides caccae", "*Bacteroides caccae*", genome)) %>%
+  mutate(genome = gsub("Bacteroides ovatus", "*Bacteroides ovatus*", genome)) %>%
+  mutate(genome = gsub("Bacteroides uniformis", "*Bacteroides uniformis*", genome)) %>%
+  mutate(PUL_detail = paste0(genome, " (", PUL, ")")) %>%
+  mutate(gene_y_position = c(rep(1.4, 6), 0.6, rep(1.4, 5), 0.6, 1.4, 0.6, 1.4, 0.6, rep(1.4, 2), 0.6, 1.4))
+
+# In vitro mechanism experiments
+## Conditioned media HPAEC
+cm_hp <- read.csv("data/HPAEC/conditioned_media_HPAEC.csv") %>%
+  dplyr::mutate(rep = rep(1:3, 237)) %>%
+  group_by(media, doses, rep) %>%
+  dplyr::summarize(total = sum(conc)) %>%
+  ungroup() %>%
+  dplyr::mutate(cond = c(rep("1+CM", 3), rep("1", 3), rep("2", 3)))
+
+## Spike-in HPAEC
+spike <- read.csv("data/HPAEC/spikein_hpaec.csv") %>%
+  group_by(cond, pre.treat, rep) %>%
+  dplyr::summarize(total = sum(conc)) %>%
+  mutate(doses = NA,
+         spike = NA)
+spike[spike$pre.treat == "in", "doses"] <- 2
+spike[spike$pre.treat == "con", "doses"] <- 1
+spike[spike$cond == "908", "spike"] <- ""
+spike[spike$cond == "Bc10", "spike"] <- "10%"
+spike[spike$cond == "Bc50", "spike"] <- "50%"
+spike <- spike %>%
+  filter((doses == 2 & spike == "") | doses == 1)
+
+## Growth curve
+growthcurve <- read.csv("data/other/growth_curve2.csv", row.names = 1) %>%
+  mutate(pre.treat = case_when(pre.treat == "glu" ~ "Glucose",
+                               pre.treat == "inu" ~ "Inulin",
+                               TRUE ~ pre.treat))
+
+## Inoculum concentration HPAEC
+biomass_hp <- read.csv("data/HPAEC/inoculum_conc_hpaec.csv") %>%
+  group_by(doses, amt, rep) %>%
+  dplyr::summarize(total = sum(conc)) %>%
+  ungroup() %>%
+  mutate(cond = c(rep("1\nLow (1.44)", 3), rep("1\nHigh (2.88)", 3), rep("2\nLow (1.44)", 3), rep("2\nHigh (2.26)", 3)))
+
+## Inoculum concentration pH
+biomass_pH <- read.csv("data/pH/inoc_conc_pH.csv") %>%
+  mutate(cond = c(rep("1\nLow (1.44)", 3), rep("1\nHigh (2.88)", 3), rep("2\nLow (1.44)", 3), rep("2\nHigh (2.26)", 3)))
+
+
+```
+
+# Add label wrap function for creating line breaks
+```{r}
+label_wrap_gen2 <- function(labels, width = 25, multi_line = TRUE) {
+  labels <- labels %>% strwrap(width = 25, simplify = FALSE) %>%
+    vapply(paste, character(1), collapse = "<br>")
+  return(labels)
+}
+
+puls <- puls %>%
+  mutate(PUL_detail = label_wrap_gen2(PUL_detail))
+
+```
+
+# Statistics and data summarizing
+## Conditioned media
+```{r}
+# Summarize
+cm_hp_summary <- cm_hp %>%
+  group_by(cond) %>%
+  dplyr::summarize(mean = mean(total), se = sd(total)/sqrt(length(total)))
+
+# Run linear model
+lm(formula = total ~ cond, data = cm_hp) %>% summary()
+#             Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)   3.7760     0.1795  21.034 7.52e-07 ***
+# cond1+CM      0.7044     0.2539   2.775  0.03222 *  
+# cond2        -1.5217     0.2539  -5.994  0.00097 ***
+
+```
+
+## Spike-in
+```{r}
+# Recode conditions
+spike$statcond <- c(rep(1,3), rep(2, 3), rep("1 +\n10%", 3), rep("1 +\n50%", 3))
+
+# Summarize
+spike_summary <- spike %>%
+  group_by(statcond) %>%
+  dplyr::summarize(mean = mean(total), se = sd(total)/sqrt(length(total)))
+
+# Linear model
+lm(formula = total ~ statcond, data = spike) %>% summary()
+#                  Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)        3.8933     0.6495   5.994 0.000325 ***
+# statcond1 +\n10%  -2.9146     0.9185  -3.173 0.013133 *  
+# statcond1 +\n50%  -4.0423     0.9185  -4.401 0.002284 ** 
+# statcond2         -3.2272     0.9185  -3.513 0.007922 ** 
+
+```
+
+## Growth curve
+```{r}
+# Summarize
+growthcurvesummary <- growthcurve %>%
+  group_by(time, pre.treat) %>%
+  dplyr::summarize(mean=mean(OD600), se=sd(OD600)/sqrt(length(OD600)))
+
+# Linear model
+
+
+# Curve statistics
+lm(formula = OD600 ~ factor(time)*pre.treat,
+   data=growthcurve[growthcurve$pre.treat != "No inoculum\ncontrol",]) %>% summary()
+# p < 0.05 from 3 to 14 for interaction term
+
+# Get data into a format growthcurver can read
+gc_data <- growthcurve[growthcurve$pre.treat != "No inoculum\ncontrol",]
+gc_data$well <- rep(c("g1", "g2", "g3", "i1", "i2", "i3"), 48)
+gc_data <- gc_data[,c(1,5,4)]
+gc_data <- tidyr::spread(gc_data, key=well, value=OD600)
+
+gc_out <- SummarizeGrowthByPlate(gc_data, bg_correct = "none")
+
+# Notes on output metrics
+# k = carrying capacity
+# n0 = initial population size
+# r = instrinsic growth rate (if no restriction on K)
+# t_mid = time where pop density is 1/2 K
+# t_gen = fastest doubling time
+# auc = area under curve
+# sigma = how good the fit is
+
+# Let's plot k, r, t_mid, and t_gen
+
+metrics <- data.frame(pre.treat=c(rep("Glucose", 3), rep("Inulin", 3)), rep = c(1:3, 1:3),
+                      k = gc_out$k, r = gc_out$r, t_mid = gc_out$t_mid, t_gen = gc_out$t_gen)
+metrics <- tidyr::gather(metrics, key=metric, value=val, 3:6) %>%
+  mutate(metric = case_when(metric == "k" ~ "Carrying\ncapacity (k)",
+                            metric == "r" ~ "Intrinsic\ngrowth rate (r)",
+                            metric == "t_gen" ~ "Min. doubling\ntime (t_gen)",
+                            metric == "t_mid" ~ "Time to k/2\n(t_mid)"))
+
+met.sum <- metrics %>% group_by(pre.treat, metric) %>%
+  dplyr::summarize(mean=mean(val), se=sd(val)/sqrt(length(val)))
+
+#k
+t.test(x = gc_out$k[1:3], y = gc_out$k[4:6]) # p-value = 0.2121
+
+#r
+t.test(x = gc_out$r[1:3], y = gc_out$r[4:6]) # p-value = 0.00633
+
+#t_gen
+t.test(x = gc_out$t_gen[1:3], y = gc_out$t_gen[4:6]) # p-value = 0.008485
+
+#t_mid
+t.test(x = gc_out$t_mid[1:3], y = gc_out$t_mid[4:6]) # p-value = 0.09393
+
+
+
+```
+
+## Starting inoculum experiment
+```{r}
+# HPAEC
+## Summarize
+biomass_hp_summary <- biomass_hp %>%
+  group_by(cond) %>%
+  dplyr::summarize(mean = mean(total), se=sd(total)/sqrt(length(total)))
+
+## ANOVA
+aov(total ~ cond, data = biomass_hp) %>% summary()
+#            Df Sum Sq Mean Sq F value Pr(>F)  
+# lab          3  8.195  2.7316   5.317 0.0262 *
+  
+# Tukey HSD test
+aov(total ~ cond, data = biomass_hp) %>% TukeyHSD()
+#                                    diff       lwr        upr     p adj
+# 1\nLow (1.44)-1\nHigh (2.88)  0.4956448 -1.378459  2.3697491 0.8310902
+# 2\nHigh (2.26)-1\nHigh (2.88) -0.9311898 -2.805294  0.9429145 0.4342402
+# 2\nLow (1.44)-1\nHigh (2.88) -1.6427549 -3.516859  0.2313494 0.0873570 .
+# 2\nHigh (2.26)-1\nLow (1.44)  -1.4268346 -3.300939  0.4472697 0.1464794
+# 2\nLow (1.44)-1\nLow (1.44)  -2.1383997 -4.012504 -0.2642954 0.0266519 *
+# 2\nLow (1.44)-2\nHigh (2.26)  -0.7115651 -2.585669  1.1625392 0.6347339
+
+# pH
+## Summarize
+biomass_pH_summary <- biomass_pH %>%
+  group_by(cond) %>%
+  dplyr::summarize(mean = mean(pH), se=sd(pH)/sqrt(length(pH)))
+
+## ANOVA
+aov(pH ~ cond, data = biomass_pH) %>% summary()
+# cond         3 0.5781 0.19270   100.1 1.1e-06 ***
+
+## TukeyHSD test
+aov(pH ~ cond, data = biomass_pH) %>% TukeyHSD()
+# diff         lwr         upr     p adj
+# 1_high-1_low  -0.06666667 -0.18138658  0.04805325 0.3150608
+# 2_low-1_low   -0.49333333 -0.60805325 -0.37861342 0.0000036 ***
+# 2_high-1_low  -0.44333333 -0.55805325 -0.32861342 0.0000080 ***
+# 2_low-1_high  -0.42666667 -0.54138658 -0.31194675 0.0000107 ***
+# 2_high-1_high -0.37666667 -0.49138658 -0.26194675 0.0000272 ***
+# 2_high-2_low   0.05000000 -0.06471991  0.16471991 0.5352010
+
+```
+
+
+# Make plots
+## PUL gene diagram
+```{r}
+limit <- max(abs(puls$es.t2[!is.na(puls$es.t2)]),
+             abs(puls$es.t3[!is.na(puls$es.t3)]),
+             abs(puls$es.t4[!is.na(puls$es.t4)])) * c(-1, 1)
+
+genes2 <- ggplot(puls, aes(xmin = start.adj, xmax = end.adj, y = PUL_detail, fill = es.t2, forward = direction, label = "")) +
+  geom_gene_arrow() +
+  geom_richtext(aes(x = (start.adj + end.adj)/2, y = 1, label = p.t2.BH), size = 6, fill = NA, label.color = NA) +
+  geom_richtext(aes(x = (start.adj + end.adj)/2, y = gene_y_position, label = gene, color = function.), size = 2.75, fill = NA, label.color = NA, fontface = "bold") +
+  #scale_color_brewer(palette = "Paired") +
+  scale_color_manual(values = c(brewer.pal(3, "Paired")[2], brewer.pal(8, "Dark2"))) +
+  facet_wrap(~ PUL, scales = "free", ncol = 1) +
+  scale_fill_distiller(palette="RdBu", limit=limit) +
+  geom_gene_label() +
+  theme_genes() +
+  ggtitle("Dose 1 Hr +6") +
+  labs(y = "", fill = "Effect size\nestimate", color = "Function") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.line.x = element_blank(),
+        axis.text.y =  element_markdown(color = "black"),
+        plot.title = element_text(hjust = 0.5),
+        legend.position = "none")
+
+genes3 <- ggplot(puls, aes(xmin = start.adj, xmax = end.adj, y = PUL_detail, fill = es.t3, forward = direction, label = "")) +
+  geom_gene_arrow() +
+  geom_richtext(aes(x = (start.adj + end.adj)/2, y = 1, label = p.t3.BH), size = 6, fill = NA, label.color = NA) +
+    geom_richtext(aes(x = (start.adj + end.adj)/2, y = gene_y_position, label = gene, color = function.), size = 2.75, fill = NA, label.color = NA, fontface = "bold") +
+  # scale_color_brewer(palette = "Paired") +
+  scale_color_manual(values = c(brewer.pal(3, "Paired")[2], brewer.pal(8, "Dark2"))) +
+  facet_wrap(~ PUL, scales = "free", ncol = 1) +
+  scale_fill_distiller(palette="RdBu", limit=limit) +
+  geom_gene_label() +
+  theme_genes() +
+  ggtitle("Dose 2 Hr -2") +
+  labs(y = "", fill = "Effect size\nestimate", color = "Function") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.line.x = element_blank(),
+        plot.title = element_text(hjust = 0.5),
+        legend.position = "none",
+        axis.text.y=element_blank())
+
+genes4 <- ggplot(puls, aes(xmin = start.adj, xmax = end.adj, y = PUL_detail, fill = es.t4, forward = direction, label = "")) +
+  geom_gene_arrow() +
+  geom_richtext(aes(x = (start.adj + end.adj)/2, y = 1, label = p.t4.BH), size = 6, fill = NA, label.color = NA) +
+    geom_richtext(aes(x = (start.adj + end.adj)/2, y = gene_y_position, label = gene, color = function.), size = 2.75, fill = NA, label.color = NA, fontface = "bold") +
+  #scale_color_brewer(palette = "Paired") +
+  scale_color_manual(values = c(brewer.pal(3, "Paired")[2], brewer.pal(8, "Dark2"))) +
+  facet_wrap(~ PUL, scales = "free", ncol = 1) +
+  scale_fill_distiller(palette="RdBu", limit=limit) +
+  geom_gene_label() +
+  theme_genes() +
+  ggtitle("Dose 1 Hr + 6") +
+  labs(y = "", fill = "Effect size\nestimate", color = "Function") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.line.x = element_blank(),
+        plot.title = element_text(hjust = 0.5),
+        axis.text.y=element_blank(),
+        legend.position = "bottom")
+
+```
+
+## Fig. S7 - in vitro mechanism experiments
+```{r}
+# Conditioned media HPAEC (old fig. 3a)
+cm_plot <- ggplot(cm_hp, aes(x = cond, y = total)) +
+  geom_point(position=position_jitter(width = 0.05, height=0)) +
+  geom_errorbar(data = cm_hp_summary, aes(x=cond, ymin = mean, ymax=mean),
+                color="red", width=0.5, inherit.aes = F) +
+  geom_errorbar(data = cm_hp_summary, aes(x=cond, ymin = mean-se, ymax=mean+se),
+                color="black", width=0.25, inherit.aes = F) +
+  labs(x = "Inulin doses", y = "Inulin concentration (mg/mL)") +
+  annotate("text", x = c(2,3), y = c(5.15, 2.8), label = c("*", "***"), size = 8)
+
+# Spike-in HPAEC (old fig. 3b)
+spike_plot <- ggplot(spike, aes(x=statcond, y=total)) +
+  geom_point(position=position_jitter(width = 0.05, height=0)) +
+  geom_errorbar(data=spike_summary, aes(x=statcond, ymin=mean-se, ymax=mean+se), width=0.25, inherit.aes = F) +
+  geom_errorbar(data=spike_summary, aes(x=statcond, ymin=mean, ymax=mean), width=0.5, color="red", inherit.aes = F) +
+  xlab("Doses") + ylab("Inulin concentration (mg/mL)") +
+  annotate("text", x = c(2,3, 4), y = c(2.45, 1, 2.45), label = c("*", "**", "**"), size = 8)
+
+# Growth curve (old fig. 3c)
+growthcurve_plot <- ggplot(growthcurvesummary, aes(x=time, y=mean, group=pre.treat)) +
+  geom_ribbon(aes(x=time, ymin=mean-se, ymax=mean+se, fill=pre.treat), alpha=0.5) +
+  geom_line(aes(color=pre.treat)) +
+  geom_signif(xmin = 3, xmax = 14, y_position = 2.5, annotations = "*", tip_length = 0, textsize = 8) +
+  geom_hline(yintercept = 2.8, alpha = 0) +
+  labs(x="Time (hours)", y="Absorbance (OD600)", color = "Pre-treatment", fill = "Pre-treatment") +
+  theme(legend.position = c(0.75, 0.4))
+
+# Growth curve stats (old fig. S?c)
+curve_stars <- data.frame(metric = unique(metrics$metric), star = c("NS", "**", "**", "NS"),
+                          x = 1.5, height = c(2.275, 0.3525, 5, 2))
+
+growthcurve_stats_plot <- ggplot(metrics, aes(x=pre.treat, y=val)) +
+  geom_point(position=position_jitter(width = 0.05, height = 0)) +
+  facet_wrap(~metric, scales = "free_y", nrow=1) +
+  geom_errorbar(data=met.sum,
+                aes(x=pre.treat, ymin=mean, ymax=mean), width=0.5, inherit.aes = F, color="red") +
+  geom_errorbar(data=met.sum,
+                aes(x=pre.treat, ymin=mean-se, ymax=mean+se), color="black", width=0.25, inherit.aes = F) +
+  labs(x="Pre-treatment", y="Statistic value") +
+  geom_text(data=curve_stars, aes(x=x, y=height, label = star), size=6)
+
+# Inoculum concentration HPAEC (old fig. S?a)
+biomass_hp_plot <- ggplot(data=biomass_hp_summary, aes(x=cond, y=mean)) +
+  ylab("Inulin/FOS concentration (mg/mL)") + xlab("Inulin doses, inoculum concentration (OD600)") + 
+  geom_errorbar(aes(ymin=mean, ymax=mean), position=position_dodge(0.75), width=0.5, color="red") +
+  geom_errorbar(aes(ymin=mean-se, ymax=mean+se), position=position_dodge(0.75), width=0.25) +
+  geom_point(data = biomass_hp, aes(x=cond, y=total),
+             position=position_jitter(width = 0.05, height = 0)) +
+  geom_signif(xmin = c(1, 3, 2), xmax = c(2, 4, 3), y_position = c(4.2, 1.9, 4.7),
+              annotations = c("NS", "NS", "*"), tip_length = 0, textsize = 6) +
+  geom_hline(yintercept = 5, alpha = 0)
+
+# Inoculum concentration pH (old fig. S?b)
+biomass_pH_plot <- ggplot(data=biomass_pH_summary, aes(x=cond, y=mean)) +
+  ylab("Final pH") + xlab("Inulin doses, inoculum concentration (OD600)") + 
+  geom_errorbar(aes(ymin=mean, ymax=mean), position=position_dodge(0.75), width=0.5, color="red") +
+  geom_errorbar(aes(ymin=mean-se, ymax=mean+se), position=position_dodge(0.75), width=0.25) +
+  geom_point(data = biomass_pH, aes(x=cond, y=pH),
+             position=position_jitter(width = 0.05, height = 0)) +
+  geom_signif(xmin = c(1, 3, 1, 2), xmax = c(2, 4, 3, 4), y_position = c(6.15, 5.7, 6.3, 6.2),
+              annotations = c("NS", "NS", "***", "***"), tip_length = 0, textsize = 6) +
+  geom_hline(yintercept = 6.35, alpha = 0)
+
+```
+
+## Fig. S8 - Bacteroides PUL heatmap
+```{r}
+# This bit is not as neat and still relies on some manual editing...
+data <- read.csv("data/metatranscriptomics/glm hits with PULs only.csv")
+
+hits.mat <- data[,3:5]
+   
+labels.mat <- data[,6:8]
+labels.mat[labels.mat < 0.001] <- "***"
+labels.mat[labels.mat < 0.01 & labels.mat >= 0.001] <- "**"
+labels.mat[labels.mat < 0.05 & labels.mat >= 0.01] <- "*"
+labels.mat[labels.mat >= 0.05] <- ""
+
+palette <- rev(colorRampPalette(brewer.pal(9,"RdBu"))(100))
+paletteLength=100
+myBreaks <- c(seq(min(hits.mat), 0, length.out=ceiling(paletteLength/2) + 1), 
+        seq(max(hits.mat)/paletteLength, max(hits.mat), length.out=floor(paletteLength/2)))
+
+hm <- pheatmap(hits.mat, color=palette, border_color = "black", cluster_cols=F, cluster_rows=F,
+               breaks=myBreaks, angle_col = "0",
+               gaps_row=c(1,4:6,9:10,14,16:19,23,29:31, 33:38, 42:43, 46:48, 51:53, 56:57, 63,67,70:71, 77,84:85,87:90),
+               labels_row=data$PUL.gene.type, labels_col = c("Dose 1\nHr +6", "Dose 2\nHr -2", "Dose 2\nHr +6"),
+               display_numbers = labels.mat, number_color = "black", fontsize_number = 12)
+#ggsave(filename = "./final figures 05/all the PULs.svg", plot=hm, height=14, width=3)
+
+```
+
+
+# Patch panels together
+```{r}
+fig3_genes <- cowplot::plot_grid(genes2, genes3, genes4 + theme(legend.position = "none"),
+                                 nrow = 1, rel_widths = c(6.6, 4.5 ,4.5))
+
+# Pull panel 3B
+nyc_plot <- readRDS("plots/fig3B.RDS")
+
+fig3 <- cowplot::plot_grid(fig3_genes, get_legend(genes4), nyc_plot, ncol = 1, rel_heights = c(1.2, 0.27, 2.05),
+                           labels = c("A", "", "B"), label_fontface = "plain")
+
+#ggsave("plots/fig3.png", fig3, height = 9.2, width = 9)
+
+# Fig. S7
+figS7 <- (cm_plot + biomass_hp_plot) /
+  (biomass_pH_plot + spike_plot) /
+  (growthcurve_plot + growthcurve_stats_plot + plot_layout(widths = c(3,5))) +
+  plot_annotation(tag_levels = "A")
+#ggsave("plots/figS7.png", figS7, height = 10, width = 8.3)
+
+
+```
+

@@ -1,0 +1,291 @@
+---
+title: "Fig S4 - 16S and fido"
+author: "Jeff Letourneau"
+date: '2022-04-27'
+output: html_document
+---
+
+# Load libraries
+```{r}
+library(tidyverse)
+library(phyloseq)
+library(fido)
+library(patchwork)
+library(RColorBrewer)
+library(ggtext)
+library(vegan)
+
+theme_set(theme_bw() +
+            theme(axis.text = element_text(color = "black"),
+                  axis.ticks = element_line(color = "black"),
+                  plot.title = element_text(hjust = 0.5)))
+
+```
+
+# Load data
+```{r}
+set.seed(123)
+
+# Bioreactor 16S
+ps <- readRDS("data/16S bioreactor/phyloseq.rds")
+ps@sam_data$time <- ps@sam_data$day + (ps@sam_data$hour / 24)
+ps <- subset_samples(ps, !is.na(vessel) & vessel != 3 & time < 19.5 & time > 10) %>%
+  prune_samples(sample_sums(.) >= 5000, .) %>%
+  filter_taxa(function(x) sum(x > 3) > 0.10*length(x), TRUE)
+
+# Adjust taxa naming convention
+colnames(ps@otu_table) <- gsub("seq", "ASV", colnames(ps@otu_table))
+rownames(ps@tax_table) <- colnames(ps@otu_table)
+
+```
+
+# Create pibble model
+```{r}
+# Extract Data / dimensions from Phyloseq object
+Y <- t(as(otu_table(ps), "matrix"))
+D <- ntaxa(ps)
+N <- nrow(sample_data(ps))
+
+# X in hours ## Define X further down instead if doing AR model
+X1 <- read.csv("data/16S bioreactor/Finn covar matrix AR.csv", row.names = 1)
+X <- X1[colnames(Y),]
+# Get sample names for next line with:
+# paste0(c(rownames(X), "AR_delt", "AR_d1", "AR_d2", "AR_e1", "AR_e2"), collapse = "+")
+X <- t(model.matrix(~D10Hr16V1+D10Hr16V2+D10Hr16V4+D10Hr16V6+D10Hr16V7+D10Hr16V8+D10Hr8V1+D10Hr8V2+D10Hr8V4+D10Hr8V6+D10Hr8V7+D10Hr8V8+D11Hr16V1+D11Hr16V2+D11Hr16V4+D11Hr16V6+D11Hr16V7+D11Hr16V8+D11Hr8V1+D11Hr8V2+D11Hr8V4+D11Hr8V6+D11Hr8V7+D11Hr8V8+D12Hr16V1+D12Hr16V2+D12Hr16V6+D12Hr16V7+D12Hr16V8+D13Hr16V1+D13Hr16V2+D13Hr16V4+D13Hr16V6+D13Hr16V7+D14Hr16V1+D14Hr16V2+D14Hr16V4+D14Hr16V6+D14Hr16V7+D14Hr8V1+D14Hr8V2+D14Hr8V4+D14Hr8V7+D14Hr8V8+D15Hr16V1+D15Hr16V2+D15Hr16V4+D15Hr16V6+D15Hr16V7+D15Hr16V8+D15Hr8V1+D15Hr8V2+D15Hr8V4+D15Hr8V6+D15Hr8V7+D15Hr8V8+D16Hr16V1+D16Hr16V2+D16Hr16V4+D16Hr16V6+D16Hr16V7+D16Hr8V1+D16Hr8V2+D16Hr8V4+D16Hr8V6+D16Hr8V8+D17Hr16V1+D17Hr16V2+D17Hr16V4+D17Hr16V6+D17Hr16V7+D17Hr16V8+D17Hr8V1+D17Hr8V2+D17Hr8V4+D17Hr8V6+D17Hr8V7+D17Hr8V8+D18Hr16V1+D18Hr16V2+D18Hr16V4+D18Hr16V6+D18Hr16V7+D18Hr16V8+D18Hr8V1+D18Hr8V4+D18Hr8V6+D18Hr8V7+D18Hr8V8+AR_delt+AR_d1+AR_d2+AR_e1+AR_e2, data=X))
+# Above model obtained easily by: paste0(rownames(X1), collapse = "+")
+
+Y <- Y[,colnames(X)]
+
+# Check:
+# X - columns are samples, rows are covars
+# Y - columns are samples, rows are taxa
+all(colnames(Y)==colnames(X)) # TRUE
+
+# Specify Priors
+upsilon <- ntaxa(ps)+3 
+Omega <- diag(ntaxa(ps))
+G <- cbind(diag(ntaxa(ps)-1), -1)
+Xi <- (upsilon-ntaxa(ps))*G%*%Omega%*%t(G)
+Theta <- matrix(0, ntaxa(ps)-1, nrow(X))
+Gamma <- diag(nrow(X))
+
+#Easily build giant Gamma
+rownames(Gamma) <- rownames(X)
+colnames(Gamma) <- rownames(X)
+
+# If it's 8 hours prev, x = 0.8,
+# 16 hours, x = 0.8^2
+# Generally x = 0.8^(Delta_t/8)
+for(row in rownames(Gamma)) {
+  for(col in colnames(Gamma))
+    if(row %in% rownames(X1) & col %in% rownames(X1)) {
+      if(X1[row,"vessel"] == X1[col,"vessel"]) {
+        Gamma[row,col] <- 0.8^(abs(X1[row,"time"] - X1[col,"time"])/8)
+      }
+    }
+}
+
+# Test model robustness by multiplying Gamma by numbers between 0.5-3
+# 0.5 = high noise, 3=low noise
+# Gamma <- 0.5*Gamma 
+
+
+
+# *** I've commented out the below lines, as well as the lines to generate posterior_summary, below
+# because they are very slow, and I am just reading in the result as a csv instead.
+
+# Look at priors
+# priors <- pibble(NULL, X, upsilon, Theta, Gamma, Xi)  
+# priors <- to_clr(priors)  
+# summary(priors, pars="Lambda") 
+
+# Now fit the model
+# priors$Y <- Y # remember pibblefit objects are just lists
+# posterior <- refit(priors, optim_method="adam")
+
+```
+
+# Examine regression parameters
+```{r}
+# posterior_summary <- summary(posterior, pars="Lambda")$Lambda
+# posterior_summary <- filter(posterior_summary, covariate %in% c("AR_d1", "AR_d2", "AR_e1", "AR_e2"))
+# write.csv(posterior_summary, "data/16S bioreactor/fido_posterior_summary.csv", row.names = F)
+posterior_summary <- read.csv("data/16S bioreactor/fido_posterior_summary.csv")
+
+hits_df <- posterior_summary[sign(posterior_summary$p2.5) == sign(posterior_summary$p97.5),]
+
+nrow(hits_df[hits_df$covariate == "AR_d1",]) # 0
+nrow(hits_df[hits_df$covariate == "AR_d2",]) # 19
+nrow(hits_df[hits_df$covariate == "AR_e1",]) # 49
+nrow(hits_df[hits_df$covariate == "AR_e2",]) # 42
+
+focus_taxa <- unique(hits_df$coord) # 59
+
+# Did any taxa oscillate?
+oscillators <- hits_df |>
+  filter(covariate %in% c("AR_e1", "AR_e2")) |>
+  group_by(coord) |>
+  summarize(osc = ifelse(sign(max(mean)) == sign(min(mean)), "no", "yes")) |>
+  filter(osc == "yes") |>
+  pull(coord)
+# only Blautia sp. (ASV_35) - also identified this one in the previous (Silva v123) analysis
+
+```
+
+# Visualize
+```{r}
+# Rename taxa
+## The asterisks are two italicize with element_markdown() when plotting
+taxa <- as.data.frame(ps@tax_table) %>%
+  mutate(name = ifelse(is.na(Genus), paste0("*", Family, "* family"),
+                       ifelse(is.na(Species), paste0("*", Genus, "* sp."),
+                              paste0("*", Genus, " ", Species, "*")))) %>%
+  mutate(name = paste0(name, " (", gsub("_", " ", rownames(.)), ")"))
+
+posterior_summary$name <- sapply(posterior_summary$coord,
+                                 function(x) taxa[rownames(taxa) == gsub("clr_", "", x), "name"]) |> unname()
+posterior_summary$hit <- ifelse(sign(posterior_summary$p2.5) == sign(posterior_summary$p97.5),
+                                "hit", "no_hit")
+
+# Get colors for intervals
+brewer.pal(n=3,"Blues") # "#DEEBF7" "#9ECAE1" "#3182BD"
+
+# Order taxa by AR_e2 mean
+taxa_order <- posterior_summary |>
+  filter(covariate == "AR_d2") |>
+  arrange(mean) |>
+  pull(name)
+
+# Rename covariates for consistency
+posterior_summary[posterior_summary == "AR_d1"] <- "&beta;<sub>1</sub>"
+posterior_summary[posterior_summary == "AR_d2"] <- "&beta;<sub>2</sub>"
+posterior_summary[posterior_summary == "AR_e1"] <- "&beta;<sub>3</sub>"
+posterior_summary[posterior_summary == "AR_e2"] <- "&beta;<sub>4</sub>"
+
+# Plot all posterior values
+posterior_plot <- ggplot(posterior_summary[posterior_summary$coord %in% focus_taxa,],
+                         aes(x = mean, y = factor(name, levels = taxa_order))) +
+  tidybayes::geom_interval(aes(xmin=p2.5, xmax=p97.5), color = "#9ECAE1", alpha = 0.5) +
+  tidybayes::geom_interval(aes(xmin=p25, xmax=p75), color = "#3182BD", alpha = 0.5) +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  geom_point(aes(color=hit), alpha = 1) +
+  labs(x = "Log-ratio value", y = "") +
+  facet_wrap(~covariate, ncol = 4) +
+  scale_color_manual(values = c("hit" = "red", "no_hit" = "black")) +
+  scale_y_discrete(position = "right") +
+  theme(legend.position = "none",
+        axis.text.y.right = element_markdown(),
+        strip.text = element_markdown(size = 12))
+
+```
+
+Plot taxonomy
+```{r}
+# Show select taxa that changed
+select_taxa <- c("ASV_13", "ASV_22", "ASV_37", "ASV_24", "ASV_36", "ASV_10")
+
+melty <- ps |>
+  transform_sample_counts(function(x) x / sum(x) ) |>
+  prune_taxa(select_taxa, x = _) |>
+  psmelt()
+melty$name <- sapply(melty$OTU, function(x) taxa[rownames(taxa) == gsub("clr_", "", x), "name"]) |> unname()
+
+# Define a new label wrap function that will be compatible with element_markdown
+label_wrap_gen2 <- function(labels, width = 25, multi_line = TRUE) {
+  labels <- labels %>% strwrap(width = 25, simplify = FALSE) %>%
+    vapply(paste, character(1), collapse = "<br>") %>%
+    gsub(" \\(ASV<br>", "<br>\\(ASV ", x = .)
+  return(labels)
+}
+
+# Get mean and se
+melty$name <- label_wrap_gen2(melty$name)
+melty$name <- factor(melty$name, levels = unique(melty$name)[c(1, 3, 6, 5, 4, 2)])
+
+melty_summary <- melty |>
+  group_by(name, time) |>
+  summarize(mean = mean(Abundance), se = sd(Abundance)/sqrt(length(Abundance)))
+
+# Plot
+select_taxa_plot <- ggplot(melty, aes(x = time - 13, y = Abundance)) +
+  geom_vline(xintercept=c(1:5 + 0.42), color = "darkgray", linetype="dashed") +
+  geom_ribbon(data = melty_summary, aes(x=time - 13, ymin = mean-se, ymax = mean+se),
+              alpha=0.25, color = "gray", inherit.aes = F) +
+  geom_line(data = melty_summary, aes(x = time - 13, y = mean), color = "red", inherit.aes = F) +
+  geom_point(aes(color=factor(vessel)), position = position_jitter(width = 0.05, height=0)) +
+  scale_color_brewer(palette = "Paired") +
+  facet_wrap(~name, scales = "free_y") +
+  labs(x = "Time (day)", y = "Relative abundance") +
+  theme(strip.text = element_markdown(),
+        legend.position = "none")
+#saveRDS(select_taxa_plot, "plots/fig2A.RDS")
+
+# Area plot of families
+## Plotting just the top 10 families
+## (much more than that and I start running into issues with colorblind accessible palettes, and it just looks bad!)
+melty_area <- ps |>
+  transform_sample_counts(function(x) x / sum(x) ) |>
+  psmelt() |>
+  group_by(time, vessel, Family) |>
+  summarize(Abundance = sum(Abundance))
+
+top10_fams <- melty_area |>
+  group_by(Family) |>
+  summarize(mean = mean(Abundance)) |>
+  slice_max(order_by = mean, n = 10) |>
+  pull(Family)
+
+melty_area <- melty_area |>
+  mutate(Family = ifelse(Family %in% top10_fams, Family, "Other")) |>
+  group_by(time, vessel, Family) |>
+  summarize(Abundance = sum(Abundance))
+melty_area$Family <- factor(melty_area$Family, levels = unique(melty_area$Family)[c(1:9, 11, 10)])
+
+area_plot <- ggplot(melty_area, aes(x=time - 13, y=Abundance, fill=Family)) +
+  geom_area(color="black") +
+  facet_wrap(~vessel, scales="free_x", nrow=3) +
+  geom_vline(xintercept=c(1:5 + 0.42), color = "black", linetype="dashed") +
+  xlab("Time (day)") + ylab("Relative abundance") +
+  scale_fill_brewer(palette = "Paired")
+
+area_plot_to_save <- area_plot + facet_wrap(~vessel, scales="free_x", nrow=2)
+#ggsave("plots/figS4B.png", area_plot_to_save, height = 6, width = 9)
+  
+# Ordination plots of composition by vessel and by time
+ps_ord <- readRDS("data/16S bioreactor/phyloseq.rds")
+ps_ord@sam_data$time <- ps_ord@sam_data$day + (ps_ord@sam_data$hour / 24)
+ps_ord <- subset_samples(ps_ord, !is.na(vessel) & vessel != 3 & time < 14 & time > 7) %>%
+  prune_samples(sample_sums(.) >= 5000, .)
+ps_ord@sam_data$vessel <- factor(ps_ord@sam_data$vessel)
+ps_ord@sam_data$time <- factor(ps_ord@sam_data$time)
+
+# Test if vessels are different with PERMANOVA
+bray_vessel <- as.data.frame(as.matrix(distance(ps_ord, method = "bray")))
+adonis2(bray_vessel ~ vessel, data = as.data.frame(as.matrix(ps_ord@sam_data)))
+#          Df SumOfSqs      R2      F Pr(>F)    
+# vessel    5   1.4759 0.58456 7.8796  0.001 ***
+# Residual 28   1.0489 0.41544                  
+# Total    33   2.5248 1.00000  
+
+ord <- ordinate(ps_ord, "NMDS", "bray")
+ord_plot <- plot_ordination(ps_ord, ord, color="vessel") +
+  stat_ellipse() +
+  scale_color_brewer(palette = "Paired") +
+  labs(color = "Vessel") +
+  geom_textbox(data = data.frame(x=0.52, y = 0.48, label = "PERMANOVA<br>*R*<sup>2</sup> = 0.58<br>*p* < 0.001"),
+               aes(x, y, label = label), halign = 0.5, fill = NA, box.colour = NA,
+               box.padding = grid::unit(rep(0, 4), "pt"), inherit.aes = F)
+#ggsave("plots/figS4A.png", ord_plot, height = 3, width = 4.5)
+
+  
+```
+
+Patch together figures
+```{r}
+figS4 <- (ord_plot / area_plot + plot_layout(heights = c(1, 2)) | posterior_plot) +
+  plot_annotation(tag_levels = "A")
+#ggsave("plots/figS4.png", figS4, height = 9, width = 13)
+
+
+```
+

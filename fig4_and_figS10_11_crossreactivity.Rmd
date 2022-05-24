@@ -1,0 +1,570 @@
+---
+title: "Figs. 3, S10, S11 - Cross-reactivity"
+author: "Jeff Letourneau"
+date: '2022-05-22'
+output: html_document
+---
+
+# Load libraries
+```{r}
+# Plotting
+library(tidyverse)
+library(patchwork)
+library(ggsignif)
+library(ggtext)
+
+# Stats
+library(lme4)
+library(lmerTest)
+library(phyloseq)
+library(ALDEx2)
+
+theme_set(theme_bw() +
+            theme(axis.text = element_text(color = "black"),
+                  axis.ticks = element_line(color = "black"),
+                  plot.title = element_text(hjust = 0.5)))
+
+```
+
+# Load data
+```{r}
+# Human cohort HPAEC
+human_hpaec <- read.csv("data/HPAEC/human_cohort_HPAEC_all.csv") %>%
+  filter(cond == "stool" & DPn >= 3) %>%
+  mutate(group = case_when(arm == "blue" ~ "Prebiotic",
+                           arm == "red" ~ "Placebo")) %>%
+  dplyr::select(-arm) %>%
+  group_by(participant, group, time) %>%
+  dplyr::summarize(total = sum(conc))
+
+# Diet data - DHQ3
+diet <- read.csv("data/other/human_cohort_DHQ3.csv")
+
+# Varying pre-treatment inulin DP batch culture HPAEC
+dp_hp <- read.csv("data/HPAEC/dp_hp.csv", row.names = 1) %>%
+  group_by(pre.treatment, rep) %>%
+  dplyr::summarize(total = sum(conc))
+
+# Varying pre-treatment inulin DP batch culture pH
+dp_pH <- read.csv("data/pH/dp_pH.csv") %>%
+  filter(hr == 5)
+
+# Cross-reactivity of prebiotics batch culture HPAEC
+cross_hp <- read.csv("data/HPAEC/cross_hp.csv") %>%
+  group_by(Rx1, rep) %>%
+  dplyr::summarize(total = sum(conc)) %>%
+  mutate(Rx1 = case_when(Rx1 == "con" ~ "Control",
+                         Rx1 == "dex" ~ "Dextrin",
+                         Rx1 == "gos" ~ "GOS",
+                         Rx1 == "in" ~ "Inulin"))
+
+# Cross-reactivity of prebiotics batch culture pH
+cross_pH <- read.csv("data/pH/crossreactivity_pH.csv") %>%
+  filter(treatment1 == treatment2 | treatment1 == "control" | treatment2 == "inulin") %>%
+  mutate(treatment1 = str_to_title(treatment1),
+         treatment2 = str_to_title(treatment2))
+cross_pH[cross_pH == "Gos"] <- "GOS"
+cross_pH <- cross_pH %>%
+  mutate(doses = case_when(treatment1 == treatment2 & treatment2 != "Control" ~ 2,
+                           treatment1 != treatment2 ~ 1,
+                           treatment1 == treatment2 & treatment2 == "Control" ~ 0))
+
+# Cross-reactivity of prebiotics batch culture 16S
+cross_16S <- readRDS("data/16S in vitro/phyloseq.RDS")
+
+
+```
+
+# Summarize data and run statistics
+## Human cohort HPAEC by fiber
+```{r}
+human_hpaec_spread <- human_hpaec %>% 
+  spread(key=time, value=total)
+
+human_hpaec_spread$change <- human_hpaec_spread$F2 - human_hpaec_spread$T2
+
+diet <- diet[diet$ID %in% human_hpaec_spread$participant, c(2, 44)]
+
+human_hpaec_spread <- human_hpaec_spread[human_hpaec_spread$participant %in% diet$ID,]
+rownames(human_hpaec_spread) <- human_hpaec_spread$participant
+rownames(diet) <- diet$ID
+
+diet <- diet[rownames(human_hpaec_spread),]
+
+human_hpaec_spread <- cbind(human_hpaec_spread, diet)
+human_hpaec_spread <- human_hpaec_spread[,c(1,2,7,4, 9, 11)]
+colnames(human_hpaec_spread)[6] <- "fiber"
+
+human_hpaec_spread <- human_hpaec_spread[complete.cases(human_hpaec_spread),]
+
+# Stats for change
+cor.test(human_hpaec_spread[human_hpaec_spread$group == "Placebo",]$fiber,
+         human_hpaec_spread[human_hpaec_spread$group == "Placebo",]$change,
+         method="spearman") # rho = 0.08831169, p = 0.7029
+cor.test(human_hpaec_spread[human_hpaec_spread$group == "Prebiotic",]$fiber,
+         human_hpaec_spread[human_hpaec_spread$group == "Prebiotic",]$change, method="spearman") # rho = 0.5676471, p = 0.02402
+
+lm(fiber ~ change, data = human_hpaec_spread[human_hpaec_spread$group == "Prebiotic",]) %>% summary() %>% .$r.squared
+# 0.2705387
+lm(fiber ~ change, data = human_hpaec_spread[human_hpaec_spread$group == "Placebo",]) %>% summary() %>% .$r.squared
+# 0.0004382491
+
+# Stats for T2
+cor.test(human_hpaec_spread[human_hpaec_spread$group == "Placebo",]$fiber,
+         human_hpaec_spread[human_hpaec_spread$group == "Placebo",]$T2,
+         method="spearman") # rho = -0.1922078, p = 0.4022
+cor.test(human_hpaec_spread[human_hpaec_spread$group == "Prebiotic",]$fiber,
+         human_hpaec_spread[human_hpaec_spread$group == "Prebiotic",]$T2, method="spearman") # rho = -0.5705882, p = 0.02318
+
+lm(fiber ~ T2, data = human_hpaec_spread[human_hpaec_spread$group == "Prebiotic",]) %>% summary() %>% .$r.squared
+# 0.3459913
+lm(fiber ~ T2, data = human_hpaec_spread[human_hpaec_spread$group == "Placebo",]) %>% summary() %>% .$r.squared
+# 0.01272567
+
+```
+
+## Pre-treatment DP variation
+```{r}
+# Summarize
+dp_hp_summary <- dp_hp %>%
+  group_by(pre.treatment) %>%
+  dplyr::summarize(mean = mean(total), se=sd(total)/sqrt(length(total))) %>%
+  mutate(mean_dp = c(NA, 1, 1, 6.204185, 25.52579, 37.31724, 2))
+
+# Check correlation
+## Omit control because no DP
+cor.test(x=dp_hp_summary$mean_dp[2:7], y=dp_hp_summary$mean[2:7], method = 'spearman')
+# p = 0.04986, rho = -0.8116794
+lm(mean ~ mean_dp, data = dp_hp_summary[2:7,]) %>% summary() %>% .$r.squared
+# 0.7998438
+
+## Linear model by condition taking all points into account
+lm(formula = total ~ pre.treatment, data=dp_hp) %>% summary()
+#                            Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)                  3.8090     0.2710  14.057  1.2e-09 ***
+# pre.treatmentfructose        0.5357     0.3832   1.398 0.183879    
+# pre.treatmentglucose        -0.3485     0.3832  -0.909 0.378574    
+# pre.treatmentsucrose         0.5516     0.3832   1.439 0.172039    
+# pre.treatmentNOW            -0.6991     0.3832  -1.824 0.089540 .  
+# pre.treatmentSigma Chicory  -1.0723     0.3832  -2.798 0.014236 *  
+# pre.treatmentSigma Dahlia   -1.9648     0.3832  -5.127 0.000154 ***
+
+
+# pH
+dp_pH <- dp_pH %>%
+  mutate(Rx1 = case_when(Rx1 == "FOS" ~ "Sigma\nchicory",
+                         Rx1 == "inulin" ~ "Sigma\ndahlia",
+                         Rx1 == "Now" ~ "NOW",
+                         TRUE ~ Rx1)) %>%
+  mutate(Rx1 = factor(Rx1, levels=unique(Rx1)[c(1,5,6,7,3,4,2)]))
+
+dp_pH_summary <- dp_pH %>%
+  group_by(Rx1) %>%
+  dplyr::summarize(mean = mean(pH), se=sd(pH)/sqrt(length(pH)))
+
+# Linear model
+lm(formula = pH ~ Rx1, data=dp_pH) %>% summary()
+# (Intercept)        6.22167    0.01287 483.590  < 2e-16 ***
+# Rx1fructose       -0.10167    0.02228  -4.562 0.000276 ***
+# Rx1glucose        -0.04833    0.02228  -2.169 0.044555 *  
+# Rx1sucrose        -0.02833    0.02228  -1.271 0.220681    
+# Rx1NOW            -0.09167    0.02228  -4.114 0.000725 ***
+# Rx1Sigma\nchicory -0.17167    0.02228  -7.704 6.08e-07 ***
+# Rx1Sigma\ndahlia  -0.21500    0.02228  -9.648 2.61e-08 ***
+
+```
+
+## Prebiotic cross-reactivity
+```{r}
+# HPAEC
+cross_hp_summary <- cross_hp %>%
+  group_by(Rx1) %>%
+  dplyr::summarize(mean=mean(total), se=sd(total)/sqrt(length(total)))
+
+lm(formula = total ~ Rx1, data=cross_hp) %>% summary()
+#             Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)   6.6145     0.2600  25.439 6.11e-09 ***
+# Rx1dex       -1.8300     0.3677  -4.977 0.001084 ** 
+# Rx1gos       -1.9138     0.3677  -5.205 0.000818 ***
+# Rx1in        -2.5252     0.3677  -6.867 0.000129 ***
+
+# pH
+cross_pH_summary <- cross_pH %>%
+  group_by(Rx1) %>%
+  dplyr::summarize(mean=mean(total), se=sd(total)/sqrt(length(total)))
+
+# pH
+## Split into two dataframes to test different hypotheses
+## Same prebiotic - 1 or 2 doses
+cross_pH_same <- cross_pH %>%
+  filter(treatment1 == treatment2 | treatment1 == "Control") %>%
+  mutate(doses = factor(doses))
+
+cross_pH_same_summary <- cross_pH_same %>%
+  group_by(treatment2, doses) %>%
+  dplyr::summarize(mean = mean(pH), se = sd(pH)/sqrt(length(pH)))
+
+# Going to do t-tests w/in prebx
+t.test(x = cross_pH_same[cross_pH_same$treatment1 == "Control" & cross_pH_same$treatment2 == "Dextrin", "pH"],
+       y = cross_pH_same[cross_pH_same$treatment1 == "Dextrin" & cross_pH_same$treatment2 == "Dextrin", "pH"]) # 0.01478
+t.test(x = cross_pH_same[cross_pH_same$treatment1 == "Control" & cross_pH_same$treatment2 == "GOS", "pH"],
+       y = cross_pH_same[cross_pH_same$treatment1 == "GOS" & cross_pH_same$treatment2 == "GOS", "pH"]) # 0.0001127
+t.test(x = cross_pH_same[cross_pH_same$treatment1 == "Control" & cross_pH_same$treatment2 == "Inulin", "pH"],
+       y = cross_pH_same[cross_pH_same$treatment1 == "Inulin" & cross_pH_same$treatment2 == "Inulin", "pH"]) # 0.0003599
+
+
+## Effects of other prebiotics on inulin
+cross_pH_in <- cross_pH %>%
+  filter(treatment2 == "Inulin")
+
+cross_pH_in_summary <- cross_pH_in %>%
+  group_by(treatment1) %>%
+  dplyr::summarize(mean = mean(pH), se = sd(pH)/sqrt(length(pH)))
+
+lm(formula = pH ~ treatment1, data=cross_pH_in) %>% summary()
+#                   Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)        6.04000    0.01509  400.20  < 2e-16 ***
+# treatment1dextrin -0.37000    0.02134  -17.34 1.25e-07 ***
+# treatment1GOS     -0.44333    0.02134  -20.77 3.03e-08 ***
+# treatment1inulin  -0.69000    0.02134  -32.33 9.13e-10 ***
+
+
+```
+
+## Prebiotic cross-reactivity 16S
+```{r}
+set.seed(123)
+
+# Filter phyloseq object
+ps <- prune_samples(sample_sums(cross_16S) >= 5000, cross_16S) %>%
+  filter_taxa(function(x) sum(x > 3) > 0.10*length(x), TRUE) 
+
+# Create relative abundance phyloseq for plotting
+ps.ra <- transform_sample_counts(ps, function(x) x/sum(x))
+
+# Create inulin only phyloseq object for correlation
+psin <- subset_samples(ps, main_treatment=="in")
+
+psin <- prune_samples(sample_sums(psin) >= 5000,psin) %>%
+  filter_taxa(function(x) sum(x > 3) > 0.10*length(x), TRUE)
+
+# Run ALDEx2 - effects of different prebiotics
+flip <- as.data.frame(t(ps@otu_table))
+samdf <- as.data.frame(as.matrix(sample_data(ps)))
+
+# Now let's incorporate all the samples from jicama
+mm <- read.csv(file = "data/16S in vitro/model_matrix.csv", row.names=1)
+rownames(mm) <- gsub("_", "", rownames(mm))
+mm <- model.matrix(~in1+dex1+gos1+in2+dex2+gos2, mm)
+mm <- mm[rownames(mm) %in% rownames(samdf),]
+
+clr <- aldex.clr(flip, mm, mc.samples=128, denom="all")
+glm.test <- aldex.glm(clr)
+hits.all <- glm.test[glm.test$`model.in1 Pr(>|t|).BH` < 0.05 |
+                           glm.test$`model.dex1 Pr(>|t|).BH` < 0.05 |
+                           glm.test$`model.gos1 Pr(>|t|).BH` < 0.05 |
+                           glm.test$`model.in2 Pr(>|t|).BH` < 0.05 |
+                           glm.test$`model.dex2 Pr(>|t|).BH` < 0.05 |
+                           glm.test$`model.gos2 Pr(>|t|).BH` < 0.05, ] %>% rownames()
+
+hits.pre <- glm.test[glm.test$`model.in1 Pr(>|t|).BH` < 0.05 |
+                           glm.test$`model.dex1 Pr(>|t|).BH` < 0.05 |
+                           glm.test$`model.gos1 Pr(>|t|).BH` < 0.05, ] %>% rownames()
+
+hits.trt <- glm.test[glm.test$`model.in2 Pr(>|t|).BH` < 0.05 |
+                           glm.test$`model.dex2 Pr(>|t|).BH` < 0.05 |
+                           glm.test$`model.gos2 Pr(>|t|).BH` < 0.05, ] %>% rownames()
+
+# ALDEx2 - Correlation with inulin breakdown
+flip2 <- as.data.frame(t(psin@otu_table))
+samdf2 <- as.data.frame(as.matrix(sample_data(psin)))
+
+## Reordered to match phyloseq object
+cont.var_hp <- cross_hp[c(1:3,10:12,7:9,4:6),]$total
+cont.var_pH <- cross_pH_in[c(1:6,10:12,7:9),]$pH
+
+
+clr2 <- aldex.clr(flip2)
+#corr.test_pH <- aldex.corr(clr2, cont.var_pH) # slow!
+hits.corr <- rownames(corr.test_pH[corr.test_pH$spearman.eBH < 0.05,])
+
+corr.test_hp <- aldex.corr(clr2, cont.var_hp)
+hits.corr2 <- rownames(corr.test_hp[corr.test_hp$spearman.eBH < 0.05,])
+
+
+
+```
+
+
+# Make plots
+## Human cohort HPAEC by fiber
+```{r}
+# Looking at change in fecal inulin/FOS content
+change_labels <- data.frame(group = c("Placebo", "Prebiotic"), x = c(35, 14), y = c(-0.15, 0.12),
+                            label = c("Spearman's rho = 0.088<br>*p* = 0.70<br>*R*<sup>2</sup> = 0.00044",
+                                      "Spearman's rho = 0.57<br>*p* = 0.024<br>*R*<sup>2</sup> = 0.27"))
+
+fiber.plot <- ggplot(human_hpaec_spread, aes(x=fiber, y=change, group=group)) +
+  geom_point() + 
+  labs(x="Dietary fiber intake (g/day)", y="&Delta;Inulin/FOS content (mg/mL)") +
+  geom_smooth(method='lm', se = FALSE) +
+  facet_wrap(~group, scales = "free") +
+  geom_richtext(data = change_labels, aes(x=x, y=y, label = label), size = 4, fill = NA, label.color = NA) +
+  theme(axis.title.y = element_markdown()) +
+  ggtitle("Human cohort")
+
+# Looking at T2 fiber levels directly
+## Note: Trends are the same whether you use fiber or proportional fiber. Using total fiber (g/day) because that's more intuitive.
+T2_labels <- data.frame(group = c("Placebo", "Prebiotic"), x = c(35, 27.5), y = c(0.23, 0.5),
+                        label = c("Spearman's rho = -0.19<br>*p* = 0.40<br>*R*<sup>2</sup> = 0.013",
+                                  "Spearman's rho = -0.57<br>*p* = 0.023<br>*R*<sup>2</sup> = 0.35"))
+
+T2_plot <- ggplot(human_hpaec_spread, aes(x=fiber, y=T2, group=group)) +
+  geom_point() + 
+  labs(x="Dietary fiber intake (g/day)", y="&Delta;Inulin/FOS content (mg/mL)") +
+  geom_smooth(method='lm', se = FALSE) +
+  facet_wrap(~group, scales = "free") +
+  geom_richtext(data = T2_labels, aes(x=x, y=y, label = label), size = 4, fill = NA, label.color = NA) +
+  theme(axis.title.y = element_markdown()) +
+  ggtitle("Human cohort")
+
+
+
+```
+
+## Pre-treatment DP variation
+```{r}
+# HPAEC
+dp_hp_labels <- data.frame(x = 25, y = 3.75, label = "Spearman's rho = -0.81<br>*p* = 0.0499<br>*R*<sup>2</sup> = 0.80")
+
+dp_hp_plot <- ggplot(dp_hp_summary, aes(x=mean_dp, y=mean)) +
+  geom_point() + 
+  labs(x="Pre-treatment average DP", y="Average final inulin concentration (mg/mL)") +
+  geom_smooth(method='lm', se = FALSE) +
+  geom_richtext(data = dp_hp_labels, aes(x=x, y=y, label = label), size = 4, fill = NA, label.color = NA) +
+  ggtitle("Batch culture")
+
+# Plot details
+## Factor
+dp_hp <- dp_hp %>%
+  mutate(pre.treatment = case_when(pre.treatment == "Sigma Chicory" ~ "Sigma\nchicory",
+                                   pre.treatment == "Sigma Dahlia" ~ "Sigma\ndahlia",
+                                   TRUE ~ pre.treatment))
+dp_hp$pre.treatment <- factor(dp_hp$pre.treatment, levels=unique(dp_hp$pre.treatment)[c(1:3,7,4:6)])
+dp_hp_summary <- dp_hp_summary %>%
+  mutate(pre.treatment = case_when(pre.treatment == "Sigma Chicory" ~ "Sigma\nchicory",
+                                   pre.treatment == "Sigma Dahlia" ~ "Sigma\ndahlia",
+                                   TRUE ~ pre.treatment))
+dp_hp_summary$pre.treatment <- factor(dp_hp_summary$pre.treatment, levels=unique(dp_hp_summary$pre.treatment)[c(1:3,7,4:6)])
+
+## Plot
+dp_hp_details_plot <- ggplot(dp_hp, aes(x=pre.treatment, y = total)) +
+  geom_point(position=position_jitter(width = 0.05, height = 0)) +
+  geom_errorbar(data=dp_hp_summary, aes(x=pre.treatment, ymin=mean-se, ymax=mean+se), width=0.25, inherit.aes = F) +
+  geom_errorbar(data=dp_hp_summary, aes(x=pre.treatment, ymin=mean, ymax=mean), color="red", width=0.5, inherit.aes = F) +
+  labs(x = "Pre-treatment", y = "Inulin concentration\n(mg/mL)") +
+  annotate("text", x = c(6,7), y=c(3.5, 2.8), label = c("*", "***"), size = 8)
+
+# Plot pH details
+dp_pH_details_plot <- ggplot(dp_pH, aes(x=Rx1, y = pH)) +
+  geom_point(position=position_jitter(width = 0.05, height = 0)) +
+  geom_errorbar(data=dp_pH_summary, aes(x=Rx1, ymin=mean-se, ymax=mean+se),
+                width=0.25, inherit.aes = F) +
+  geom_errorbar(data=dp_pH_summary, aes(x=Rx1, ymin=mean, ymax=mean),
+                color="red", width=0.5, inherit.aes = F) +
+  labs(x = "Final pH", y = "pH") +
+  annotate("text", x = c(2, 3, 5:7), y=c(6.175, 6.225, 6.2, 6.12, 6.07),
+           label = c("***", "*", "***", "***", "***"), size = 8)
+
+# Rx1fructose       -0.10167    0.02228  -4.562 0.000276 ***
+# Rx1glucose        -0.04833    0.02228  -2.169 0.044555 *  
+# Rx1sucrose        -0.02833    0.02228  -1.271 0.220681    
+# Rx1NOW            -0.09167    0.02228  -4.114 0.000725 ***
+# Rx1Sigma\nchicory -0.17167    0.02228  -7.704 6.08e-07 ***
+# Rx1Sigma\ndahlia  -0.21500    0.02228  -9.648 2.61e-08 ***
+
+```
+
+## Prebiotic cross-reactivity
+```{r}
+# HPAEC
+cross_hp_plot <- ggplot(cross_hp) +
+  geom_point(aes(x=Rx1, y=total), position=position_jitter(width = 0.05, height = 0)) +
+  geom_errorbar(data=cross_hp_summary, aes(x=Rx1, ymin=mean-se, ymax=mean+se), width=0.25) +
+  geom_errorbar(data=cross_hp_summary, aes(x=Rx1, ymin=mean, ymax=mean), color="red", width=0.5) +
+  xlab("Pre-treatment") + ylab("Inulin/FOS concentration (mg/mL)") +
+  annotate("text", x = c(2,3,4), y=c(5.8, 5.7, 5.4), label = c("**", "***", "***"), size = 8) +
+  ggtitle("Batch culture")
+
+# pH - within prebiotic
+pH_same_plot <- ggplot(cross_pH_same, aes(x=treatment2, y=pH, group=doses, color=doses)) +
+  geom_errorbar(data=cross_pH_same_summary, aes(x=treatment2, ymin=mean, ymax=mean, group=doses),
+                color="red", width=1, inherit.aes = F,
+                position = position_dodge(1)) +
+  geom_errorbar(data=cross_pH_same_summary, aes(x=treatment2, ymin=mean-se, ymax=mean+se,
+                                                group=doses),
+                color="black", width=0.5, inherit.aes = F, position = position_dodge(1)) +
+  geom_point(position=position_jitterdodge(jitter.width = 0.2, dodge.width = 1)) +
+  geom_signif(annotations=c("*", "***", "***"), y_position = c(6.4, 6.1, 6.15),
+              xmin=c(1.75, 2.75, 3.75), xmax=c(2.25, 3.25, 4.25),
+              tip_length = 0, color="black", textsize = 8) +
+  labs(x="Prebiotic", y="pH", color="Doses") +
+  ggtitle("Batch culture") +
+  theme(legend.position = c(0.25, 0.33))
+
+# pH - inulin as second treatment
+pH_in_plot <- ggplot(cross_pH_in) +
+  geom_point(aes(x=treatment1, y=pH), position=position_jitter(width = 0.05, height = 0)) +
+  geom_errorbar(data=cross_pH_in_summary, aes(x=treatment1, ymin=mean-se, ymax=mean+se),
+                width=0.25) +
+  geom_errorbar(data=cross_pH_in_summary, aes(x=treatment1, ymin=mean, ymax=mean),
+                color="red", width=0.5) +
+  xlab("Pre-treatment") + ylab("pH") +
+  annotate("text", x = c(2,3,4), y=c(5.8, 5.7, 5.4), label = c("**", "***", "***"), size = 8) +
+  ggtitle("Batch culture")
+
+```
+
+## Prebiotic cross-reactivity 16S
+```{r}
+# Create melted phyloseqs
+
+melty <- psmelt(ps.ra)
+melty$binom[is.na(melty$Species)] <- paste0("*", melty$Genus[is.na(melty$Species)], "* sp. (",
+                                            melty$OTU[is.na(melty$Species)], ")")
+melty$binom[!is.na(melty$Species)] <- paste0("*", melty$Genus[!is.na(melty$Species)], " ",
+                                             melty$Species[!is.na(melty$Species)], "* (",
+                                             melty$OTU[!is.na(melty$Species)], ")")
+melty$binom <- gsub("seq_", "ASV ", melty$binom)
+
+melty[melty=="con"] <- "Control"
+melty[melty=="in"] <- "Inulin"
+melty[melty=="dex"] <- "Dextrin"
+melty[melty=="gos"] <- "GOS"
+
+melty[melty$binom == "*NA* sp. (ASV 19)", "binom"] <- "*Veillonellaceae* family (ASV 19)"
+melty$pre.treatment <- factor(melty$pre.treatment, levels=c("Control", "Dextrin", "GOS", "Inulin"))
+melty$main_treatment <- factor(melty$main_treatment, levels=c("Control", "Dextrin", "GOS", "Inulin"))
+
+melty.hits <- melty[melty$OTU %in% hits.all,]
+
+# Plot glm results
+res <- glm.test[,c(5,6,9,10,13,14,17,18,21,22,25,26,30:35)]
+res$SV <- rownames(res)
+res.est <- res[,c(19, 1,3,5,7,9,11)]
+res.se <- res[,c(19, 2,4,6,8,10,12)]
+res.p.BH <- res[,c(19,13:18)]
+colnames(res.est)[2:7] <- c("in1", "dex1", "gos1", "in2", "dex2", "gos2")
+colnames(res.se)[2:7] <- c("in1", "dex1", "gos1", "in2", "dex2", "gos2")
+colnames(res.p.BH)[2:7] <- c("in1", "dex1", "gos1", "in2", "dex2", "gos2")
+
+res.est <- gather(res.est, key = test, value=effect, 2:7)
+res.se <- gather(res.se, key = test, value=se, 2:7)
+res.p.BH <- gather(res.p.BH, key = test, value=p.BH, 2:7)
+
+res.sum <- cbind(res.est, res.se[,3], res.p.BH[,3])
+colnames(res.sum)[4:5] <- c("se", "p.BH")
+
+res.sum$SV <- factor(res.sum$SV, levels=rev(unique(res.sum$SV)))
+res.sum$binom <- NA
+for(r in 1:nrow(res.sum)) {
+  res.sum[r,"binom"] <- unique(melty[melty$OTU == as.character(res.sum$SV[r]),"binom"])
+}
+res.sum$binom <- factor(res.sum$binom, levels=rev(unique(res.sum$binom)))
+
+res.sum[res.sum == "in1"] <- "Pre-Treatment:\nInulin"
+res.sum[res.sum == "dex1"] <- "Pre-Treatment:\nDextrin"
+res.sum[res.sum == "gos1"] <- "Pre-Treatment:\nGOS"
+res.sum[res.sum == "in2"] <- "Treatment:\nInulin"
+res.sum[res.sum == "dex2"] <- "Treatment:\nDextrin"
+res.sum[res.sum == "gos2"] <- "Treatment:\nGOS"
+
+res.plot <- ggplot(res.sum[res.sum$SV %in% hits.all,], aes(y=binom, color=p.BH < 0.05)) +
+  geom_point(aes(x=effect)) +
+  geom_errorbar(aes(xmin=effect-se, xmax=effect+se), width=0) +
+  geom_vline(xintercept = 0, color="black", linetype="dashed") +
+  scale_color_manual(values = c("black", "red"))+
+  facet_wrap(~test, ncol=6, scales="free_x") +
+  theme(legend.position = "none",
+        axis.text.y = element_markdown()) +
+  labs(x="Effect size estimate", y="")
+
+# Plot pH volcano
+pH_volcano <- ggplot(corr.test_pH, aes(x=spearman.erho, y =-log10(spearman.eBH))) +
+  geom_point(aes(color = spearman.eBH < 0.05)) +
+  scale_color_manual(values = c("black", "red")) +
+  labs(x="Spearman's rho", y="-log<sub>10</sub>(BH-corrected *p*-value)") +
+  theme(axis.title.y = element_markdown(),
+        legend.position = "none") +
+  ggtitle("ALDEx2 correlation\ntaxa vs. pH")
+
+# Plot HP volcano
+hp_volcano <- ggplot(corr.test_hp, aes(x=spearman.erho, y =-log10(spearman.eBH))) +
+  geom_point(aes(color = spearman.eBH < 0.05)) +
+  scale_color_manual(values = c("black", "red")) +
+  labs(x="Spearman's rho", y="-log<sub>10</sub>(BH-corrected *p*-value)") +
+  theme(axis.title.y = element_markdown(),
+        legend.position = "none") +
+  ggtitle("ALDEx2 correlation\ntaxa vs. inulin")
+
+# Plot E. ramosum
+eram <- melty %>%
+  filter(OTU == "seq_5" & main_treatment == "Inulin") %>%
+  mutate(pH = cross_pH_in$pH[c(4:6,9,8,7,12,11,10,2,1,3)],
+         hp = cross_hp$total[c(10:12, 6,5,4,9,8,7,2,1,3)])
+
+lm(pH ~ Abundance, data = eram) %>% summary() %>% .$r.squared # 0.6931322
+lm(hp ~ Abundance, data = eram) %>% summary() %>% .$r.squared # 0.6448681
+
+eram_labels <- data.frame(plot = c("pH", "hp"), x = c(0.055, 0.055), y = c(5.9, 6),
+                          label = c("Spearman's rho = -0.87<br>BH-corrected *p* = 0.0036<br>*R*<sup>2</sup> = 0.69",
+                                    "Spearman's rho = -0.77<br>BH-corrected *p* = 0.094<br>*R*<sup>2</sup> = 0.64"))
+
+
+eram_pH_plot <- ggplot(data=eram, aes(x=Abundance, y=pH, group=pre.treatment, color=pre.treatment)) +
+  geom_point() +
+  labs(x="Relative abundance", y="pH", color="Pre-treatment") +
+  geom_smooth(formula = y ~ x, method = "lm", se=F, inherit.aes = F, aes(x=Abundance, y=pH)) +
+  geom_richtext(data = eram_labels[1,], aes(x=x, y=y, label=label),
+                size = 4, fill = NA, label.color = NA, inherit.aes = F) +
+  ggtitle("*Erysipelatoclostridium<br>ramosum* (ASV 5)") +
+  theme(plot.title = element_markdown())
+
+eram_hp_plot <- ggplot(data=eram, aes(x=Abundance, y=hp, group=pre.treatment, color=pre.treatment)) +
+  geom_point() +
+  labs(x="Relative abundance", color="Pre-treatment", y="Inulin/FOS concentration (mg/mL)") +
+  geom_smooth(formula = y ~ x, method = "lm", se=F, inherit.aes = F, aes(x=Abundance, y=hp)) +
+  geom_richtext(data = eram_labels[2,], aes(x=x, y=y, label=label),
+                size = 4, fill = NA, label.color = NA, inherit.aes = F) +
+  ggtitle("*Erysipelatoclostridium<br>ramosum* (ASV 5)") +
+  theme(plot.title = element_markdown())
+
+
+```
+
+
+# Patch figures together
+```{r}
+# Fig. 2
+fig2 <- (T2_plot + fiber.plot) /
+  (dp_hp_plot + pH_same_plot + cross_hp_plot + pH_in_plot + plot_layout(nrow = 1)) +
+  plot_annotation(tag_levels = "A")
+#ggsave("plots/fig2.png", fig2, height = 7, width = 13)
+
+
+# Fig. S10
+figS10_top <- cowplot::plot_grid(dp_hp_details_plot, dp_pH_details_plot, hp_volcano,
+                                 nrow = 1, labels = c("A", "B", "C"), label_fontface = "plain",
+                                 rel_widths = c(4, 4, 2.5))
+figS10_mid <- cowplot::plot_grid(pH_volcano,
+                                 eram_hp_plot + theme(legend.position = "none"), eram_pH_plot,
+                                 nrow = 1, labels = c("D", "E", "F"), label_fontface = "plain",
+                                 rel_widths = c(2.5, 3, 4))
+figS10 <- cowplot::plot_grid(figS10_top, figS10_mid, res.plot,
+                             ncol = 1, labels = c("", "", "G"), label_fontface = "plain",
+                             rel_heights = c(3,3,7))
+#ggsave("plots/figS10.png", figS10, height = 12, width = 10.5)
+
+```
+
+

@@ -1,0 +1,60 @@
+---
+title: "Fig S11 - inulin HPAEC chromatograms"
+author: "Jeff Letourneau"
+date: '2022-05-12'
+output: html_document
+---
+
+Load libraries
+```{r}
+library(tidyverse)
+library(RColorBrewer)
+library(patchwork)
+
+theme_set(theme_bw() +
+            theme(axis.text = element_text(color = "black"),
+                  axis.ticks = element_line(color = "black"),
+                  plot.title = element_text(hjust = 0.5)))
+
+
+```
+
+Load data
+```{r}
+orafti <- read.csv("data/HPAEC/inulin_orafti_synergy1.csv")
+sigma <- read.csv("data/HPAEC/inulin_sigma_dahlia.csv")
+now <- read.csv("data/HPAEC/inulin_now.csv")
+jarrow <- read.csv("data/HPAEC/inulin_jarrow.csv")
+
+```
+
+
+Plot
+```{r}
+plot_spectra <- function(df, name) {
+  df %>%
+    filter(time < 65) %>%
+    mutate(name = name) %>%
+    ggplot(aes(x=time, y=signal)) +
+    annotate("rect", xmin = 4.6, xmax = 26.8, ymin = min(df$signal), ymax = Inf, fill = "#A6CEE3", alpha = 0.5) +
+    annotate("rect", xmin = 26.8, xmax = 65, ymin = min(df$signal), ymax = Inf, fill = "#1F78B4", alpha = 0.5) +
+    geom_line() +
+    facet_wrap(~name) +
+    labs(x = "Time (min)", y = "PAD signal (nC)") %>%
+    return()
+}
+
+p_orafti <- plot_spectra(orafti, "Orafti")
+p_sigma <- plot_spectra(sigma, "Sigma")
+p_now <- plot_spectra(now, "NOW")
+p_jarrow <- plot_spectra(jarrow, "Jarrow")
+
+```
+
+Patch together
+```{r}
+figS11 <- p_orafti / p_sigma / p_now / p_jarrow + plot_annotation(tag_levels = "A")
+#ggsave("plots/figS11.png", figS11, height = 10, width = 8)
+
+```
+
