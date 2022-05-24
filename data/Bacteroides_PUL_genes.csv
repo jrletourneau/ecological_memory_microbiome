@@ -1,0 +1,22 @@
+genome,PUL,function,IMG_ID,gene,description,start.true,end.true,start.adj,end.adj,strand,direction,es.t2,es.t3,es.t4
+Bacteroides caccae ATCC 43185,PUL43,GH32,641002968,BC02726,Beta-fructosidases (levanase/invertase),41899,43779,41899,43779,forward,1,1.740700177,0.512931331,0.684131682
+Bacteroides caccae ATCC 43185,PUL43,SusC,641002969,BC02727,Outer membrane cobalamin receptor protein,43938,47021,43938,47021,forward,1,2.680233212,2.375731814,2.092343375
+Bacteroides caccae ATCC 43185,PUL43,SusD,641002970,BC02728,"RagB, SusD and hypothetical proteins.",47047,48804,47047,48804,forward,1,1.95629861,2.760211941,1.984550986
+Bacteroides caccae ATCC 43185,PUL43,GH32,641002973,BC02731,Beta-fructosidases (levanase/invertase),52076,53902,49804,51630,forward,1,3.837930031,2.417132435,3.252066977
+Bacteroides caccae ATCC 43185,PUL11,GH20,641001327,BC01085,N-acetyl-beta-hexosaminidase,1232023,1234347,1239729,1242053,reverse,-1,-0.776101619,0.742527779,-1.381518243
+Bacteroides caccae ATCC 43185,PUL11,GH33,641001332,BC01090,hypothetical protein,1243053,1244735,1243053,1244735,reverse,-1,-3.467448792,-0.984825301,-3.150909585
+Bacteroides caccae ATCC 43185,PUL11,SusD,641001333,BC01091,"RagB, SusD and hypothetical proteins.",1244889,1246475,1244889,1246475,reverse,-1,-4.012508567,-0.490281408,-4.961330944
+Bacteroides caccae ATCC 43185,PUL11,SusC,641001334,BC01092,"Outer membrane receptor proteins, mostly Fe transport",1246495,1249821,1246495,1249821,reverse,-1,-4.481705427,-1.253195816,-4.892906226
+Bacteroides ovatus ATCC 8483,PUL92,GH32,641384920,BO04501,Beta-fructosidases (levanase/invertase),433397,435244,433397,435244,reverse,-1,5.075210278,2.973830699,3.718798393
+Bacteroides ovatus ATCC 8483,PUL92,SusD,641384923,BO04504,"RagB, SusD and hypothetical proteins.",437360,438490,437360,438490,reverse,-1,2.983837106,3.742105115,2.234458875
+Bacteroides ovatus ATCC 8483,PUL92,SusC,641384924,BO04505,Outer membrane cobalamin receptor protein,440295,443378,440295,443378,reverse,-1,3.225333777,3.065661276,1.729599286
+Bacteroides uniformis ATCC 8492,PUL17,SusC,641387193,BU01153,"Outer membrane receptor proteins, mostly Fe transport",43054,46164,43054,46164,forward,1,3.214031054,3.129502993,0.949305847
+Bacteroides uniformis ATCC 8492,PUL17,SusD,641387194,BU01154,"RagB, SusD and hypothetical proteins.",46184,47968,46184,47968,forward,1,1.946047218,2.825129733,0.439171174
+Bacteroides uniformis ATCC 8492,PUL17,GH32,641387195,BU01155,Beta-fructosidases (levanase/invertase),48042,50177,48042,50177,forward,1,0.823376634,1.332988162,-0.067218437
+Bacteroides uniformis ATCC 8492,PUL17,GH32,641387199,BU01159,Beta-fructosidases (levanase/invertase),56049,57863,51177,52991,forward,1,4.114389894,3.283452273,2.302471703
+Bacteroides uniformis ATCC 8492,PUL17,MFS,641387200,BU01160,Fucose permease,57882,59048,53010,54176,forward,1,1.833214094,1.807055516,0.840428178
+Bacteroides uniformis ATCC 8492,PUL17,HTCS,641387203,BU01163,"monosaccharide ABC transporter substrate-binding protein, CUT2 family (TC 3.A.1.2.-)",60263,63022,55391,58150,forward,1,1.904088973,0.500546576,1.232524348
+Bacteroides uniformis ATCC 8492,PUL18,SusC,641387250,BU01209,"Outer membrane receptor proteins, mostly Fe transport",117500,120502,117500,120502,forward,1,-1.27299138,-0.743979383,-1.508646492
+Bacteroides uniformis ATCC 8492,PUL18,SusD,641387251,BU01211,"RagB, SusD and hypothetical proteins.",120514,122133,120514,122133,forward,1,-1.457330187,-0.825766695,-1.869210806
+Bacteroides uniformis ATCC 8492,PUL18,unk,641387252,BU01212,hypothetical protein,122149,123768,122149,123768,forward,1,-1.424149663,-0.733965071,-1.842253492
+Bacteroides uniformis ATCC 8492,PUL18,GH13,641387253,BU01213,Glycosidases,123850,125175,123850,125175,forward,1,-1.061459533,-0.479903873,-1.210933758
