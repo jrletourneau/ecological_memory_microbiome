@@ -17,6 +17,7 @@ library(RColorBrewer)
 library(ggbiplot)
 library(rotl)
 library(ggsignif)
+library(gggenes)
 
 # Statistics
 library(ALDEx2)
@@ -165,11 +166,11 @@ glm_indiv_results <- glm_indiv_results %>% filter(p.t2.BH < 0.05 | p.t3.BH < 0.0
 # Make relative abundance dataframe
 ## Slowish (~2 min)
 rna_genes_relabd <- rna_genes %>%
-  mutate(gene = rownames(.)) %>%
-  mutate(species = recode(gene, !!!genes2taxa)) %>%
+  dplyr::mutate(gene = rownames(.)) %>%
+  dplyr::mutate(species = recode(gene, !!!genes2taxa)) %>%
   gather(key = sample, value = counts, 1:20) %>%
   group_by(species, sample) %>%
-  mutate(relabd = counts / sum(counts)) %>%
+  dplyr::mutate(relabd = counts / sum(counts)) %>%
   dplyr::select(-counts) %>%
   filter(gene %in% glm_indiv_results$gene)
 
@@ -199,10 +200,10 @@ scfa <- scfa %>%
   dplyr::mutate(across(ends_with("ate"), ~ .x * 10.5)) %>% # dilution factor
   dplyr::mutate(total = rowSums(across(ends_with("ate")))) %>%
   gather(key=scfa, value=conc, 6:12) %>%
-  mutate(scfa = str_to_title(scfa)) %>%
+  dplyr::mutate(scfa = str_to_title(scfa)) %>%
   group_by(Vessel, time, scfa) %>%
   dplyr::summarize(conc=mean(conc)) %>%
-  mutate(time = time - 13)
+  dplyr::mutate(time = time - 13)
 
 scfa_summary <- scfa %>%
   group_by(time, scfa) %>%
@@ -217,10 +218,10 @@ descdist(scfa[scfa$scfa=="Total",]$conc, discrete = FALSE, boot = 500) # looks n
 metabs <- unique(scfa$scfa)
 
 scfa_stats <- scfa %>%
-  mutate(time = substr(as.character(time + 13), 1, 4)) %>%
-  mutate(time = factor(time, levels = c("14.3", "12.6", "13.6", "14.6", "15.3", "15.6",
+  dplyr::mutate(time = substr(as.character(time + 13), 1, 4)) %>%
+  dplyr::mutate(time = factor(time, levels = c("14.3", "12.6", "13.6", "14.6", "15.3", "15.6",
                                                     "16.3", "16.6", "17.3", "17.6", "18.3", "18.6"))) %>%
-  mutate(Vessel = factor(Vessel))
+  dplyr::mutate(Vessel = factor(Vessel))
 
 lm_results <- data.frame(scfa=metabs, intercept=NA, p.12p=NA, p.13p=NA, p.14p=NA, p.15a=NA, p.15p=NA, p.16a=NA,
                       p.16p=NA, p.17a=NA, p.17p=NA, p.18a=NA, p.18p=NA)
@@ -236,7 +237,7 @@ for(c in 2:13) {
 }
 
 lm_results <- lm_results %>%
-  mutate(across(starts_with("p"), ~ case_when(.x < 0.001 ~ "***",
+  dplyr::mutate(across(starts_with("p"), ~ case_when(.x < 0.001 ~ "***",
                                               .x < 0.01 & .x >= 0.001 ~ "**",
                                               .x < 0.05 & .x >= 0.01 ~ "*",
                                               .x >= 0.05 ~ "")))
@@ -353,7 +354,7 @@ rna_hits_labels <- rna_glm %>%
          `Dose 2\nHr +6` = `model.factor(tp)4 Pr(>|t|).BH`) %>%
   dplyr::select(`Dose 1\nHr +6`, `Dose 2\nHr -2`, `Dose 2\nHr +6`) %>%
   filter(`Dose 1\nHr +6` < 0.05 | `Dose 2\nHr -2` < 0.05 | `Dose 2\nHr +6` < 0.05) %>%
-  mutate(across(starts_with("D"), ~ case_when(.x < 0.001 ~ "<sub>***</sub>", #hack for centering asterisks
+  dplyr::mutate(across(starts_with("D"), ~ case_when(.x < 0.001 ~ "<sub>***</sub>", #hack for centering asterisks
                                               .x < 0.01 & .x >= 0.001 ~ "<sub>**</sub>",
                                               .x < 0.05 & .x >= 0.01 ~ "<sub>*</sub>",
                                               .x >= 0.05 ~ ""))) %>%
@@ -402,7 +403,7 @@ label_wrap_gen2 <- function(labels, width = 25, multi_line = TRUE) {
 # Select relative abundance data for only the relevant KEGG functions
 levsun_df <- rna_genes_relabd %>%
   filter(gene %in% glm_levsun$gene) %>%
-  mutate(label = case_when(gene == 641002968 ~ "*Bacteroides caccae* ATCC 43185 (BC02726)",
+  dplyr::mutate(label = case_when(gene == 641002968 ~ "*Bacteroides caccae* ATCC 43185 (BC02726)",
                            gene == 641002973 ~ "*Bacteroides caccae* ATCC 43185 (BC02731)",
                            gene == 641384920 ~ "*Bacteroides ovatus* ATCC 8483 (BO04501)",
                            gene == 641387199 ~ "*Bacteroides uniformis* ATCC 8492 (BU01159)"),
@@ -411,7 +412,7 @@ levsun_df <- rna_genes_relabd %>%
                           substr(sample, 1, 4) == "D2H8" ~ "Dose 2\nHr -2",
                           substr(sample, 1, 4) == "D2H1" ~ "Dose 2\nHr +6"),
          vessel = str_sub(sample, -1, -1)) %>%
-  mutate(label = label_wrap_gen2(label))
+  dplyr::mutate(label = label_wrap_gen2(label))
 
 # Calculate mean and se
 levsun_df_summary <- levsun_df %>%
@@ -421,23 +422,23 @@ levsun_df_summary <- levsun_df %>%
 # Get asterisks
 levsun_stars <- glm_levsun %>%
   dplyr::select(gene, p.t2.BH, p.t3.BH, p.t4.BH) %>%
-  mutate(label = case_when(gene == 641002968 ~ "*Bacteroides caccae* ATCC 43185 (BC02726)",
+  dplyr::mutate(label = case_when(gene == 641002968 ~ "*Bacteroides caccae* ATCC 43185 (BC02726)",
                            gene == 641002973 ~ "*Bacteroides caccae* ATCC 43185 (BC02731)",
                            gene == 641384920 ~ "*Bacteroides ovatus* ATCC 8483 (BO04501)",
                            gene == 641387199 ~ "*Bacteroides uniformis* ATCC 8492 (BU01159)")) %>%
-  mutate(label = label_wrap_gen2(label)) %>%
+  dplyr::mutate(label = label_wrap_gen2(label)) %>%
   dplyr::select(-gene) %>%
   dplyr::rename(`Dose 1\nHr +6` = p.t2.BH,
          `Dose 2\nHr -2` = p.t3.BH,
          `Dose 2\nHr +6` = p.t4.BH) %>%
   gather(key = time, value = star, 1:3) %>%
-  mutate(star = case_when(star < 0.001 ~ "***",
+  dplyr::mutate(star = case_when(star < 0.001 ~ "***",
                            star < 0.01 & star >= 0.001 ~ "**",
                            star < 0.05 & star >= 0.01 ~ "*",
                            star >= 0.05 ~ "")) %>%
   filter(star != "") %>%
   arrange(label) %>%
-  mutate(height = c(0.002, 0.0085, 0.005, 0.0082,
+  dplyr::mutate(height = c(0.002, 0.0085, 0.005, 0.0082,
                     0.47, 0.25, 0.36,
                     0.18, 0.14, 0.1))
 
@@ -487,7 +488,7 @@ star_y_positions[9] <- star_y_positions[9] - 2.5
 
 scfa_total_plot <- ggplot(data=scfa_total_summary, aes(x=time, y=mean)) +
   geom_hline(yintercept = 184, alpha = 0) +
-  xlab("Time (day)") + ylab("Total SCFA concentration (mM)") + 
+  xlab("Time (days)") + ylab("Total SCFA concentration (mM)") + 
   geom_ribbon(aes(ymin=mean-se, ymax=mean+se), fill="gray", alpha = 0.5) +
   geom_vline(xintercept = c(1.42, 2.42, 3.42, 4.42, 5.42), color="darkgray", linetype="dashed") +
   geom_line(color="red") +
@@ -496,7 +497,7 @@ scfa_total_plot <- ggplot(data=scfa_total_summary, aes(x=time, y=mean)) +
                                                                  levels = c("1", "2", "4", "6", "7", "8", "3"))),
              position=position_jitter(0.025, height=0)) +
   scale_color_brewer(palette = "Paired") +
-  theme(legend.position = "none")
+  labs(color = "Vessel")
 
 ```
 
@@ -543,9 +544,9 @@ gcms_select_plot <- ggplot(data=gcms_change_select_summary, aes(x=dose, y=mean))
 ```{r}
 # Global transcriptome
 ## Reload big dataset
-rna_genes <- read.csv("data/metatranscriptomics/single_species_counts_df.csv", row.names = 1)
+rna_genes_all <- read.csv("data/metatranscriptomics/single_species_counts_df.csv", row.names = 1)
 
-rna_matrix_relabd <- rna_genes %>%
+rna_matrix_relabd <- rna_genes_all %>%
   dplyr::summarize(across(everything(), ~ . / sum(.))) %>%
   dplyr::select(rownames(rna_samdf)) # align sample order
 
@@ -576,7 +577,7 @@ rna_global_pca_plot <- ggbiplot(rna_global_pca, var.axes=F,
 bc_genes <- names(genes2taxa[genes2taxa == "Bacteroides caccae ATCC 43185"]) # 3267 genes
 
 ## Covert to relative abundance
-bc_relabd <- rna_genes %>%
+bc_relabd <- rna_genes_all %>%
   filter(rownames(.) %in% bc_genes) %>%
   dplyr::summarize(across(everything(), ~ . / sum(.))) %>%
   dplyr::select(rownames(rna_samdf)) # align sample order
@@ -607,7 +608,7 @@ bc_pca_plot <- ggbiplot(bc_pca, var.axes=F, groups=factor(rna_samdf$time_point),
 cc_genes <- names(genes2taxa[genes2taxa == "Coprococcus comes ATCC 27758"]) # 2446 genes
 
 ## Covert to relative abundance
-cc_relabd <- rna_genes %>%
+cc_relabd <- rna_genes_all %>%
   filter(rownames(.) %in% cc_genes) %>%
   dplyr::summarize(across(everything(), ~ . / sum(.))) %>%
   dplyr::select(rownames(rna_samdf)) # align sample order
@@ -1066,7 +1067,7 @@ scfa_annotation <- scfa %>%
   filter(scfa != "Total" & round(time, 2) != 1.33) %>%
   group_by(scfa, time) %>%
   dplyr::summarize(max = max(conc)) %>%
-  mutate(max = max * 1.1) %>%
+  dplyr::mutate(max = max * 1.1) %>%
   ungroup %>%
   mutate(label = star_labels_each$p.val)
 ## Adjust a couple overlapping ones
@@ -1079,7 +1080,7 @@ scfa_hlines <- data.frame(scfa = unique(scfa_annotation$scfa),
 
 scfa_each_plot <- ggplot(data=scfa_each_summary, aes(x=time, y=mean)) +
   geom_hline(data = scfa_hlines, aes(yintercept = height), alpha = 0) +
-  xlab("Time (day)") + ylab("SCFA concentration (mM)") + 
+  xlab("Time (days)") + ylab("SCFA concentration (mM)") + 
   geom_ribbon(aes(ymin=mean-se, ymax=mean+se), fill="gray", alpha = 0.5) +
   geom_vline(xintercept = c(1.42, 2.42, 3.42, 4.42, 5.42), color="darkgray", linetype="dashed") +
   geom_line(color="red") +
@@ -1099,8 +1100,8 @@ gcms_hits_labels <- lm_results_gcms %>%
   dplyr::rename(`Dose 1\nHr +6` = lm.01,
          `Dose 2\nHr +6` = lm.02) %>%
   dplyr::select(metabolite, `Dose 1\nHr +6`, `Dose 2\nHr +6`) %>%
-  mutate(metabolite = recode(metabolite, !!!metab_name_map)) %>%
-  mutate(across(starts_with("D"), ~ case_when(.x < 0.001 ~ "<sub>***</sub>", # hack to center asterisk
+  dplyr::mutate(metabolite = recode(metabolite, !!!metab_name_map)) %>%
+  dplyr::mutate(across(starts_with("D"), ~ case_when(.x < 0.001 ~ "<sub>***</sub>", # hack to center asterisk
                                               .x < 0.01 & .x >= 0.001 ~ "<sub>**</sub>",
                                               .x < 0.05 & .x >= 0.01 ~ "<sub>*</sub>",
                                               .x >= 0.05 ~ ""))) %>%
@@ -1112,13 +1113,13 @@ gcms_hits_effect <- lm_results_gcms %>%
   dplyr::rename(`Dose 1\nHr +6` = es.01,
          `Dose 2\nHr +6` = es.02) %>%
   dplyr::select(metabolite, `Dose 1\nHr +6`, `Dose 2\nHr +6`) %>%
-  mutate(metabolite = recode(metabolite, !!!metab_name_map))
+  dplyr::mutate(metabolite = recode(metabolite, !!!metab_name_map))
 
 ## Get hierarchical clustering order
 gcms_order <- gcms_hits_effect[hclust(dist(gcms_hits_effect[,2:3]))$order,]$metabolite
 
 gcms_hits_effect <- gcms_hits_effect %>%
-  mutate(metabolite = factor(metabolite, levels = rev(gcms_order))) %>%
+  dplyr::mutate(metabolite = factor(metabolite, levels = rev(gcms_order))) %>%
   gather(key = dose, value = effect, 2:3)
 
 ## Center palette on zero
@@ -1137,19 +1138,360 @@ gcms_hm <- ggplot(gcms_hits_effect, aes(x = dose, y = metabolite)) +
 
 ```
 
+# Fig. S12 B. caccae within-taxon analysis with housekeeping genes
+```{r}
+bc_all <- rna_genes_all %>%
+  filter(rownames(.) %in% bc_genes) #3267 genes
+
+# Get gene names
+gene_id_df_bc <- read.csv("data/metatranscriptomics/genes2microbes_select_v2.csv") %>%
+  filter(taxon == 640963023) %>%
+  filter(ID %in% rownames(bc_all))
+
+# dnaJ - 641001323 - BC01081
+# gyrB - 641003726 - BC03484
+# recA - 641002301 - BC02059
+# rpoB - 641000437 - BC00195
+# pgk - 641003032 - BC02790 - not mentioned in Sakamoto & Ohkuma (2011)
+## Also, one sample has 0 counts of pgk, producing Inf values, so I will exclude
+
+house <- t(bc_all[c("641001323", "641003726", "641002301", "641000437"),]) %>%
+  as.data.frame() %>%
+  dplyr::rename(`dnaJ (BC01081)` = `641001323`,
+                `gyrB (BC03484)` = `641003726`,
+                `recA (BC02059)` = `641002301`,
+                `rpoB (BC00195)` = `641000437`) %>%
+  cbind(rna_samdf[colnames(bc_all), c("day", "hour", "vessel", "time_point")])
+
+# Transcripts of interest in B. caccae - 641002968 and 641002973
+BC02726 <- t(bc_all["641002968",]) %>%
+  as.data.frame() %>%
+  dplyr::rename(BC02726 = `641002968`) %>%
+  cbind(house) %>%
+  mutate(`dnaJ (BC01081)` = BC02726 / `dnaJ (BC01081)`,
+         `gyrB (BC03484)` = BC02726 / `gyrB (BC03484)`,
+         `recA (BC02059)` = BC02726 / `recA (BC02059)`,
+         `rpoB (BC00195)` = BC02726 / `rpoB (BC00195)`) %>%
+  gather(key=housekeeper, value=ratio, 2:5)
+
+BC02726_summary <- BC02726 %>%
+  group_by(time_point, housekeeper) %>%
+  dplyr::summarize(mean = mean(ratio, na.rm = T),
+                   se = sd(ratio, na.rm = T)/sqrt(length(ratio[!is.na(ratio)])))
+
+BC02731 <- t(bc_all["641002973",]) %>%
+  as.data.frame() %>%
+  dplyr::rename(BC02731 = `641002973`) %>%
+  cbind(house) %>%
+  mutate(`dnaJ (BC01081)` = BC02731 / `dnaJ (BC01081)`,
+         `gyrB (BC03484)` = BC02731 / `gyrB (BC03484)`,
+         `recA (BC02059)` = BC02731 / `recA (BC02059)`,
+         `rpoB (BC00195)` = BC02731 / `rpoB (BC00195)`) %>%
+  gather(key=housekeeper, value=ratio, 2:5)
+
+BC02731_summary <- BC02731 %>%
+  group_by(time_point, housekeeper) %>%
+  dplyr::summarize(mean = mean(ratio, na.rm = T),
+                   se = sd(ratio, na.rm = T)/sqrt(length(ratio[!is.na(ratio)])))
+
+# Linear models - BC02726
+lmer(data = BC02726[BC02726$housekeeper == "rpoB (BC00195)",], formula = ratio ~ time_point + (1 | vessel)) %>%
+  summary()
+## dnaJ
+#                         Estimate Std. Error      df t value Pr(>|t|)   
+# (Intercept)               0.9376     0.3600 16.0000   2.605  0.01915 * 
+# time_pointDose 1\nHr +6   1.6135     0.5091 16.0000   3.170  0.00595 **
+# time_pointDose 2\nHr -2   0.4914     0.5091 16.0000   0.965  0.34874   
+# time_pointDose 2\nHr +6   0.3748     0.5091 16.0000   0.736  0.47219   
+## gyrB
+# (Intercept)              0.372136   0.066213 15.758814   5.620 4.06e-05 ***
+# time_pointDose 1\nHr +6  0.212301   0.090233 12.000000   2.353   0.0365 *  
+# time_pointDose 2\nHr -2 -0.030865   0.090233 12.000000  -0.342   0.7382    
+# time_pointDose 2\nHr +6  0.004634   0.090233 12.000000   0.051   0.9599    
+## recA
+# (Intercept)               1.0893     0.2281 14.5623   4.776 0.000266 ***
+# time_pointDose 1\nHr +6   0.3016     0.2918 12.0000   1.033 0.321774    
+# time_pointDose 2\nHr -2  -0.2760     0.2918 12.0000  -0.946 0.362843    
+# time_pointDose 2\nHr +6   0.1243     0.2918 12.0000   0.426 0.677808   
+## rpoB
+# (Intercept)              0.29167    0.04973 14.70766   5.865 3.37e-05 ***
+# time_pointDose 1\nHr +6  0.01890    0.06403 12.00000   0.295    0.773    
+# time_pointDose 2\nHr -2 -0.00612    0.06403 12.00000  -0.096    0.925    
+# time_pointDose 2\nHr +6  0.02782    0.06403 12.00000   0.434    0.672   
+
+# Linear models - BC02731
+lmer(data = BC02731[BC02731$housekeeper == "rpoB (BC00195)",], formula = ratio ~ time_point + (1 | vessel)) %>%
+  summary()
+## dnaJ
+#                         Estimate Std. Error      df t value Pr(>|t|)    
+# (Intercept)               0.9082     1.7224 16.0000   0.527 0.605244    
+# time_pointDose 1\nHr +6  11.8509     2.4359 16.0000   4.865 0.000172 ***
+# time_pointDose 2\nHr -2   6.2235     2.4359 16.0000   2.555 0.021191 *  
+# time_pointDose 2\nHr +6   8.9735     2.4359 16.0000   3.684 0.002010 ** 
+## gyrB
+# (Intercept)               0.3969     0.2319 16.0000   1.712  0.10627    
+# time_pointDose 1\nHr +6   2.5954     0.3279 16.0000   7.915 6.37e-07 ***
+# time_pointDose 2\nHr -2   1.1981     0.3279 16.0000   3.654  0.00214 ** 
+# time_pointDose 2\nHr +6   2.2496     0.3279 16.0000   6.860 3.84e-06 ***  
+## recA
+# (Intercept)               1.4124     0.6203 16.0000   2.277   0.0369 *  
+# time_pointDose 1\nHr +6   5.7171     0.8773 16.0000   6.517  7.1e-06 ***
+# time_pointDose 2\nHr -2   2.3427     0.8773 16.0000   2.670   0.0168 *  
+# time_pointDose 2\nHr +6   7.1567     0.8773 16.0000   8.158  4.3e-07 ***
+## rpoB
+# (Intercept)               0.3545     0.1736 16.0000   2.042 0.057981 .  
+# time_pointDose 1\nHr +6   1.2590     0.2455 16.0000   5.128 0.000101 ***
+# time_pointDose 2\nHr -2   0.9591     0.2455 16.0000   3.907 0.001256 ** 
+# time_pointDose 2\nHr +6   1.8538     0.2455 16.0000   7.550 1.16e-06 ***
+
+
+# Plot
+## BC02726
+BC02726_stars <- data.frame(time_point = c("Dose 1\nHr +6", "Dose 1\nHr +6"),
+                            housekeeper = c("dnaJ (BC01081)", "gyrB (BC03484)"),
+                            ratio = c(4.2, 0.9), label = c("**", "*"))
+BC02726_hlines <- data.frame(housekeeper = BC02726_stars$housekeeper,
+                             height = BC02726_stars$ratio * 1.08)
+
+BC02726_plot <- ggplot(BC02726, aes(x = time_point, y = ratio, color = factor(vessel))) +
+  geom_hline(data = BC02726_hlines, aes(yintercept = height), alpha = 0) +
+  geom_point(position = position_jitter(0.05)) +
+  facet_wrap(~housekeeper, scales = "free", nrow=1) +
+  geom_errorbar(data=BC02726_summary, aes(ymin=mean-se, ymax=mean+se, x = time_point),
+                width=0.25, inherit.aes = F) +
+  geom_errorbar(data=BC02726_summary, aes(ymin=mean, ymax=mean, x = time_point),
+                width=0.5, color = "red", inherit.aes = F) +
+  scale_color_manual(values = brewer.pal(6, "Paired")[c(1:3,5,6)]) +
+  geom_text(data = BC02726_stars, aes(x = time_point, y = ratio, label = label), 
+            size = 8, inherit.aes = F) +
+  labs(x = "Time point", y = "BC02726 (GH32)\nrelative expresssion", color = "Vessel")
+
+
+## BC02731
+BC02731_stars <- data.frame(time_point = rep(c("Dose 1\nHr +6", "Dose 2\nHr -2", "Dose 2\nHr +6"), 4),
+                            housekeeper = c(rep("dnaJ (BC01081)", 3), rep("gyrB (BC03484)", 3),
+                                            rep("recA (BC02059)", 3), rep("rpoB (BC00195)", 3)),
+                            ratio = c(19, 15.5, 17, 4, 2.8, 3.5, 9, 8, 12, 2, 2, 3.2),
+                            label = c("***", "*", "**", "***", "**", "***", "***", "*", "***",
+                                      "***", "**", "***"))
+BC02731_hlines <- data.frame(housekeeper = BC02731_stars$housekeeper,
+                             height = BC02731_stars$ratio * 1.08)
+
+BC02731_plot <- ggplot(BC02731, aes(x = time_point, y = ratio, color = factor(vessel))) +
+  geom_hline(data = BC02731_hlines, aes(yintercept = height), alpha = 0) +
+  geom_point(position = position_jitter(0.05)) +
+  facet_wrap(~housekeeper, scales = "free", nrow=1) +
+  geom_errorbar(data=BC02731_summary, aes(ymin=mean-se, ymax=mean+se, x = time_point),
+                width=0.25, inherit.aes = F) +
+  geom_errorbar(data=BC02731_summary, aes(ymin=mean, ymax=mean, x = time_point),
+                width=0.5, color = "red", inherit.aes = F) +
+  scale_color_manual(values = brewer.pal(6, "Paired")[c(1:3,5,6)]) +
+  geom_text(data = BC02731_stars, aes(x = time_point, y = ratio, label = label), 
+            size = 8, inherit.aes = F) +
+  labs(x = "Time point", y = "BC02731 (GH32)\nrelative expresssion", color = "Vessel")
+
+
+# Also, plot total reads by time (makes sense that B. caccae gets more reads)
+total_reads_df <- rna_samdf %>%
+  mutate(reads = colSums(bc_all)[c(6:10,1:5,16:20,11:15)])
+
+total_reads_summary <- total_reads_df %>%
+  group_by(time_point) %>%
+  dplyr::summarize(mean = mean(reads), se = sd(reads)/sqrt(length(reads)))
+
+total_reads_plot <- ggplot(total_reads_df, aes(x=time_point, y = reads)) +
+  geom_point() +
+  geom_errorbar(data=total_reads_summary, aes(ymin=mean-se, ymax=mean+se, x = time_point),
+                width=0.25, inherit.aes = F) +
+  geom_errorbar(data=total_reads_summary, aes(ymin=mean, ymax=mean, x = time_point),
+                width=0.5, color = "red", inherit.aes = F)
+
+
+```
+
+## Also analyze SusC/SusD
+```{r}
+# SusC
+BC02727 <- t(bc_all["641002969",]) %>%
+  as.data.frame() %>%
+  dplyr::rename(BC02727 = `641002969`) %>%
+  cbind(house) %>%
+  mutate(`dnaJ (BC01081)` = BC02727 / `dnaJ (BC01081)`,
+         `gyrB (BC03484)` = BC02727 / `gyrB (BC03484)`,
+         `recA (BC02059)` = BC02727 / `recA (BC02059)`,
+         `rpoB (BC00195)` = BC02727 / `rpoB (BC00195)`) %>%
+  gather(key=housekeeper, value=ratio, 2:5)
+
+BC02727_summary <- BC02727 %>%
+  group_by(time_point, housekeeper) %>%
+  dplyr::summarize(mean = mean(ratio, na.rm = T),
+                   se = sd(ratio, na.rm = T)/sqrt(length(ratio[!is.na(ratio)])))
+
+## Linear models
+lmer(data = BC02727[BC02727$housekeeper == "rpoB (BC00195)",], formula = ratio ~ time_point + (1 | vessel)) %>%
+  summary()
+# dnaJ
+#                         Estimate Std. Error     df t value Pr(>|t|)  
+# (Intercept)                1.728      1.543 16.000   1.120   0.2794  
+# time_pointDose 1\nHr +6    5.352      2.183 16.000   2.452   0.0261 *
+# time_pointDose 2\nHr -2    5.946      2.183 16.000   2.724   0.0150 *
+# time_pointDose 2\nHr +6    4.281      2.183 16.000   1.961   0.0675 .
+# gyrB
+# (Intercept)               0.6705     0.3298 15.8103   2.033   0.0592 .
+# time_pointDose 1\nHr +6   0.9422     0.4515 12.0000   2.087   0.0589 .
+# time_pointDose 2\nHr -2   1.2111     0.4515 12.0000   2.682   0.0199 *
+# time_pointDose 2\nHr +6   0.9160     0.4515 12.0000   2.029   0.0653 .
+# recA
+# (Intercept)               1.9616     0.9178 15.8490   2.137   0.0485 *
+# time_pointDose 1\nHr +6   1.9038     1.2609 12.0000   1.510   0.1570  
+# time_pointDose 2\nHr -2   2.4560     1.2609 12.0000   1.948   0.0752 .
+# time_pointDose 2\nHr +6   3.0226     1.2609 12.0000   2.397   0.0337 *
+# rpoB
+# (Intercept)               0.5111     0.3105 14.2001   1.646   0.1217  
+# time_pointDose 1\nHr +6   0.3522     0.3914 12.0000   0.900   0.3860  
+# time_pointDose 2\nHr -2   1.1308     0.3914 12.0000   2.889   0.0136 *
+# time_pointDose 2\nHr +6   0.8112     0.3914 12.0000   2.073   0.0604 .
+
+
+## Plot
+BC02727_stars <- data.frame(time_point = c("Dose 1\nHr +6", "Dose 2\nHr -2", "Dose 2\nHr -2",
+                                           "Dose 2\nHr +6", "Dose 2\nHr -2"),
+                            housekeeper = c(rep("dnaJ (BC01081)", 2), "gyrB (BC03484)",
+                                            "recA (BC02059)", "rpoB (BC00195)"),
+                            ratio = c(12.5, 12.5, 3.5, 11, 3.75),
+                            label = c(rep("*", 5)))
+BC02727_hlines <- data.frame(housekeeper = BC02727_stars$housekeeper,
+                             height = BC02727_stars$ratio * 1.08)
+
+BC02727_plot <- ggplot(BC02727, aes(x = time_point, y = ratio, color = factor(vessel))) +
+  geom_hline(data = BC02727_hlines, aes(yintercept = height), alpha = 0) +
+  geom_point(position = position_jitter(0.05)) +
+  facet_wrap(~housekeeper, scales = "free", nrow=1) +
+  geom_errorbar(data=BC02727_summary, aes(ymin=mean-se, ymax=mean+se, x = time_point),
+                width=0.25, inherit.aes = F) +
+  geom_errorbar(data=BC02727_summary, aes(ymin=mean, ymax=mean, x = time_point),
+                width=0.5, color = "red", inherit.aes = F) +
+  scale_color_manual(values = brewer.pal(6, "Paired")[c(1:3,5,6)]) +
+  geom_text(data = BC02727_stars, aes(x = time_point, y = ratio, label = label), 
+            size = 8, inherit.aes = F) +
+  labs(x = "Time point", y = "BC02727 (SusC)\nrelative expresssion", color = "Vessel")
+
+# SuSD
+BC02728 <- t(bc_all["641002970",]) %>%
+  as.data.frame() %>%
+  dplyr::rename(BC02726 = `641002970`) %>%
+  cbind(house) %>%
+  mutate(`dnaJ (BC01081)` = BC02726 / `dnaJ (BC01081)`,
+         `gyrB (BC03484)` = BC02726 / `gyrB (BC03484)`,
+         `recA (BC02059)` = BC02726 / `recA (BC02059)`,
+         `rpoB (BC00195)` = BC02726 / `rpoB (BC00195)`) %>%
+  gather(key=housekeeper, value=ratio, 2:5)
+
+BC02728_summary <- BC02728 %>%
+  group_by(time_point, housekeeper) %>%
+  dplyr::summarize(mean = mean(ratio, na.rm = T),
+                   se = sd(ratio, na.rm = T)/sqrt(length(ratio[!is.na(ratio)])))
+
+
+# Linear models
+lmer(data = BC02728[BC02728$housekeeper == "rpoB (BC00195)",], formula = ratio ~ time_point + (1 | vessel)) %>%
+  summary()
+# dnaJ
+# (Intercept)               0.7212     0.5773 16.0000   1.249 0.229567    
+# time_pointDose 1\nHr +6   1.0633     0.8165 16.0000   1.302 0.211235    
+# time_pointDose 2\nHr -2   3.8831     0.8165 16.0000   4.756 0.000215 ***
+# time_pointDose 2\nHr +6   2.1737     0.8165 16.0000   2.662 0.017038 *  
+# gyrB
+# (Intercept)               0.3205     0.1782 13.8294   1.798  0.09396 . 
+# time_pointDose 1\nHr +6   0.1104     0.2213 12.0000   0.499  0.62705   
+# time_pointDose 2\nHr -2   0.7748     0.2213 12.0000   3.501  0.00437 **
+# time_pointDose 2\nHr +6   0.5310     0.2213 12.0000   2.399  0.03356 * 
+# recA
+# (Intercept)               1.2660     0.6278 14.8306   2.017   0.0622 .
+# time_pointDose 1\nHr +6  -0.2323     0.8127 12.0000  -0.286   0.7799  
+# time_pointDose 2\nHr -2   1.3843     0.8127 12.0000   1.703   0.1142  
+# time_pointDose 2\nHr +6   1.3590     0.8127 12.0000   1.672   0.1203  
+# rpoB
+# (Intercept)              0.29780    0.15636 13.59909   1.905  0.07821 . 
+# time_pointDose 1\nHr +6 -0.05856    0.19245 12.00000  -0.304  0.76614   
+# time_pointDose 2\nHr -2  0.61738    0.19245 12.00000   3.208  0.00752 **
+# time_pointDose 2\nHr +6  0.41052    0.19245 12.00000   2.133  0.05425 . 
+
+## Plot
+BC02728_stars <- data.frame(time_point = c("Dose 2\nHr -2", "Dose 2\nHr +6", "Dose 2\nHr -2",
+                                           "Dose 2\nHr +6", "Dose 2\nHr -2"),
+                            housekeeper = c(rep("dnaJ (BC01081)", 2), rep("gyrB (BC03484)", 2),
+                                            "rpoB (BC00195)"),
+                            ratio = c(6.5, 6.2, 1.8, 2.2, 1.3),
+                            label = c("***", "*", "**", "*", "**"))
+BC02728_hlines <- data.frame(housekeeper = BC02728_stars$housekeeper,
+                             height = BC02728_stars$ratio * 1.08)
+
+BC02728_plot <- ggplot(BC02728, aes(x = time_point, y = ratio, color = factor(vessel))) +
+  geom_hline(data = BC02728_hlines, aes(yintercept = height), alpha = 0) +
+  geom_point(position = position_jitter(0.05)) +
+  facet_wrap(~housekeeper, scales = "free", nrow=1) +
+  geom_errorbar(data=BC02728_summary, aes(ymin=mean-se, ymax=mean+se, x = time_point),
+                width=0.25, inherit.aes = F) +
+  geom_errorbar(data=BC02728_summary, aes(ymin=mean, ymax=mean, x = time_point),
+                width=0.5, color = "red", inherit.aes = F) +
+  scale_color_manual(values = brewer.pal(6, "Paired")[c(1:3,5,6)]) +
+  geom_text(data = BC02728_stars, aes(x = time_point, y = ratio, label = label), 
+            size = 8, inherit.aes = F) +
+  labs(x = "Time point", y = "BC02728 (SusD)\nrelative expresssion", color = "Vessel")
+
+```
+
+## Add gene diagram
+```{r}
+# Add gene diagram
+puls <- read.csv("data/metatranscriptomics/Bacteroides_PUL_genes.csv") %>%
+  mutate(PUL = factor(PUL, levels=c("PUL43", "PUL11", "PUL92", "PUL17", "PUL18"))) %>%
+  mutate(direction = 1) %>%
+  filter(PUL == "PUL43") %>%
+  mutate(PUL_detail = "Bacteroides caccae<br>ATCC 43185 (PUL43)")
+
+more_genes <- data.frame(genome = "Bacteroides caccae ATCC 43185", PUL = "PUL 43", function. = "GH91",
+                   IMG_ID = c(641002971, 641002972), gene = c("BC02729", "BC02730"), description = NA,
+                   start.true = c(48770, 49998), end.true = c(49960, 51950), start.adj = NA,
+                   end.adj = NA, strand = "forward", direction = 1, es.t2 = NA, es.t3 = NA, es.t4 = NA,
+                   PUL_detail = "Bacteroides caccae<br>ATCC 43185 (PUL43)")
+
+puls <- rbind(puls, more_genes)
+
+genes <- ggplot(puls, aes(xmin = start.true, xmax = end.true, y = PUL_detail,
+                          forward = direction, label = ""), fill = "white") +
+  geom_gene_arrow(arrow_body_height = grid::unit(6, "mm"), arrowhead_height = grid::unit(8, "mm")) +
+  geom_richtext(aes(x = (start.true + end.true)/2, y = 1, label = gene), size = 3.4, fill = NA, label.color = NA) +
+  geom_richtext(aes(x = (start.true + end.true)/2, y = 1.25, label = function.), size = 6, fill = NA, label.color = NA, fontface = "bold") +
+  geom_gene_label() +
+  theme_genes() +
+  labs(y = "", fill = "Effect size\nestimate", color = "Function") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.line.x = element_blank(),
+        axis.text.y =  element_markdown(color = "black"),
+        plot.title = element_text(hjust = 0.5),
+        legend.position = "none")
+```
+
 
 # Patch panels together
 ```{r}
 # Fig 2 - multiomics of memory effect
 # Having alignment issues with patchwork, so using cowplot for this one
+fig2_top <- cowplot::plot_grid(select_taxa_plot, get_legend(scfa_total_plot),
+                               labels = c("A", ""), label_fontface = "plain",
+                               rel_widths = c(8, 1))
 fig2_middle <- cowplot::plot_grid(rna_hm, levsun_plot,
                                   labels = c("B", "C"), label_fontface = "plain",
                                   rel_widths = c(2, 3))
-fig2_bottom <- cowplot::plot_grid(scfa_total_plot, gcms_select_plot,
+fig2_bottom <- cowplot::plot_grid(scfa_total_plot + theme(legend.position = "none"), gcms_select_plot,
                                   labels = c("D", "E"), label_fontface = "plain",
                                   rel_widths = c(2, 3))
-fig2 <- cowplot::plot_grid(select_taxa_plot, fig2_middle, fig2_bottom,
-                           ncol = 1, labels = c("A", "", ""), label_fontface = "plain")
+fig2 <- cowplot::plot_grid(fig2_top, fig2_middle, fig2_bottom,
+                           ncol = 1, labels = c("", "", ""), label_fontface = "plain")
 #ggsave("plots/fig2.png", fig2, height = 10, width = 8.3)
 
 # Fig S5 - more RNA-Seq data
@@ -1177,13 +1519,32 @@ design_S6 <- "
 figS6 <- scfa_each_plot + gcms_hm + guide_area() + plot_annotation(tag_levels = "A") +
   plot_layout(design = design_S6, guides = "collect")
 #ggsave("plots/figS6.png", figS6, height = 9, width = 8)
-# since saving, I think something got massed up with the case_when creation of asterisks...
 
 # Just making the nonBac plot its own Fig. S9...
 #ggsave("plots/figS9.png", nonbac_hm, height = 10, width = 5.2)
 
+# Fig S12
+figS12 <- BC02726_plot / BC02731_plot +
+  plot_annotation(tag_levels = "A") +
+  plot_layout(guides = "collect")
+#ggsave("plots/figS12.png", figS12, height = 8, width = 6)
 
+# Alternative version with all four genes from PUL43 (incl. SusC/SusD)
+figS12_new <- (BC02726_plot + theme(axis.title.x = element_blank(),
+                                    axis.text.x = element_blank(),
+                                    axis.ticks.x = element_blank())) /
+  (BC02731_plot + theme(axis.title.x = element_blank(),
+                                    axis.text.x = element_blank(),
+                                    axis.ticks.x = element_blank())) /
+  (BC02727_plot + theme(axis.title.x = element_blank(),
+                                    axis.text.x = element_blank(),
+                                    axis.ticks.x = element_blank())) /
+  BC02728_plot +
+  plot_layout(guides = "collect")
 
+figS12_new <- cowplot::plot_grid(genes, figS12_new, ncol = 1, labels = c("A", "B"),
+                                 rel_heights = c(1, 5), label_fontface = "plain")
+#ggsave("plots/figS12_expanded.png", figS12_new, height = 11, width = 9)
 
 ```
 

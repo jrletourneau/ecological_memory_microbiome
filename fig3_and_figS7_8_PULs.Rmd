@@ -419,12 +419,17 @@ hm <- pheatmap(hits.mat, color=palette, border_color = "black", cluster_cols=F, 
 fig3_genes <- cowplot::plot_grid(genes2, genes3, genes4 + theme(legend.position = "none"),
                                  nrow = 1, rel_widths = c(6.6, 4.5 ,4.5))
 
+fig3_genes_with_legend <- cowplot::plot_grid(get_legend(genes4), fig3_genes, ncol = 1,
+                                            rel_heights = c(0.27, 1.2),
+                                            labels = c("A", ""), label_fontface = "plain")
+#ggsave("plots/fig3A.png", fig3_genes_with_legend, height = 3.84, width = 9)
+
 # Pull panel 3B
 nyc_plot <- readRDS("plots/fig3B.RDS")
 
-fig3 <- cowplot::plot_grid(fig3_genes, get_legend(genes4), nyc_plot, ncol = 1, rel_heights = c(1.2, 0.27, 2.05),
+fig3 <- cowplot::plot_grid(get_legend(genes4), fig3_genes, nyc_plot, ncol = 1,
+                           rel_heights = c(0.27, 1.2, 2.05),
                            labels = c("A", "", "B"), label_fontface = "plain")
-
 #ggsave("plots/fig3.png", fig3, height = 9.2, width = 9)
 
 # Fig. S7
@@ -432,7 +437,7 @@ figS7 <- (cm_plot + biomass_hp_plot) /
   (biomass_pH_plot + spike_plot) /
   (growthcurve_plot + growthcurve_stats_plot + plot_layout(widths = c(3,5))) +
   plot_annotation(tag_levels = "A")
-#ggsave("plots/figS7.png", figS7, height = 10, width = 8.3)
+#ggsave("plots/figS7.png", figS7, height = 10, width = 9)
 
 
 ```

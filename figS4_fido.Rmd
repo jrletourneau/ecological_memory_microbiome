@@ -215,7 +215,7 @@ select_taxa_plot <- ggplot(melty, aes(x = time - 13, y = Abundance)) +
   geom_point(aes(color=factor(vessel)), position = position_jitter(width = 0.05, height=0)) +
   scale_color_brewer(palette = "Paired") +
   facet_wrap(~name, scales = "free_y") +
-  labs(x = "Time (day)", y = "Relative abundance") +
+  labs(x = "Time (days)", y = "Relative abundance") +
   theme(strip.text = element_markdown(),
         legend.position = "none")
 #saveRDS(select_taxa_plot, "plots/fig2A.RDS")
@@ -245,7 +245,7 @@ area_plot <- ggplot(melty_area, aes(x=time - 13, y=Abundance, fill=Family)) +
   geom_area(color="black") +
   facet_wrap(~vessel, scales="free_x", nrow=3) +
   geom_vline(xintercept=c(1:5 + 0.42), color = "black", linetype="dashed") +
-  xlab("Time (day)") + ylab("Relative abundance") +
+  xlab("Time (days)") + ylab("Relative abundance") +
   scale_fill_brewer(palette = "Paired")
 
 area_plot_to_save <- area_plot + facet_wrap(~vessel, scales="free_x", nrow=2)

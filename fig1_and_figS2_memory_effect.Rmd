@@ -320,7 +320,7 @@ human_hpaec_plot <- ggplot(human_hpaec, aes(x=factor(time2), y=total)) +
   geom_text(data = human_hpaec_annotation2, aes(x = time2, y = height, label = label), size = 3) +
   geom_hline(yintercept = 0, linetype="dashed", color="gray") +
   facet_wrap(~group) +
-  labs(x = "Time of stool sample (day)", y = "Inulin/FOS concentration (mg/mL)") +
+  labs(x = "Time of stool sample (days)", y = "Inulin/FOS concentration (mg/mL)") +
   ggtitle("Human cohort")
 
 ## (2) same but with individual participants highlighted
@@ -352,7 +352,7 @@ human_hpaec_indiv_plot <- ggplot(human_hpaec, aes(x=factor(time2), y=total)) +
   scale_y_log10() +
   scale_color_manual(values=c("black", "red")) +
   theme(legend.position = "none") +
-  labs(x = "Time of stool sample (day)", y = "Inulin/FOS concentration (mg/mL)") +
+  labs(x = "Time of stool sample (days)", y = "Inulin/FOS concentration (mg/mL)") +
   ggtitle("Human cohort")
 #ggsave("plots/fig_s1a.png", human_hpaec_indiv_plot, height = 3, width = 6)
 

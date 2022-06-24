@@ -546,10 +546,10 @@ eram_hp_plot <- ggplot(data=eram, aes(x=Abundance, y=hp, group=pre.treatment, co
 # Patch figures together
 ```{r}
 # Fig. 2
-fig2 <- (T2_plot + fiber.plot) /
+fig4 <- (T2_plot + fiber.plot) /
   (dp_hp_plot + pH_same_plot + cross_hp_plot + pH_in_plot + plot_layout(nrow = 1)) +
   plot_annotation(tag_levels = "A")
-#ggsave("plots/fig2.png", fig2, height = 7, width = 13)
+#ggsave("plots/fig4.png", fig4, height = 7, width = 13)
 
 
 # Fig. S10
