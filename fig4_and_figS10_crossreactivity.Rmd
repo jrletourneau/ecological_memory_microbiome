@@ -189,9 +189,6 @@ lm(formula = total ~ Rx1, data=cross_hp) %>% summary()
 # Rx1in        -2.5252     0.3677  -6.867 0.000129 ***
 
 # pH
-cross_pH_summary <- cross_pH %>%
-  group_by(Rx1) %>%
-  dplyr::summarize(mean=mean(total), se=sd(total)/sqrt(length(total)))
 
 # pH
 ## Split into two dataframes to test different hypotheses
@@ -321,7 +318,7 @@ T2_labels <- data.frame(group = c("Placebo", "Prebiotic"), x = c(35, 27.5), y = 
 
 T2_plot <- ggplot(human_hpaec_spread, aes(x=fiber, y=T2, group=group)) +
   geom_point() + 
-  labs(x="Dietary fiber intake (g/day)", y="&Delta;Inulin/FOS content (mg/mL)") +
+  labs(x="Dietary fiber intake (g/day)", y="Fecal inulin/FOS content (mg/mL)") +
   geom_smooth(method='lm', se = FALSE) +
   facet_wrap(~group, scales = "free") +
   geom_richtext(data = T2_labels, aes(x=x, y=y, label = label), size = 4, fill = NA, label.color = NA) +
